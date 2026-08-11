@@ -5,7 +5,7 @@
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Official software implementation, numerical verification suite, and error-tree analysis pipeline supporting **Framework V10.3** for **Sun's (2,4,6,8) Binomial Representation Conjecture**.
+Official software implementation, numerical verification suite, and error-tree analysis pipeline supporting **Framework V12.1** for **Sun's (2,4,6,8) Binomial Representation Conjecture**.
 
 ---
 
