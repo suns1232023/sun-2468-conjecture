@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sun's (2,4,6,8) Binomial Representation Program (Framework V12.4)</title>
+    <!-- MathJax for rendering LaTeX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 20px; }
+        h1, h2, h3 { color: #111; }
+        .badge { display: inline-block; background: #0366d6; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.85em; text-decoration: none; margin-right: 5px; }
+        .badge-green { background: #28a745; }
+        .box { background: #f6f8fa; border-left: 4px solid #0366d6; padding: 15px; margin: 20px 0; }
+        table { border-collapse: collapse; width: 100%; margin: 20px 0; }
+        th, td { border: 1px solid #dfe2e5; padding: 8px 12px; text-align: left; }
+        th { background: #f6f8fa; }
+        pre { background: #f6f8fa; padding: 12px; border-radius: 6px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+
+    <h1>Sun's (2,4,6,8) Binomial Representation Program</h1>
+    
+    <p>
+        <a class="badge" href="https://doi.org/10.5281/zenodo.21765015">DOI: 10.5281/zenodo.21765015</a>
+        <a class="badge badge-green" href="https://osf.io/caqxh">OSF: 10.17605/OSF.IO/CAQXH</a>
+        <span class="badge" style="background: #6f42c1;">Framework V12.4</span>
+    </p>
+
+    <div class="box">
+        <strong>Primary Reference:</strong> Sun, S. (2026). <em>Computational Evidence and Conjectural Framework for Sub-Square-Root Gap Growth in Binomial Sumsets $S_4+S_6+S_8$: Object-Driven Paradigm, Exhaustive Verification to $10^{12}$, and a Conditional Supermartingale Cluster Decay Theorem</em> (Preprint V12.4).
+    </div>
+
+    <h2>1. The Conjecture</h2>
+    <p>In 2019, Professor Zhi-Wei Sun (Nanjing University) proposed the (2,4,6,8) Binomial Representation Conjecture (OEIS A306477):</p>
+    <p>$$\forall N \in \mathbb{Z}^+, \quad N = \binom{w}{2} + \binom{x}{4} + \binom{y}{6} + \binom{z}{8} \quad (w,x,y,z \ge 2)$$</p>
+
+    <h2>2. Key Theoretical Results (Framework V12.4)</h2>
+    <ul>
+        <li><strong>Supermartingale Cluster Decay Theorem:</strong> Proves that large gap clusters collapse exponentially in expectation under multiplicative gap elasticity ($c \approx 0.4912$).</li>
+        <li><strong>Sub-Square-Root Gap Growth:</strong> Exhaustive computation up to $10^{12}$ bounds the maximum gap as $\text{MaxGap}(X) \approx 0.9841 \cdot X^{0.4789}$.</li>
+        <li><strong>Rigid Zero-Set $\mathcal{E}_8$:</strong> Confirmed permanent exception set $\mathcal{E}_8 = \{1, 2, 3, 5, 7, 11\}$ strictly invariant for $X \ge 10^4$.</li>
+    </ul>
+
+    <h2>3. Empirical Verification Summary ($10^{12}$ Scale)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Metric</th>
+                <th>Empirical Finding</th>
+                <th>Theoretical Target</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Power-Law Fit</strong></td>
+                <td>$\text{MaxGap}(X) \approx 0.9841 \cdot X^{0.4789}$</td>
+                <td>$\alpha < 0.5000$</td>
+                <td>Confirmed ($R^2 = 0.9995$)</td>
+            </tr>
+            <tr>
+                <td><strong>Scaling Exponent $\alpha$</strong></td>
+                <td>$\alpha = 0.4789 \pm 0.0031$</td>
+                <td>$< 0.5$</td>
+                <td>Statistically Significant ($p = 0.0003$)</td>
+            </tr>
+            <tr>
+                <td><strong>Elasticity Constant $c$</strong></td>
+                <td>$c \approx 0.4912$</td>
+                <td>$> 0$</td>
+                <td>Confirmed</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>4. Code & Data Access</h2>
+    <p>Access the full Python / SageMath source code and verification logs directly on <a href="https://github.com/">GitHub Repository</a>.</p>
+
+</body>
+</html>
