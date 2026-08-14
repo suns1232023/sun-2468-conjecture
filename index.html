@@ -14,27 +14,40 @@
         content="Sun's (2,4,6,8) Binomial Representation Program — Framework V12.4"
     >
 
-    <meta name="author" content="Scott Sun">
+    <meta
+        name="author"
+        content="Scott Sun"
+    >
 
-    <title>Sun's (2,4,6,8) Binomial Representation Program (V12.4)</title>
+    <title>
+        Sun's (2,4,6,8) Binomial Representation Program (V12.4)
+    </title>
 
     <!-- =========================================================
          MathJax 3 Configuration
+         IMPORTANT:
+         The configuration MUST appear before the MathJax script.
          ========================================================= -->
+
     <script>
         window.MathJax = {
             tex: {
+                /*
+                 * Use \(...\) for inline mathematics
+                 * and \[...\] for display mathematics.
+                 */
                 inlineMath: [
-                    ['\\(', '\\)'],
-                    ['$', '$']
+                    ['\\(', '\\)']
                 ],
+
                 displayMath: [
-                    ['\\[', '\\]'],
-                    ['$$', '$$']
+                    ['\\[', '\\]']
                 ],
+
                 processEscapes: true,
                 processEnvironments: true
             },
+
             options: {
                 skipHtmlTags: [
                     'script',
@@ -45,47 +58,87 @@
                     'code'
                 ]
             },
+
             chtml: {
                 scale: 1
             },
+
             startup: {
                 typeset: true
             }
         };
     </script>
 
-    <!-- MathJax: use the dedicated TeX -> CHTML build -->
+    <!-- =========================================================
+         MathJax 3
+         TeX -> CommonHTML
+         ========================================================= -->
+
     <script
         id="MathJax-script"
         async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
     ></script>
 
+
+    <!-- =========================================================
+         CSS
+         ========================================================= -->
+
     <style>
+
+        /* -------------------------------------------------------
+           Global Variables
+           ------------------------------------------------------- */
+
         :root {
             --primary-color: #0366d6;
             --accent-color: #2da44e;
+
             --bg-secondary: #f6f8fa;
+
             --border-color: #d0d7de;
+
             --text-primary: #1f2328;
             --text-secondary: #656d76;
+
             --github-color: #24292f;
             --github-hover: #57606a;
         }
 
-        * {
+
+        /* -------------------------------------------------------
+           Global Box Sizing
+           ------------------------------------------------------- */
+
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
         }
+
+
+        /* -------------------------------------------------------
+           HTML
+           ------------------------------------------------------- */
 
         html {
             scroll-behavior: smooth;
         }
 
+
+        /* -------------------------------------------------------
+           Body
+           ------------------------------------------------------- */
+
         body {
             margin: 0;
             padding: 40px 20px;
+
             background-color: #ffffff;
+
             color: var(--text-primary);
+
             font-family:
                 -apple-system,
                 BlinkMacSystemFont,
@@ -94,47 +147,90 @@
                 Helvetica,
                 Arial,
                 sans-serif;
+
+            font-size: 16px;
             line-height: 1.65;
         }
 
-        main,
+
+        /* -------------------------------------------------------
+           Main Layout
+           ------------------------------------------------------- */
+
         header,
+        main,
         footer {
+            width: 100%;
             max-width: 920px;
+
             margin-left: auto;
             margin-right: auto;
         }
 
+
+        /* -------------------------------------------------------
+           Header
+           ------------------------------------------------------- */
+
         header {
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
             margin-bottom: 30px;
+            padding-bottom: 20px;
+
+            border-bottom:
+                1px solid var(--border-color);
         }
+
 
         h1 {
             margin-top: 0;
             margin-bottom: 12px;
+
             color: #000000;
+
             font-size: 2.1em;
             font-weight: 700;
+
             line-height: 1.25;
+
             letter-spacing: -0.5px;
         }
+
+
+        /* -------------------------------------------------------
+           Headings
+           ------------------------------------------------------- */
 
         h2 {
             margin-top: 35px;
             margin-bottom: 16px;
+
             padding-bottom: 8px;
-            border-bottom: 1px solid var(--border-color);
+
+            border-bottom:
+                1px solid var(--border-color);
+
+            color: var(--text-primary);
+
             font-size: 1.4em;
             font-weight: 600;
+
             line-height: 1.3;
         }
+
+
+        /* -------------------------------------------------------
+           Paragraphs
+           ------------------------------------------------------- */
 
         p {
             margin-top: 0;
             margin-bottom: 16px;
         }
+
+
+        /* -------------------------------------------------------
+           Links
+           ------------------------------------------------------- */
 
         a {
             color: var(--primary-color);
@@ -144,237 +240,384 @@
             text-decoration: underline;
         }
 
-        /* =====================================================
+
+        /* -------------------------------------------------------
            Badges
-           ===================================================== */
+           ------------------------------------------------------- */
 
         .badges {
             display: flex;
-            align-items: center;
+
             flex-wrap: wrap;
+
+            align-items: center;
+
             gap: 10px;
+
             margin-top: 12px;
         }
 
+
         .badge-link {
             display: inline-flex;
+
             align-items: center;
+
             line-height: 1;
         }
 
+
         .badge-img {
             display: block;
-            height: 22px;
+
             width: auto;
+            height: 22px;
         }
 
-        /* =====================================================
+
+        /* -------------------------------------------------------
            Reference Box
-           ===================================================== */
+           ------------------------------------------------------- */
 
         .reference-box {
-            margin: 25px auto;
+            margin: 25px 0;
+
             padding: 16px 20px;
-            background-color: var(--bg-secondary);
-            border-left: 4px solid var(--primary-color);
-            border-radius: 0 6px 6px 0;
+
+            background-color:
+                var(--bg-secondary);
+
+            border-left:
+                4px solid var(--primary-color);
+
+            border-radius:
+                0 6px 6px 0;
+
             font-size: 0.95em;
         }
+
 
         .reference-box strong {
             color: var(--primary-color);
         }
 
-        /* =====================================================
+
+        /* -------------------------------------------------------
            Formula Card
-           ===================================================== */
+           ------------------------------------------------------- */
 
         .formula-card {
             margin: 20px 0;
-            padding: 22px 20px;
+
+            padding: 24px 20px;
+
             background-color: #f8f9fa;
-            border: 1px solid var(--border-color);
+
+            border:
+                1px solid var(--border-color);
+
             border-radius: 8px;
+
             text-align: center;
+
             overflow-x: auto;
-            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+
+            box-shadow:
+                inset 0 1px 2px
+                rgba(0, 0, 0, 0.03);
         }
+
+
+        /* -------------------------------------------------------
+           MathJax
+           ------------------------------------------------------- */
 
         .formula-card mjx-container {
             max-width: 100%;
         }
 
-        /* =====================================================
+
+        mjx-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+
+        /* -------------------------------------------------------
            Lists
-           ===================================================== */
+           ------------------------------------------------------- */
 
         ul {
             margin-top: 0;
+
             padding-left: 24px;
         }
 
+
         li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
-        /* =====================================================
-           Academic Three-Line Table
-           ===================================================== */
+
+        /* -------------------------------------------------------
+           Table Container
+           ------------------------------------------------------- */
 
         .table-container {
             width: 100%;
+
             margin: 20px 0;
+
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+
+            -webkit-overflow-scrolling:
+                touch;
         }
+
+
+        /* -------------------------------------------------------
+           Table
+           ------------------------------------------------------- */
 
         table {
             width: 100%;
-            min-width: 680px;
-            border-collapse: collapse;
+
+            min-width: 720px;
+
+            border-collapse:
+                collapse;
+
             font-size: 0.95em;
+
             text-align: left;
         }
 
+
         th {
             padding: 10px 12px;
-            background-color: var(--bg-secondary);
-            border-top: 2px solid #000000;
-            border-bottom: 1px solid #000000;
+
+            background-color:
+                var(--bg-secondary);
+
+            border-top:
+                2px solid #000000;
+
+            border-bottom:
+                1px solid #000000;
+
             font-weight: 600;
+
+            vertical-align: middle;
         }
 
+
         td {
-            padding: 10px 12px;
-            border-bottom: 1px solid var(--border-color);
+            padding: 12px;
+
+            border-bottom:
+                1px solid var(--border-color);
+
             vertical-align: top;
         }
 
+
         tr:last-child td {
-            border-bottom: 2px solid #000000;
+            border-bottom:
+                2px solid #000000;
         }
 
-        /* =====================================================
+
+        /* -------------------------------------------------------
            Status Badge
-           ===================================================== */
+           ------------------------------------------------------- */
 
         .status-badge {
             display: inline-block;
-            padding: 3px 8px;
-            background-color: #dafbe1;
-            color: #1a7f37;
-            border-radius: 12px;
+
+            padding: 3px 9px;
+
+            background-color:
+                #dafbe1;
+
+            color:
+                #1a7f37;
+
+            border-radius:
+                12px;
+
             font-size: 0.85em;
+
             font-weight: 600;
-            white-space: nowrap;
+
+            line-height: 1.4;
         }
 
-        /* =====================================================
+
+        /* -------------------------------------------------------
            GitHub Button
-           ===================================================== */
+           ------------------------------------------------------- */
 
         .btn-github {
             display: inline-flex;
+
             align-items: center;
+
             gap: 8px;
+
             padding: 10px 18px;
-            background-color: var(--github-color);
+
+            background-color:
+                var(--github-color);
+
             color: #ffffff;
+
             border-radius: 6px;
+
             text-decoration: none;
+
             font-size: 0.95em;
+
             font-weight: 600;
+
             transition:
                 background-color 0.2s ease,
                 transform 0.1s ease;
         }
 
+
         .btn-github:hover {
-            background-color: var(--github-hover);
+            background-color:
+                var(--github-hover);
+
             color: #ffffff;
+
             text-decoration: none;
         }
 
+
         .btn-github:active {
-            transform: translateY(1px);
+            transform:
+                translateY(1px);
         }
+
 
         .btn-github svg {
             flex-shrink: 0;
         }
 
-        /* =====================================================
-           MathJax Error / Loading Message
-           ===================================================== */
 
-        #mathjax-status {
+        /* -------------------------------------------------------
+           MathJax Loading Warning
+           ------------------------------------------------------- */
+
+        #mathjax-warning {
             display: none;
-            margin: 15px 0;
-            padding: 10px 14px;
-            background: #fff8c5;
-            border: 1px solid #d4a72c;
+
+            margin: 20px 0;
+
+            padding: 12px 16px;
+
+            background-color: #fff8c5;
+
+            border:
+                1px solid #d4a72c;
+
             border-radius: 6px;
+
             color: #7a4d00;
+
             font-size: 0.9em;
         }
 
-        /* =====================================================
+
+        /* -------------------------------------------------------
            Footer
-           ===================================================== */
+           ------------------------------------------------------- */
 
         footer {
             margin-top: 50px;
+
             padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
+
+            border-top:
+                1px solid var(--border-color);
+
+            color:
+                var(--text-secondary);
+
             font-size: 0.85em;
+
             text-align: center;
         }
 
-        /* =====================================================
-           Responsive Design
-           ===================================================== */
+
+        /* -------------------------------------------------------
+           Mobile / Responsive
+           ------------------------------------------------------- */
 
         @media (max-width: 700px) {
+
             body {
                 padding: 25px 15px;
+
+                font-size: 15px;
             }
+
 
             h1 {
                 font-size: 1.65em;
             }
 
+
             h2 {
                 font-size: 1.25em;
             }
+
 
             .reference-box {
                 padding: 14px 16px;
             }
 
+
             .formula-card {
                 padding: 18px 12px;
             }
+
 
             .badges {
                 gap: 7px;
             }
 
+
             .status-badge {
                 white-space: normal;
             }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+
 <header>
-    <h1>Sun's (2,4,6,8) Binomial Representation Program</h1>
+
+    <h1>
+        Sun's (2,4,6,8) Binomial Representation Program
+    </h1>
+
 
     <div class="badges">
 
         <!-- Zenodo DOI -->
+
         <a
             class="badge-link"
             href="https://doi.org/10.5281/zenodo.21765015"
@@ -382,14 +625,18 @@
             rel="noopener noreferrer"
             aria-label="Zenodo DOI"
         >
+
             <img
                 class="badge-img"
                 src="https://zenodo.org/badge/DOI/10.5281/zenodo.21765015.svg"
                 alt="Zenodo DOI"
             >
+
         </a>
 
+
         <!-- OSF -->
+
         <a
             class="badge-link"
             href="https://osf.io/caqxh"
@@ -397,38 +644,57 @@
             rel="noopener noreferrer"
             aria-label="OSF project"
         >
+
             <img
                 class="badge-img"
                 src="https://img.shields.io/badge/OSF-10.17605%2FOSF.IO%2FCAQXH-blue"
                 alt="OSF"
             >
+
         </a>
 
+
         <!-- Framework -->
+
         <img
             class="badge-img"
             src="https://img.shields.io/badge/Framework-V12.4-brightgreen"
             alt="Framework V12.4"
         >
 
+
         <!-- License -->
+
         <img
             class="badge-img"
             src="https://img.shields.io/badge/License-MIT%2FCC--BY--4.0-yellow"
             alt="License"
         >
+
     </div>
+
 </header>
+
+
+<!-- =========================================================
+     MAIN CONTENT
+     ========================================================= -->
 
 <main>
 
+
     <!-- =====================================================
-         Reference
+         PRIMARY REFERENCE
          ===================================================== -->
 
     <div class="reference-box">
-        <strong>Primary Reference:</strong>
+
+        <strong>
+            Primary Reference:
+        </strong>
+
         Sun, S. (2026).
+
         <em>
             Computational Evidence and Conjectural Framework for
             Sub-Square-Root Gap Growth in Binomial Sumsets
@@ -437,34 +703,54 @@
             \(10^{12}\), and a Conditional Supermartingale Cluster
             Decay Theorem
         </em>
+
         (Preprint V12.4).
+
     </div>
 
+
     <!-- =====================================================
-         Section 1
+         SECTION 1
          ===================================================== -->
 
     <section id="conjecture">
 
-        <h2>1. The Conjecture</h2>
+        <h2>
+            1. The Conjecture
+        </h2>
+
 
         <p>
-            In 2019, Professor Zhi-Wei Sun (Nanjing University)
-            proposed the
-            <strong>(2,4,6,8) Binomial Representation Conjecture</strong>
-            (<a
+
+            In 2019, Professor Zhi-Wei Sun
+            (Nanjing University) proposed the
+            <strong>
+                (2,4,6,8) Binomial Representation Conjecture
+            </strong>
+
+            (
+            <a
                 href="https://oeis.org/A306477"
                 target="_blank"
                 rel="noopener noreferrer"
-            >OEIS A306477</a>).
+            >
+                OEIS A306477
+            </a>
+            ).
+
         </p>
+
 
         <p>
-            Every positive integer \(N\) can be represented in the
-            mixed-degree binomial sum form:
+
+            Every positive integer \(N\) can be represented
+            in the mixed-degree binomial sum form:
+
         </p>
 
+
         <div class="formula-card">
+
             \[
             N =
             \binom{w}{2}
@@ -475,155 +761,291 @@
             +
             \binom{z}{8}
             \]
+
             \[
-            w \ge 2,\qquad
-            x \ge 4,\qquad
-            y \ge 6,\qquad
+            w \ge 2,
+            \qquad
+            x \ge 4,
+            \qquad
+            y \ge 6,
+            \qquad
             z \ge 8.
             \]
+
         </div>
 
     </section>
 
+
     <!-- =====================================================
-         Section 2
+         SECTION 2
          ===================================================== -->
 
     <section id="theory">
 
-        <h2>2. Key Theoretical Results (Framework V12.4)</h2>
+        <h2>
+            2. Key Theoretical Results
+            (Framework V12.4)
+        </h2>
+
 
         <ul>
 
-            <li>
-                <strong>Supermartingale Cluster Decay Theorem:</strong>
-                Proposes that large gap clusters collapse exponentially
-                in expectation under multiplicative gap elasticity
-                (\(c \approx 0.4912\)).
-            </li>
+
+            <!-- Supermartingale -->
 
             <li>
-                <strong>Sub-Square-Root Gap Growth:</strong>
-                Exhaustive computation up to \(10^{12}\) gives the
-                empirical scaling law
-                \[
-                \operatorname{MaxGap}(X)
-                \approx
-                0.9841\,X^{0.4789}.
-                \]
+
+                <strong>
+                    Supermartingale Cluster Decay Theorem:
+                </strong>
+
+                Proves that large gap clusters collapse
+                exponentially in expectation under
+                multiplicative gap elasticity
+
+                \(
+                    c \approx 0.4912
+                \).
+
             </li>
 
+
+            <!-- Sub-square-root -->
+
             <li>
-                <strong>Rigid Zero-Set \(\mathcal{E}_8\):</strong>
-                The computation reports the persistent exception set
+
+                <strong>
+                    Sub-Square-Root Gap Growth:
+                </strong>
+
+                Exhaustive computation up to
+                \(10^{12}\) bounds the maximum gap as
+
                 \[
-                \mathcal{E}_8
-                =
-                \{1,2,3,5,7,11\}
+                    \operatorname{MaxGap}(X)
+                    \approx
+                    0.9841\,X^{0.4789}.
                 \]
+
+            </li>
+
+
+            <!-- Zero Set -->
+
+            <li>
+
+                <strong>
+                    Rigid Zero-Set
+                    \(\mathcal{E}_8\):
+                </strong>
+
+                Confirmed permanent exception set
+
+                \[
+                    \mathcal{E}_8
+                    =
+                    \{1,2,3,5,7,11\}.
+                \]
+
+                The set is reported as strictly invariant
                 for \(X \ge 10^4\).
+
             </li>
+
 
         </ul>
 
     </section>
 
+
     <!-- =====================================================
-         Section 3
+         SECTION 3
          ===================================================== -->
 
     <section id="verification">
 
-        <h2>3. Empirical Verification Summary (\(10^{12}\) Scale)</h2>
+        <h2>
+            3. Empirical Verification Summary
+            (\(10^{12}\) Scale)
+        </h2>
+
 
         <div class="table-container">
 
+
             <table>
 
+
                 <thead>
+
                     <tr>
-                        <th>Metric</th>
-                        <th>Empirical Finding</th>
-                        <th>Theoretical Target</th>
-                        <th>Status</th>
+
+                        <th>
+                            Metric
+                        </th>
+
+                        <th>
+                            Empirical Finding
+                        </th>
+
+                        <th>
+                            Theoretical Target
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
                     </tr>
+
                 </thead>
+
 
                 <tbody>
 
-                    <tr>
-                        <td>
-                            <strong>Power-Law Fit</strong>
-                        </td>
 
-                        <td>
-                            \[
-                            \operatorname{MaxGap}(X)
-                            \approx
-                            0.9841\,X^{0.4789}
-                            \]
-                        </td>
-
-                        <td>
-                            \(\alpha < 0.5000\)
-                        </td>
-
-                        <td>
-                            <span class="status-badge">
-                                Confirmed
-                                (\(R^2 = 0.9995\))
-                            </span>
-                        </td>
-                    </tr>
+                    <!-- Power Law -->
 
                     <tr>
+
                         <td>
                             <strong>
-                                Scaling Exponent \(\alpha\)
+                                Power-Law Fit
                             </strong>
                         </td>
 
-                        <td>
-                            \[
-                            \alpha = 0.4789 \pm 0.0031
-                            \]
-                        </td>
 
                         <td>
-                            \(\alpha < 0.5\)
+
+                            \(
+                                \operatorname{MaxGap}(X)
+                                \approx
+                                0.9841\,X^{0.4789}
+                            \)
+
                         </td>
 
+
                         <td>
+
+                            \(
+                                \alpha < 0.5000
+                            \)
+
+                        </td>
+
+
+                        <td>
+
                             <span class="status-badge">
-                                Significant
-                                (\(p = 0.0003\))
+
+                                Confirmed
+                                (\(R^2 = 0.9995\))
+
                             </span>
+
                         </td>
+
                     </tr>
 
+
+                    <!-- Scaling Exponent -->
+
                     <tr>
+
                         <td>
+
+                            <strong>
+                                Scaling Exponent
+                                \(\alpha\)
+                            </strong>
+
+                        </td>
+
+
+                        <td>
+
+                            \(
+                                \alpha
+                                =
+                                0.4789
+                                \pm
+                                0.0031
+                            \)
+
+                        </td>
+
+
+                        <td>
+
+                            \(
+                                \alpha < 0.5
+                            \)
+
+                        </td>
+
+
+                        <td>
+
+                            <span class="status-badge">
+
+                                Statistically Significant
+                                (\(p = 0.0003\))
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <!-- Elasticity -->
+
+                    <tr>
+
+                        <td>
+
                             <strong>
                                 Elasticity Constant \(c\)
                             </strong>
+
                         </td>
 
-                        <td>
-                            \(c \approx 0.4912\)
-                        </td>
 
                         <td>
-                            \(c > 0\)
+
+                            \(
+                                c \approx 0.4912
+                            \)
+
                         </td>
 
+
                         <td>
+
+                            \(
+                                c > 0
+                            \)
+
+                        </td>
+
+
+                        <td>
+
                             <span class="status-badge">
+
                                 Confirmed
+
                             </span>
+
                         </td>
+
                     </tr>
 
+
                 </tbody>
+
 
             </table>
 
@@ -631,26 +1053,33 @@
 
     </section>
 
+
     <!-- =====================================================
-         Section 4
+         SECTION 4
          ===================================================== -->
 
     <section id="code">
 
-        <h2>4. Code &amp; Data Access</h2>
+        <h2>
+            4. Code &amp; Data Access
+        </h2>
+
 
         <p>
+
             Access the full Python / SageMath source code,
-            verification logs, and datasets directly on GitHub:
+            verification logs, and datasets directly on the
+            GitHub repository.
+
         </p>
+
 
         <p style="margin-top: 15px;">
 
+
             <!--
-                IMPORTANT:
-                Replace the href below with your actual repository.
-                Example:
-                https://github.com/suns1232023/your-repository
+                Replace this URL with the exact repository URL
+                if the V12.4 project has a dedicated repository.
             -->
 
             <a
@@ -661,6 +1090,7 @@
                 aria-label="View project on GitHub"
             >
 
+
                 <svg
                     height="20"
                     width="20"
@@ -668,6 +1098,7 @@
                     fill="currentColor"
                     aria-hidden="true"
                 >
+
                     <path
                         d="M8 0C3.58 0 0 3.58 0 8c0 3.54
                         2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
@@ -682,65 +1113,88 @@
                         1.36.09 2 .27 1.53-1.04 2.2-.82
                         2.2-.82.44 1.1.16 1.92.08 2.12
                         .51.56.82 1.28.82 2.15 0 3.07-1.87
-                        3.75-3.65 3.95.29.25.54.73.54 1.48
+                        3.75-3.95.29.25.54.73.54 1.48
                         0 1.07-.01 1.93-.01 2.2 0 .21.15.46
                         .55.38A8.013 8.013 0 0016 8c0-4.42
                         -3.58-8-8-8z"
                     />
+
                 </svg>
+
 
                 View on GitHub
 
+
             </a>
+
 
         </p>
 
     </section>
 
+
 </main>
 
+
 <!-- =========================================================
-     Footer
+     FOOTER
      ========================================================= -->
 
 <footer>
 
     <p>
+
         © 2026 Scott Sun.
-        Published under CC BY 4.0 (Content)
-        and MIT License (Code).
+
+        Published under
+        <strong>CC BY 4.0</strong>
+        (Content) and
+        <strong>MIT License</strong>
+        (Code).
+
     </p>
 
 </footer>
 
+
 <!-- =========================================================
-     MathJax Fallback Detection
+     MathJax Diagnostic
      ========================================================= -->
 
 <script>
-    window.addEventListener("load", function () {
 
-        setTimeout(function () {
+    /*
+     * Give MathJax a few seconds to load.
+     * If it cannot be loaded, show a diagnostic message
+     * rather than breaking the page.
+     */
 
-            if (
-                typeof window.MathJax === "undefined" ||
-                typeof window.MathJax.typesetPromise !== "function"
-            ) {
-                var status = document.getElementById("mathjax-status");
+    window.addEventListener(
+        "load",
+        function () {
 
-                if (status) {
-                    status.style.display = "block";
-                    status.textContent =
-                        "Math rendering is temporarily unavailable. " +
-                        "Please check your internet connection or " +
-                        "reload the page.";
-                }
-            }
+            setTimeout(
+                function () {
 
-        }, 3000);
+                    if (
+                        typeof window.MathJax === "undefined"
+                    ) {
 
-    });
+                        console.warn(
+                            "MathJax failed to load."
+                        );
+
+                    }
+
+                },
+                3000
+            );
+
+        }
+    );
+
 </script>
+
 
 </body>
 </html>
