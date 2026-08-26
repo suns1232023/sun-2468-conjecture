@@ -1,68 +1,215 @@
-# Sun's (2,4,6,8) Binomial Representation Program
+# Witness Geometry and Global Crossing Transfer for the Sun (2,4,6,8) Binomial Representation Conjecture
 
 [![OEIS A306477](https://img.shields.io/badge/OEIS-A306477-2f6f9f)](https://oeis.org/A306477)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21765015.svg)](https://doi.org/10.5281/zenodo.21765015)
-[![OSF Project](https://img.shields.io/badge/OSF-10.17605%2FOSF.IO%2FCAQXH-blue)](https://osf.io/caqxh)
-[![ResearchGate](https://img.shields.io/badge/ResearchGate-Scott__Sun-00CCBB?logo=researchgate)](https://www.researchgate.net/profile/Scott-Sun)
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-Official software implementation, numerical verification suite, and hypermartingale gap analysis pipeline supporting **Framework V12.4** for **Sun's (2,4,6,8) Binomial Representation Conjecture**.
-
-> **Primary Reference**: Sun, S. (2026). *Computational Evidence and Conjectural Framework for Sub-Square-Root Gap Growth in Binomial Sumsets $S_4+S_6+S_8$: Object-Driven Paradigm, Exhaustive Verification to $10^{12}$, and a Conditional Supermartingale Cluster Decay Theorem* (Preprint V12.4).  
-> **DOI**: [10.5281/zenodo.21765015](https://doi.org/10.5281/zenodo.21765015) | **OSF**: [10.17605/OSF.IO/CAQXH](https://doi.org/10.17605/OSF.IO/CAQXH)
-
-> **OEIS Record**: The conjecture is indexed as **OEIS A306477**, originally proposed by Zhi-Wei Sun in 2019. The OEIS record now includes Scott Sun's 2026 computational investigation in its LINKS section.  
-> **OEIS**: [A306477](https://oeis.org/A306477) | **ResearchGate publication**: [Scott Sun](https://www.researchgate.net/profile/Scott-Sun-3/publication/410979202)
+https://zenodo.org/badge/DOI/10.5281/zenodo.22004198.svg](https://doi.org/10.5281/zenodo.22004198)
+https://img.shields.io/badge/OSF-CMVUQ-blue](https://osf.io/cmvuq)
+https://img.shields.io/badge/Code-CAQXH-orange](https://osf.io/caqxh)
+https://img.shields.io/badge/ResearchGate-Scott%20Sun-00CCBB?logo=researchgate](https://www.researchgate.net/profile/Scott-Sun-3)
+https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg](https://creativecommons.org/licenses/by/4.0/)
+https://img.shields.io/badge/License-MIT-yellow.svg](https://opensource.org/licenses/MIT)
 
 ---
 
-## 📌 Theoretical Overview
+## Overview
 
-Sun's (2,4,6,8) Conjecture ([OEIS A306477](https://oeis.org/A306477)) asserts that every positive integer $n$ can be represented in the mixed-degree binomial form:
-$$n = \binom{w}{2} + \binom{x}{4} + \binom{y}{6} + \binom{z}{8} \quad (w,x,y,z \ge 2)$$
+This repository hosts the computational infrastructure, datasets, verification scripts, and supporting materials for:
 
-This repository hosts the computational backbone for **Framework V12.4**, featuring:
-- **Exhaustive $10^{12}$ Verification**: Parallel sumset decomposition over 10 orders of magnitude confirm Sub-Square-Root Gap Growth ($\text{MaxGap}(X) \approx 0.9841 \cdot X^{0.4789}$).
-- **Hypermartingale Gap Decay Model**: Implementation of the empirical supermartingale test ($\mathbb{E}[g_{i+1}/g_i \mid g_i > T] \le 1 - c$ with $c \approx 0.4912$).
-- **Frozen Zero-Set $\mathcal{E}_8$**: Verification and monitoring of the permanent exception set $\mathcal{E}_8 = \{1, 2, 3, 5, 7, 11\}$ strictly invariant for $X \ge 10^4$.
-- **Modular Congruence Elimination**: Structural checks verifying $R_4(24) = \mathbb{Z}_{24}$ (no local $p$-adic obstructions).
+> **Witness Geometry and Global Crossing Transfer for the Sun (2,4,6,8) Binomial Representation Conjecture**
+>
+> Scott Sun (Version V15.6, August 2026)
 
----
-
-## 📚 OEIS / Research Record
-
-The project is directly connected to the public OEIS record for the conjecture:
-
-- **OEIS A306477** — official sequence and conjecture record:  
-  https://oeis.org/A306477
-- **Zhi-Wei Sun** — original OEIS-associated formulation and computational table.
-- **Scott Sun (2026)** — *Additive Representations by Mixed-Degree Binomial Coefficient Sequences: A Computational Investigation of Sun's (2,4,6,8) Conjecture*:  
-  https://www.researchgate.net/profile/Scott-Sun-3/publication/410979202
-
-The OEIS A306477 entry now lists the Scott Sun 2026 publication in its **LINKS** section. This establishes a public bibliographic connection between the original conjecture record and the present computational investigation. It should be understood as a bibliographic link, not as an OEIS endorsement or proof of the conjecture.
+The project studies Sun's mixed-degree binomial representation conjecture through a witness-geometric framework, global crossing transfer mechanisms, defect-capacity analysis, and large-scale computational verification.
 
 ---
 
-## 📁 Repository Structure
+## The Conjecture
+
+Sun's (2,4,6,8) Binomial Representation Conjecture (OEIS A306477) states that every sufficiently large positive integer can be represented in the form
+
+\[
+n=
+\binom{w}{2}
++
+\binom{x}{4}
++
+\binom{y}{6}
++
+\binom{z}{8}
+\]
+
+with
+
+\[
+w\ge 2,\quad
+x\ge 4,\quad
+y\ge 6,\quad
+z\ge 8.
+\]
+
+Originally proposed by Professor Zhi-Wei Sun and recorded as:
+
+- OEIS A306477
+- https://oeis.org/A306477
+
+---
+
+## Main Contributions of V15.6
+
+### 1. Exact Witness Identity
+
+The framework establishes the identity
+
+\[
+w^*(n)=K(n)+\Delta(n)+2.
+\]
+
+This relation forms the backbone of the witness-geometric construction.
+
+---
+
+### 2. Extremal Transfer Constant
+
+Identification of the extremal transfer constant
+
+\[
+C_T=\frac{64}{19}.
+\]
+
+This constant arises from the critical configuration centered around
+
+\[
+n=55,858.
+\]
+
+---
+
+### 3. Subcritical Transfer Bound
+
+Verification of
+
+\[
+C_K=
+\frac{118202}{59375}
+<
+2.
+\]
+
+This provides a key subcriticality condition within the transfer framework.
+
+---
+
+### 4. Computational Verification
+
+Independent computational pipelines verify the framework up to
+
+\[
+N=2,000,000.
+\]
+
+No violations were found.
+
+---
+
+### 5. Analytic Reduction
+
+The remaining difficulty is reduced to a sharply formulated analytic closure problem involving
+
+\[
+H=S_4+S_6+S_8.
+\]
+
+The project does not claim a proof of the conjecture.
+
+---
+
+## Project Status
+
+| Component | Status |
+|------------|---------|
+| Witness Geometry Framework | Developed |
+| Global Crossing Transfer | Developed |
+| Exact Identity \(w^*=K+\Delta+2\) | Established |
+| Extremal Constant \(C_T=64/19\) | Established |
+| Computational Verification | Complete to N=2,000,000 |
+| Analytic Closure Problem | Open |
+| Full Proof of Conjecture | Open |
+
+---
+
+## Related Records
+
+### Zenodo
+
+Primary publication:
+
+https://doi.org/10.5281/zenodo.22004198
+
+---
+
+### OSF Repository
+
+Research archive:
+
+https://osf.io/cmvuq
+
+DOI:
+
+10.17605/OSF.IO/CMVUQ
+
+---
+
+### OSF Project (Code & Computational Assets)
+
+https://osf.io/caqxh
+
+DOI:
+
+10.17605/OSF.IO/CAQXH
+
+---
+
+### OEIS
+
+Official conjecture record:
+
+https://oeis.org/A306477
+
+---
+
+### ResearchGate
+
+Author profile:
+
+https://www.researchgate.net/profile/Scott-Sun-3
+
+---
+
+## Repository Structure
 
 ```text
 .
-├── src/                        # Core Mathematical Algorithms (Python / SageMath)
-│   ├── max_gap_evaluator.py    # Sub-Square-Root Gap Growth & power-law regression fitting
-│   ├── supermartingale_test.py # Multiplicative elasticity & gap decay constant (c ≈ 0.49)
-│   ├── translation_solver.py   # Intersection evaluator (N - S_8) ∩ (S_2 + S_4 + S_6) != ∅
-│   ├── zero_set_e8_tracker.py  # Rigid monitoring of frozen zero-set E_8 = {1,2,3,5,7,11}
-│   └── utils.py                # Binomial coefficient helpers and parallelized bitset solvers
-├── verification_logs/          # Large-Scale Computational Outputs
-│   ├── gap_growth_10e12.json   # Power-law fit data & maximum gap records up to 10^12
-│   └── zero_set_e8.log         # Complete logs confirming E_8 frozen status
-├── notebooks/                  # Interactive Verification & Statistical Tutorials
-│   └── tutorial_gap_decay_10e12.ipynb
-├── docs/                       # Theoretical Research Framework Documentation
-│   └── research_framework_v12.4.md
-├── tests/                      # Unit & Integration Tests
-│   └── test_binomial_solver.py
-├── LICENSE                     # Code: MIT | Content: CC BY 4.0
+├── docs/
+│   ├── v15_6_preprint.pdf
+│   ├── framework_notes.md
+│   └── supplementary_materials.md
+│
+├── src/
+│   ├── witness_geometry/
+│   ├── crossing_transfer/
+│   ├── verification/
+│   └── utils/
+│
+├── datasets/
+│   ├── verification_results/
+│   ├── witness_tables/
+│   └── transfer_constant_data/
+│
+├── notebooks/
+│   ├── verification_demo.ipynb
+│   └── witness_geometry_examples.ipynb
+│
+├── tests/
+│   └── unit_tests/
+│
+├── LICENSE
 └── README.md
-```
