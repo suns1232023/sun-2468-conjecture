@@ -1,5 +1,6 @@
 # Sun's (2,4,6,8) Binomial Representation Program
 
+[![OEIS A306477](https://img.shields.io/badge/OEIS-A306477-2f6f9f)](https://oeis.org/A306477)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21765015.svg)](https://doi.org/10.5281/zenodo.21765015)
 [![OSF Project](https://img.shields.io/badge/OSF-10.17605%2FOSF.IO%2FCAQXH-blue)](https://osf.io/caqxh)
 [![ResearchGate](https://img.shields.io/badge/ResearchGate-Scott__Sun-00CCBB?logo=researchgate)](https://www.researchgate.net/profile/Scott-Sun)
@@ -11,11 +12,14 @@ Official software implementation, numerical verification suite, and hypermarting
 > **Primary Reference**: Sun, S. (2026). *Computational Evidence and Conjectural Framework for Sub-Square-Root Gap Growth in Binomial Sumsets $S_4+S_6+S_8$: Object-Driven Paradigm, Exhaustive Verification to $10^{12}$, and a Conditional Supermartingale Cluster Decay Theorem* (Preprint V12.4).  
 > **DOI**: [10.5281/zenodo.21765015](https://doi.org/10.5281/zenodo.21765015) | **OSF**: [10.17605/OSF.IO/CAQXH](https://doi.org/10.17605/OSF.IO/CAQXH)
 
+> **OEIS Record**: The conjecture is indexed as **OEIS A306477**, originally proposed by Zhi-Wei Sun in 2019. The OEIS record now includes Scott Sun's 2026 computational investigation in its LINKS section.  
+> **OEIS**: [A306477](https://oeis.org/A306477) | **ResearchGate publication**: [Scott Sun](https://www.researchgate.net/profile/Scott-Sun-3/publication/410979202)
+
 ---
 
 ## 📌 Theoretical Overview
 
-Sun's (2,4,6,8) Conjecture (OEIS A306477) asserts that every positive integer $n$ can be represented in the mixed-degree binomial form:
+Sun's (2,4,6,8) Conjecture ([OEIS A306477](https://oeis.org/A306477)) asserts that every positive integer $n$ can be represented in the mixed-degree binomial form:
 $$n = \binom{w}{2} + \binom{x}{4} + \binom{y}{6} + \binom{z}{8} \quad (w,x,y,z \ge 2)$$
 
 This repository hosts the computational backbone for **Framework V12.4**, featuring:
@@ -23,6 +27,20 @@ This repository hosts the computational backbone for **Framework V12.4**, featur
 - **Hypermartingale Gap Decay Model**: Implementation of the empirical supermartingale test ($\mathbb{E}[g_{i+1}/g_i \mid g_i > T] \le 1 - c$ with $c \approx 0.4912$).
 - **Frozen Zero-Set $\mathcal{E}_8$**: Verification and monitoring of the permanent exception set $\mathcal{E}_8 = \{1, 2, 3, 5, 7, 11\}$ strictly invariant for $X \ge 10^4$.
 - **Modular Congruence Elimination**: Structural checks verifying $R_4(24) = \mathbb{Z}_{24}$ (no local $p$-adic obstructions).
+
+---
+
+## 📚 OEIS / Research Record
+
+The project is directly connected to the public OEIS record for the conjecture:
+
+- **OEIS A306477** — official sequence and conjecture record:  
+  https://oeis.org/A306477
+- **Zhi-Wei Sun** — original OEIS-associated formulation and computational table.
+- **Scott Sun (2026)** — *Additive Representations by Mixed-Degree Binomial Coefficient Sequences: A Computational Investigation of Sun's (2,4,6,8) Conjecture*:  
+  https://www.researchgate.net/profile/Scott-Sun-3/publication/410979202
+
+The OEIS A306477 entry now lists the Scott Sun 2026 publication in its **LINKS** section. This establishes a public bibliographic connection between the original conjecture record and the present computational investigation. It should be understood as a bibliographic link, not as an OEIS endorsement or proof of the conjecture.
 
 ---
 
@@ -47,3 +65,4 @@ This repository hosts the computational backbone for **Framework V12.4**, featur
 │   └── test_binomial_solver.py
 ├── LICENSE                     # Code: MIT | Content: CC BY 4.0
 └── README.md
+```
