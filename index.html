@@ -1,1279 +1,396 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="description"
-        content="Sun's (2,4,6,8) Binomial Representation Program — Framework V13.1 | OEIS A306477"
-    >
-
-    <meta
-        name="author"
-        content="Scott Sun"
-    >
-
-    <title>
-        Sun's (2,4,6,8) Binomial Representation Program (V13.1) | OEIS A306477
-    </title>
-
-    <!-- =========================================================
-         MathJax 3 Configuration
-         IMPORTANT:
-         The configuration MUST appear before the MathJax script.
-         ========================================================= -->
-
-    <script>
-        window.MathJax = {
-            tex: {
-                /*
-                 * Use \(...\) for inline mathematics
-                 * and \[...\] for display mathematics.
-                 */
-                inlineMath: [
-                    ['\\(', '\\)']
-                ],
-
-                displayMath: [
-                    ['\\[', '\\]']
-                ],
-
-                processEscapes: true,
-                processEnvironments: true
-            },
-
-            options: {
-                skipHtmlTags: [
-                    'script',
-                    'noscript',
-                    'style',
-                    'textarea',
-                    'pre',
-                    'code'
-                ]
-            },
-
-            chtml: {
-                scale: 1
-            },
-
-            startup: {
-                typeset: true
-            }
-        };
-    </script>
-
-    <!-- =========================================================
-         MathJax 3
-         TeX -> CommonHTML
-         ========================================================= -->
-
-    <script
-        id="MathJax-script"
-        async
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
-    ></script>
-
-
-    <!-- =========================================================
-         CSS
-         ========================================================= -->
-
-    <style>
-
-        /* -------------------------------------------------------
-            Global Variables
-            ------------------------------------------------------- */
-
-        :root {
-            --primary-color: #0366d6;
-            --accent-color: #2da44e;
-
-            --bg-secondary: #f6f8fa;
-
-            --border-color: #d0d7de;
-
-            --text-primary: #1f2328;
-            --text-secondary: #656d76;
-
-            --github-color: #24292f;
-            --github-hover: #57606a;
-        }
-
-
-        /* -------------------------------------------------------
-            Global Box Sizing
-            ------------------------------------------------------- */
-
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
-
-
-        /* -------------------------------------------------------
-            HTML
-            ------------------------------------------------------- */
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-
-        /* -------------------------------------------------------
-            Body
-            ------------------------------------------------------- */
-
-        body {
-            margin: 0;
-            padding: 40px 20px;
-
-            background-color: #ffffff;
-
-            color: var(--text-primary);
-
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                "Noto Sans",
-                Helvetica,
-                Arial,
-                sans-serif;
-
-            font-size: 16px;
-            line-height: 1.65;
-        }
-
-
-        /* -------------------------------------------------------
-            Main Layout
-            ------------------------------------------------------- */
-
-        header,
-        main,
-        footer {
-            width: 100%;
-            max-width: 920px;
-
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-
-        /* -------------------------------------------------------
-            Header
-            ------------------------------------------------------- */
-
-        header {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-
-            border-bottom:
-                1px solid var(--border-color);
-        }
-
-
-        h1 {
-            margin-top: 0;
-            margin-bottom: 12px;
-
-            color: #000000;
-
-            font-size: 2.1em;
-            font-weight: 700;
-
-            line-height: 1.25;
-
-            letter-spacing: -0.5px;
-        }
-
-
-        /* -------------------------------------------------------
-            Headings
-            ------------------------------------------------------- */
-
-        h2 {
-            margin-top: 35px;
-            margin-bottom: 16px;
-
-            padding-bottom: 8px;
-
-            border-bottom:
-                1px solid var(--border-color);
-
-            color: var(--text-primary);
-
-            font-size: 1.4em;
-            font-weight: 600;
-
-            line-height: 1.3;
-        }
-
-
-        /* -------------------------------------------------------
-            Paragraphs
-            ------------------------------------------------------- */
-
-        p {
-            margin-top: 0;
-            margin-bottom: 16px;
-        }
-
-
-        /* -------------------------------------------------------
-            Links
-            ------------------------------------------------------- */
-
-        a {
-            color: var(--primary-color);
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-
-        /* -------------------------------------------------------
-            Badges
-            ------------------------------------------------------- */
-
-        .badges {
-            display: flex;
-
-            flex-wrap: wrap;
-
-            align-items: center;
-
-            gap: 10px;
-
-            margin-top: 12px;
-        }
-
-
-        .badge-link {
-            display: inline-flex;
-
-            align-items: center;
-
-            line-height: 1;
-        }
-
-
-        .badge-img {
-            display: block;
-
-            width: auto;
-            height: 22px;
-        }
-
-
-        /* -------------------------------------------------------
-            Reference Box
-            ------------------------------------------------------- */
-
-        .reference-box {
-            margin: 25px 0;
-
-            padding: 16px 20px;
-
-            background-color:
-                var(--bg-secondary);
-
-            border-left:
-                4px solid var(--primary-color);
-
-            border-radius:
-                0 6px 6px 0;
-
-            font-size: 0.95em;
-        }
-
-
-        .reference-box strong {
-            color: var(--primary-color);
-        }
-
-
-        /* -------------------------------------------------------
-            Formula Card
-            ------------------------------------------------------- */
-
-        .formula-card {
-            margin: 20px 0;
-
-            padding: 24px 20px;
-
-            background-color: #f8f9fa;
-
-            border:
-                1px solid var(--border-color);
-
-            border-radius: 8px;
-
-            text-align: center;
-
-            overflow-x: auto;
-
-            box-shadow:
-                inset 0 1px 2px
-                rgba(0, 0, 0, 0.03);
-        }
-
-
-        /* -------------------------------------------------------
-            MathJax
-            ------------------------------------------------------- */
-
-        .formula-card mjx-container {
-            max-width: 100%;
-        }
-
-
-        mjx-container {
-            overflow-x: auto;
-            overflow-y: hidden;
-        }
-
-
-        /* -------------------------------------------------------
-            Lists
-            ------------------------------------------------------- */
-
-        ul {
-            margin-top: 0;
-
-            padding-left: 24px;
-        }
-
-
-        li {
-            margin-bottom: 12px;
-        }
-
-
-        /* -------------------------------------------------------
-            Table Container
-            ------------------------------------------------------- */
-
-        .table-container {
-            width: 100%;
-
-            margin: 20px 0;
-
-            overflow-x: auto;
-
-            -webkit-overflow-scrolling:
-                touch;
-        }
-
-
-        /* -------------------------------------------------------
-            Table
-            ------------------------------------------------------- */
-
-        table {
-            width: 100%;
-
-            min-width: 720px;
-
-            border-collapse:
-                collapse;
-
-            font-size: 0.95em;
-
-            text-align: left;
-        }
-
-
-        th {
-            padding: 10px 12px;
-
-            background-color:
-                var(--bg-secondary);
-
-            border-top:
-                2px solid #000000;
-
-            border-bottom:
-                1px solid #000000;
-
-            font-weight: 600;
-
-            vertical-align: middle;
-        }
-
-
-        td {
-            padding: 12px;
-
-            border-bottom:
-                1px solid var(--border-color);
-
-            vertical-align: top;
-        }
-
-
-        tr:last-child td {
-            border-bottom:
-                2px solid #000000;
-        }
-
-
-        /* -------------------------------------------------------
-            Status Badge
-            ------------------------------------------------------- */
-
-        .status-badge {
-            display: inline-block;
-
-            padding: 3px 9px;
-
-            background-color:
-                #dafbe1;
-
-            color:
-                #1a7f37;
-
-            border-radius:
-                12px;
-
-            font-size: 0.85em;
-
-            font-weight: 600;
-
-            line-height: 1.4;
-        }
-
-
-        /* -------------------------------------------------------
-            GitHub Button
-            ------------------------------------------------------- */
-
-        .btn-github {
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 8px;
-
-            padding: 10px 18px;
-
-            background-color:
-                var(--github-color);
-
-            color: #ffffff;
-
-            border-radius: 6px;
-
-            text-decoration: none;
-
-            font-size: 0.95em;
-
-            font-weight: 600;
-
-            transition:
-                background-color 0.2s ease,
-                transform 0.1s ease;
-        }
-
-
-        .btn-github:hover {
-            background-color:
-                var(--github-hover);
-
-            color: #ffffff;
-
-            text-decoration: none;
-        }
-
-
-        .btn-github:active {
-            transform:
-                translateY(1px);
-        }
-
-
-        .btn-github svg {
-            flex-shrink: 0;
-        }
-
-
-        /* -------------------------------------------------------
-            MathJax Loading Warning
-            ------------------------------------------------------- */
-
-        #mathjax-warning {
-            display: none;
-
-            margin: 20px 0;
-
-            padding: 12px 16px;
-
-            background-color: #fff8c5;
-
-            border:
-                1px solid #d4a72c;
-
-            border-radius: 6px;
-
-            color: #7a4d00;
-
-            font-size: 0.9em;
-        }
-
-
-        /* -------------------------------------------------------
-            Footer
-            ------------------------------------------------------- */
-
-        footer {
-            margin-top: 50px;
-
-            padding-top: 20px;
-
-            border-top:
-                1px solid var(--border-color);
-
-            color:
-                var(--text-secondary);
-
-            font-size: 0.85em;
-
-            text-align: center;
-        }
-
-
-        /* -------------------------------------------------------
-            Mobile / Responsive
-            ------------------------------------------------------- */
-
-        @media (max-width: 700px) {
-
-            body {
-                padding: 25px 15px;
-
-                font-size: 15px;
-            }
-
-
-            h1 {
-                font-size: 1.65em;
-            }
-
-
-            h2 {
-                font-size: 1.25em;
-            }
-
-
-            .reference-box {
-                padding: 14px 16px;
-            }
-
-
-            .formula-card {
-                padding: 18px 12px;
-            }
-
-
-            .badges {
-                gap: 7px;
-            }
-
-
-            .status-badge {
-                white-space: normal;
-            }
-
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+Witness Geometry and Global Crossing Transfer for the Sun (2,4,6,8) Binomial Representation Conjecture
+</title>
+
+<meta name="description"
+content="Witness Geometry and Global Crossing Transfer for the Sun (2,4,6,8) Binomial Representation Conjecture. Version V15.6, August 2026.">
+
+<meta name="author" content="Scott Sun">
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    displayMath: [['\\[','\\]']]
+  }
+};
+</script>
+
+<script async
+src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<style>
+
+body{
+    max-width:1000px;
+    margin:auto;
+    padding:30px;
+    font-family:Segoe UI,Arial,sans-serif;
+    line-height:1.7;
+    color:#222;
+}
+
+h1{
+    font-size:2.3rem;
+    margin-bottom:10px;
+}
+
+h2{
+    border-bottom:1px solid #ddd;
+    padding-bottom:8px;
+    margin-top:40px;
+}
+
+.hero{
+    background:#f8f9fa;
+    padding:25px;
+    border-left:5px solid #0366d6;
+    border-radius:6px;
+}
+
+.badges{
+    margin-top:15px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.badges img{
+    height:24px;
+}
+
+.notice{
+    background:#fff8dc;
+    border-left:4px solid #d4aa00;
+    padding:15px;
+    margin-top:20px;
+}
+
+.card{
+    background:#f6f8fa;
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:20px;
+    margin:20px 0;
+}
+
+.math-box{
+    text-align:center;
+    background:#fafafa;
+    padding:20px;
+    border-radius:8px;
+    border:1px solid #ddd;
+    margin:20px 0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:10px;
+}
+
+th{
+    background:#f3f3f3;
+}
+
+footer{
+    margin-top:60px;
+    padding-top:20px;
+    border-top:1px solid #ddd;
+    text-align:center;
+    color:#666;
+}
+
+a{
+    color:#0366d6;
+}
+
+</style>
 </head>
-
 
 <body>
 
-
-<!-- =========================================================
-     HEADER
-     ========================================================= -->
-
 <header>
 
-    <h1>
-        Sun's (2,4,6,8) Binomial Representation Program
-    </h1>
+<h1>
+Witness Geometry and Global Crossing Transfer for the Sun (2,4,6,8)
+Binomial Representation Conjecture
+</h1>
 
+<div class="hero">
 
-    <div class="badges">
+<p><strong>Version:</strong> V15.6 (Preprint)</p>
 
-        <!-- Zenodo DOI -->
+<p><strong>Date:</strong> August 2026</p>
 
-        <a
-            class="badge-link"
-            href="https://zenodo.org/records/21973304"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Zenodo DOI"
-        >
+<p><strong>Author:</strong> Scott Sun</p>
 
-            <img
-                class="badge-img"
-                src="https://zenodo.org/badge/DOI/10.5281/zenodo.21973304.svg"
-                alt="Zenodo DOI"
-            >
+<p><strong>OEIS:</strong> A306477</p>
 
-        </a>
+<div class="badges">
 
+<a href="https://doi.org/10.5281/zenodo.22004198">
+https://img.shields.io/badge/DOI-10.5281%2Fzenodo.22004198-blue
+</a>
 
-        <!-- ResearchGate Publication -->
+<a href="https://oeis.org/A306477">
+https://img.shields.io/badge/OEIS-A306477-green
+</a>
 
-        <a
-            class="badge-link"
-            href="https://www.researchgate.net/publication/410979202_Triangular_Witness_Trajectories_and_Gap-Cascade_Bounds_for_the_2468_Binomial_Representation_Problem_A_Computationally_Audited_Framework_and_Open_Trajectory-Crossing_Program"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="ResearchGate Publication"
-        >
+https://osf.io/cmvuq
+https://img.shields.io/badge/OSF-CMVUQ-orange
+</a>
 
-            <img
-                class="badge-img"
-                src="https://img.shields.io/badge/ResearchGate-Publication_410979202-00CCBB?logo=researchgate&logoColor=white"
-                alt="ResearchGate Publication"
-            >
+<a href="https://osf.io/caqxh">
+https://img.shields.io/badge/Code-CAQXH-red
+</a>
 
-        </a>
+<a href="#">
+<img src="https://Framework-V15.6-brightgreen
+</a>
 
+</div>
 
-        <!-- OSF -->
+</div>
 
-        <a
-            class="badge-link"
-            href="https://osf.io/caqxh"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="OSF project"
-        >
+<div class="notice">
 
-            <img
-                class="badge-img"
-                src="https://img.shields.io/badge/OSF-10.17605%2FOSF.IO%2FCAQXH-blue"
-                alt="OSF"
-            >
+<strong>Important Notice</strong>
 
-        </a>
+<p>
+This work does not claim a proof of the Sun (2,4,6,8) Binomial
+Representation Conjecture.
 
+It develops a computationally audited proof architecture and
+reduces the remaining difficulty to a sharply formulated
+analytic closure problem.
+</p>
 
-        <!-- OEIS A306477 -->
-
-        <a
-            class="badge-link"
-            href="https://oeis.org/A306477"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="OEIS A306477"
-        >
-            <img
-                class="badge-img"
-                src="https://img.shields.io/badge/OEIS-A306477-2f6f9f"
-                alt="OEIS A306477"
-            >
-        </a>
-
-
-        <!-- Framework -->
-
-        <img
-            class="badge-img"
-            src="https://img.shields.io/badge/Framework-V13.1-brightgreen"
-            alt="Framework V13.1"
-        >
-
-
-        <!-- License -->
-
-        <img
-            class="badge-img"
-            src="https://img.shields.io/badge/License-MIT%2FCC--BY--4.0-yellow"
-            alt="License"
-        >
-
-    </div>
+</div>
 
 </header>
 
-
-<!-- =========================================================
-     MAIN CONTENT
-     ========================================================= -->
-
 <main>
 
+<h2>The Conjecture</h2>
 
-    <!-- =====================================================
-         PRIMARY REFERENCE
-         ===================================================== -->
+<p>
+The Sun (2,4,6,8) Binomial Representation Conjecture states that every
+sufficiently large integer admits a representation of the form
+</p>
 
-    <div class="reference-box">
+<div class="math-box">
 
-        <strong>
-            Primary Reference:
-        </strong>
+\[
+n=
+\binom{w}{2}
++
+\binom{x}{4}
++
+\binom{y}{6}
++
+\binom{z}{8}
+\]
 
-        Sun, S. (2026).
+\[
+w\ge2,\qquad
+x\ge4,\qquad
+y\ge6,\qquad
+z\ge8.
+\]
 
-        <em>
-            Triangular Witness Trajectories and Gap-Cascade Bounds for the (2,4,6,8) Binomial Representation Problem:
-            A Computationally Audited Framework and Open Trajectory-Crossing Program
-        </em>
+</div>
 
-        (Preprint V13.1).
+<h2>Abstract</h2>
 
-        <br>
+<div class="card">
 
-        <a
-            href="https://doi.org/10.5281/zenodo.21973304"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            https://doi.org/10.5281/zenodo.21973304
-        </a>
+<p>
 
-    </div>
+We study Sun's (2,4,6,8) binomial representation conjecture and
+develop a witness-geometric reformulation through global crossing
+transfer and defect-capacity analysis.
 
+</p>
 
-    <!-- =====================================================
-         OEIS RECORD
-         ===================================================== -->
+<p>
 
-    <div class="reference-box">
+The principal contributions of Version V15.6 are:
 
-        <strong>
-            OEIS Record:
-        </strong>
+</p>
 
-        <p style="margin: 8px 0 0 0;">
+<ul>
 
-            The problem is indexed as
-            <strong>OEIS A306477</strong>,
-            originally submitted by
-            <strong>Zhi-Wei Sun</strong>
-            in 2019.
+<li>
+Exact identity
 
-            The OEIS entry records the
-            <em>(2,4,6,8) Binomial Representation Conjecture</em>
-            and now includes this 2026 computational study by
-            <strong>Scott Sun</strong>
-            in its LINKS section.
+\[
+w^*(n)=K(n)+\Delta(n)+2.
+\]
 
-        </p>
+</li>
 
-        <p style="margin: 8px 0 0 0;">
+<li>
+Identification of the extremal transfer constant
 
-            <a
-                href="https://oeis.org/A306477"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                OEIS A306477 — official sequence record
-            </a>
+\[
+C_T=\frac{64}{19}.
+\]
 
-            &nbsp;·&nbsp;
+</li>
 
-            <a
-                href="https://www.researchgate.net/profile/Scott-Sun-3/publication/410979202"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Scott Sun — ResearchGate publication
-            </a>
+<li>
+Verification of the subcritical constant
 
-        </p>
+\[
+C_K=
+\frac{118202}{59375}
+<2.
+\]
 
-    </div>
+</li>
 
+<li>
+Exhaustive computational verification up to
 
-    <!-- =====================================================
-         SECTION 1
-         ===================================================== -->
+\[
+N=2,000,000.
+\]
 
-    <section id="conjecture">
+</li>
 
-        <h2>
-            1. The Conjecture
-        </h2>
+<li>
+Reduction of the remaining difficulty to an analytic closure
+problem concerning short-interval coverage of
 
+\[
+H=S_4+S_6+S_8.
+\]
 
-        <p>
+</li>
 
-            In 2019, Professor Zhi-Wei Sun
-            (Nanjing University) proposed the
-            <strong>
-                (2,4,6,8) Binomial Representation Conjecture
-            </strong>,
-            now recorded as
-            <a
-                href="https://oeis.org/A306477"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                OEIS A306477
-            </a>.
-            The OEIS record also links to this 2026 computational investigation.
+</ul>
 
-        </p>
+</div>
 
-
-        <p>
-
-            Every positive integer \(N\) can be represented
-            in the mixed-degree binomial sum form:
-
-        </p>
-
-
-        <div class="formula-card">
-
-            \[
-            N =
-            \binom{w}{2}
-            +
-            \binom{x}{4}
-            +
-            \binom{y}{6}
-            +
-            \binom{z}{8}
-            \]
-
-            \[
-            w \ge 2,
-            \qquad
-            x \ge 4,
-            \qquad
-            y \ge 6,
-            \qquad
-            z \ge 8.
-            \]
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         SECTION 2
-         ===================================================== -->
-
-    <section id="theory">
-
-        <h2>
-            2. Key Theoretical Results
-            (Framework V13.1 · OEIS A306477)
-        </h2>
-
-
-        <ul>
-
-
-            <!-- Triangular Witness Trajectories & Gap-Cascade Bounds -->
-
-            <li>
-
-                <strong>
-                    Triangular Witness Trajectories &amp; Gap-Cascade Bounds:
-                </strong>
-
-                Introduces deterministic trajectory-crossing conditions and gap-cascade bounds, quantifying structural coverage across high-density sumset intersections.
-
-            </li>
-
-
-            <!-- Sub-square-root -->
-
-            <li>
-
-                <strong>
-                    Sub-Square-Root Gap Growth:
-                </strong>
-
-                Exhaustive computation up to
-                \(10^{12}\) bounds the maximum gap as
-
-                \[
-                    \operatorname{MaxGap}(X)
-                    \approx
-                    0.9841\,X^{0.4789}.
-                \]
-
-            </li>
-
-
-            <!-- Zero Set -->
-
-            <li>
-
-                <strong>
-                    Rigid Zero-Set
-                    \(\mathcal{E}_8\):
-                </strong>
-
-                Confirmed permanent exception set
-
-                \[
-                    \mathcal{E}_8
-                    =
-                    \{1,2,3,5,7,11\}.
-                \]
-
-                The set is reported as strictly invariant
-                for \(X \ge 10^4\).
-
-            </li>
-
-
-        </ul>
-
-    </section>
-
-
-    <!-- =====================================================
-         SECTION 3
-         ===================================================== -->
-
-    <section id="verification">
-
-        <h2>
-            3. Empirical Verification Summary
-            (\(10^{12}\) Scale)
-        </h2>
-
-
-        <div class="table-container">
-
-
-            <table>
-
-
-                <thead>
-
-                    <tr>
-
-                        <th>
-                            Metric
-                        </th>
-
-                        <th>
-                            Empirical Finding
-                        </th>
-
-                        <th>
-                            Theoretical Target
-                        </th>
-
-                        <th>
-                            Status
-                        </th>
-
-                    </tr>
-
-                </thead>
-
-
-                <tbody>
-
-
-                    <!-- Power Law -->
-
-                    <tr>
-
-                        <td>
-                            <strong>
-                                Power-Law Fit
-                            </strong>
-                        </td>
-
-
-                        <td>
-
-                            \(
-                                \operatorname{MaxGap}(X)
-                                \approx
-                                0.9841\,X^{0.4789}
-                            \)
-
-                        </td>
-
-
-                        <td>
-
-                            \(
-                                \alpha < 0.5000
-                            \)
-
-                        </td>
-
-
-                        <td>
-
-                            <span class="status-badge">
-
-                                Confirmed
-                                (\(R^2 = 0.9995\))
-
-                            </span>
-
-                        </td>
-
-                    </tr>
-
-
-                    <!-- Scaling Exponent -->
-
-                    <tr>
-
-                        <td>
-
-                            <strong>
-                                Scaling Exponent
-                                \(\alpha\)
-                            </strong>
-
-                        </td>
-
-
-                        <td>
-
-                            \(
-                                \alpha
-                                =
-                                0.4789
-                                \pm
-                                0.0031
-                            \)
-
-                        </td>
-
-
-                        <td>
-
-                            \(
-                                \alpha < 0.5
-                            \)
-
-                        </td>
-
-
-                        <td>
-
-                            <span class="status-badge">
-
-                                Statistically Significant
-                                (\(p = 0.0003\))
-
-                            </span>
-
-                        </td>
-
-                    </tr>
-
-
-                    <!-- Elasticity -->
-
-                    <tr>
-
-                        <td>
-
-                            <strong>
-                                Elasticity Constant \(c\)
-                            </strong>
-
-                        </td>
-
-
-                        <td>
-
-                            \(
-                                c \approx 0.4912
-                            \)
-
-                        </td>
-
-
-                        <td>
-
-                            \(
-                                c > 0
-                            \)
-
-                        </td>
-
-
-                        <td>
-
-                            <span class="status-badge">
-
-                                Confirmed
-
-                            </span>
-
-                        </td>
-
-                    </tr>
-
-
-                </tbody>
-
-
-            </table>
-
-        </div>
-
-    </section>
-
-
-    <!-- =====================================================
-         SECTION 4
-         ===================================================== -->
-
-    <section id="code">
-
-        <h2>
-            4. Code &amp; Data Access
-        </h2>
-
-
-        <p>
-
-            Access the full Python / SageMath source code,
-            verification logs, and datasets directly on the
-            GitHub repository.
-
-        </p>
-
-
-        <p style="margin-top: 15px;">
-
-            <a
-                class="btn-github"
-                href="https://github.com/suns1232023/exchange-entropy-eei"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="View project on GitHub"
-            >
-
-
-                <svg
-                    height="20"
-                    width="20"
-                    viewBox="0 0 16 16"
-                    fill="currentColor"
-                    aria-hidden="true"
-                >
-
-                    <path
-                        d="M8 0C3.58 0 0 3.58 0 8c0 3.54
-                        2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
-                        0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49
-                        -2.69-.94-.09-.23-.48-.94-.82-1.13
-                        -.28-.15-.68-.52-.01-.53.63-.01 1.08
-                        .58 1.23.82.72 1.21 1.87.87 2.33.66
-                        .07-.52.28-.87.51-1.07-1.78-.2-3.64
-                        -.89-3.64-3.95 0-.87.31-1.59.82-2.15
-                        -.08-.2-.36-1.02.08-2.12 0 0 .67-.21
-                        2.2.82.64-.18 1.32-.27 2-.27.68 0
-                        1.36.09 2 .27 1.53-1.04 2.2-.82
-                        2.2-.82.44 1.1.16 1.92.08 2.12
-                        .51.56.82 1.28.82 2.15 0 3.07-1.87
-                        3.75-3.95.29.25.54.73.54 1.48
-                        0 1.07-.01 1.33-.01 2.2 0 .21.15.46
-                        .55.38A8.013 8.013 0 0016 8c0-4.42
-                        -3.58-8-8-8z"
-                    />
-
-                </svg>
-
-
-                View on GitHub
-
-
-            </a>
-
-
-        </p>
-
-    </section>
-
+<h2>Main Results</h2>
+
+<table>
+
+<tr>
+<th>Result</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>Exact Identity \(w^*=K+\Delta+2\)</td>
+<td>Established</td>
+</tr>
+
+<tr>
+<td>Extremal Transfer Constant \(C_T=64/19\)</td>
+<td>Established</td>
+</tr>
+
+<tr>
+<td>Subcritical Bound \(C_K&lt;2\)</td>
+<td>Established</td>
+</tr>
+
+<tr>
+<td>Computational Verification up to \(2\times10^6\)</td>
+<td>No Violations Found</td>
+</tr>
+
+<tr>
+<td>Analytic Closure Problem Formulated</td>
+<td>Open</td>
+</tr>
+
+</table>
+
+<h2>Publications and Data</h2>
+
+<ul>
+
+<li>
+Zenodo DOI:
+<a href="https://doi.org/10.5281/zenodo.22004198">
+10.5281/zenodo.22004198
+</a>
+</li>
+
+<li>
+OSF Repository:
+<a href="https://osf.io/cmvuq">
+F.IO/CMVUQ
+</a>
+</li>
+
+<li>
+Project Code Repository:
+<a href="https://osf.io/caqxh">
+10.17605/OSF.IO/CAQXH
+</a>
+</li>
+
+<li>
+OEIS Record:
+<a href="https://oeis.org/A306477">
+OEIS A306477
+</a>
+</li>
+
+</ul>
+
+<h2>Research Links</h2>
+
+<ul>
+
+<li>
+<a href="https://www.researchgate.net/profilen-3
+ResearchGate Profile
+</a>
+</li>
+
+<li>
+<a href="https://oeis.org/A306477">
+OEIS A306477
+</a>
+</li>
+
+<li>
+<a href="https://doi.org/10.5281/zenodo.22004198">
+Zenodo Preprint
+</a>
+</li>
+
+</ul>
 
 </main>
 
-
-<!-- =========================================================
-     FOOTER
-     ========================================================= -->
-
 <footer>
 
-    <p>
+<p>
+© 2026 Scott Sun
+</p>
 
-        © 2026 Scott Sun.
-
-        Published under
-        <strong>CC BY 4.0</strong>
-        (Content) and
-        <strong>MIT License</strong>
-        (Code).
-
-    </p>
+<p>
+Licensed under CC BY 4.0.
+</p>
 
 </footer>
-
-
-<!-- =========================================================
-     MathJax Diagnostic
-     ========================================================= -->
-
-<script>
-
-    /*
-     * Give MathJax a few seconds to load.
-     * If it cannot be loaded, show a diagnostic message
-     * rather than breaking the page.
-     */
-
-    window.addEventListener(
-        "load",
-        function () {
-
-            setTimeout(
-                function () {
-
-                    if (
-                        typeof window.MathJax === "undefined"
-                    ) {
-
-                        console.warn(
-                            "MathJax failed to load."
-                        );
-
-                    }
-
-                },
-                3000
-            );
-
-        }
-    );
-
-</script>
-
 
 </body>
 </html>
