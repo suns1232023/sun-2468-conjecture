@@ -1,243 +1,46 @@
-# Witness Geometry and Global Crossing Transfer for the Sun (2,4,6,8) Binomial Representation Conjecture
+# Sun's (2,4,6,8) Binomial Representation Program
 
 [![OEIS A306477](https://img.shields.io/badge/OEIS-A306477-2f6f9f)](https://oeis.org/A306477)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22004198.svg)](https://doi.org/10.5281/zen198)
-[![OSF Repository](https://img.shields-blue](https://osf.io/cmvuq)
-[![OSF Project](https://img.shields.io/badge/OSF-CAQXH-orange)](https://osf.io/hGate](https://img.shields.io/badge/ResearchGate-Scott_Sun-00CCBB?logo=researchgate)](https://www.researchgate-Sun-3)
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.[License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://enses/MIT)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21765015.svg)](https://doi.org/10.5281/zenodo.21765015)
+[![OSF Project](https://img.shields.io/badge/OSF-10.17605%2FOSF.IO%2FCAQXH-blue)](https://osf.io/caqxh)
+[![ResearchGate](https://img.shields.io/badge/ResearchGate-Scott__Sun-00CCBB?logo=researchgate)](https://www.researchgate.net/profile/Scott-Sun)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Official software implementation, numerical verification suite, and hypermartingale gap analysis pipeline supporting **Framework V12.4** for **Sun's (2,4,6,8) Binomial Representation Conjecture**.
+
+> **Primary Reference**: Sun, S. (2026). *Computational Evidence and Conjectural Framework for Sub-Square-Root Gap Growth in Binomial Sumsets $S_4+S_6+S_8$: Object-Driven Paradigm, Exhaustive Verification to $10^{12}$, and a Conditional Supermartingale Cluster Decay Theorem* (Preprint V12.4).  
+> **DOI**: [10.5281/zenodo.21765015](https://doi.org/10.5281/zenodo.21765015) | **OSF**: [10.17605/OSF.IO/CAQXH](https://doi.org/10.17605/OSF.IO/CAQXH)
 
 ---
 
-## Overview
+## 📌 Theoretical Overview
 
-This repository contains the computational infrastructure, datasets, verification scripts, and supporting materials for:
+Sun's (2,4,6,8) Conjecture ([OEIS A306477](https://oeis.org/A306477)) asserts that every integer $n > 11$ can be represented in the mixed-degree binomial form:
+$$n = \binom{w}{2} + \binom{x}{4} + \binom{y}{6} + \binom{z}{8} \quad (w,x,y,z \ge 2)$$
 
-> **Witness Geometry and Global Crossing Transfer for the Sun (2,4,6,8) Binomial Representation Conjecture**
->
-> Scott Sun (Version V15.6, August 2026)
-
-The project develops a witness-geometric reformulation of Sun's (2,4,6,8) Binomial Representation Conjecture and introduces a Global Crossing Transfer framework connecting witness trajectories, transfer defects, and large-scale computational verification.
-
----
-
-## Primary Reference
-
-**Scott Sun (2026)**
-
-*Witness Geometry and Global Crossing Transfer for the Sun (2,4,6,8) Binomial Representation Conjecture*
-
-**Version:** V15.6 (Preprint)
-
-**DOI:**
-
-https://doi.org/10.5281/zenodo.22004198
-
-**OSF Repository:**
-
-https://osf.io/cmvuq
-
-**Project Archive & Code:**
-
-https://osf.io/caqxh
+This repository hosts the computational backbone for **Framework V12.4**, featuring:
+- **Exhaustive $10^{12}$ Verification**: Parallel sumset decomposition confirming Sub-Square-Root Gap Growth ($\text{MaxGap}(X) \approx 0.9841 \cdot X^{0.4789}$).
+- **Hypermartingale Gap Decay Model**: Empirical supermartingale elasticity testing ($\mathbb{E}[g_{i+1}/g_i \mid g_i > T] \le 1 - c$ with $c \approx 0.4912$).
+- **Frozen Zero-Set $\mathcal{E}_8$**: Verification and monitoring of the permanent exception set $\mathcal{E}_8 = \{1, 2, 3, 5, 7, 11\}$, strictly invariant for $X \ge 10^4$.
+- **Modular Congruence Elimination**: Structural checks verifying $R_4(24) = \mathbb{Z}_{24}$ (no local $p$-adic obstructions).
 
 ---
 
-## The Conjecture
+## ⚡ Quick Start & Verification
 
-Sun's (2,4,6,8) Binomial Representation Conjecture (OEIS A306477) states that every sufficiently large positive integer can be represented in the form
+### 1. Prerequisites & Environment Setup
 
-\[
-n=
-\binom{w}{2}
-+
-\binom{x}{4}
-+
-\binom{y}{6}
-+
-\binom{z}{8}
-\]
+Ensure you have **Python 3.9+** or **SageMath 9.5+** installed.
 
-with
+```bash
+# Clone repository
+git clone [https://github.com/suns1232023/binomial-representation-2468.git](https://github.com/suns1232023/binomial-representation-2468.git)
+cd binomial-representation-2468
 
-\[
-w\ge2,\qquad
-x\ge4,\qquad
-y\ge6,\qquad
-z\ge8.
-\]
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate
 
-The conjecture was proposed by Professor Zhi-Wei Sun and recorded in:
-
-**OEIS A306477**
-
-https://oeis.org/A306477
-
----
-
-## Abstract
-
-We study Sun's (2,4,6,8) Binomial Representation Conjecture through a witness-geometric reformulation and introduce a Global Crossing Transfer framework.
-
-The principal contributions of Version V15.6 include:
-
-- Exact identity
-
-\[
-w^*(n)=K(n)+\Delta(n)+2
-\]
-
-- Identification of the extremal transfer constant
-
-\[
-C_T=\frac{64}{19}
-\]
-
-- Verification of the subcritical transfer constant
-
-\[
-C_K=
-\frac{118202}{59375}
-<2
-\]
-
-- Exhaustive computational verification up to
-
-\[
-N=2,000,000
-\]
-
-- Reduction of the remaining difficulty to a sharply formulated analytic closure problem involving
-
-\[
-H=S_4+S_6+S_8
-\]
-
-This repository does **not** claim a proof of the conjecture. Instead, it provides an audited computational framework and a precise formulation of the remaining analytic bottleneck.
-
----
-
-## Main Results
-
-| Result | Status |
-|----------|---------|
-| Exact Identity \(w^*=K+\Delta+2\) | Established |
-| Extremal Transfer Constant \(C_T=64/19\) | Established |
-| Subcritical Bound \(C_K<2\) | Established |
-| Computational Verification to \(N=2,000,000\) | Complete |
-| Global Crossing Transfer Framework | Developed |
-| Analytic Closure Problem | Open |
-| Full Proof of Conjecture | Open |
-
----
-
-## OEIS Connection
-
-The project is directly connected to the public OEIS record:
-
-**OEIS A306477**
-
-https://oeis.org/A306477
-
-The OEIS record includes links to Scott Sun's computational investigation and related public research materials.
-
-This bibliographic connection should not be interpreted as an OEIS endorsement or as a proof of the conjecture.
-
----
-
-## Repository Structure
-
-```text
-.
-├── docs/
-│   ├── v15_6_preprint.pdf
-│   ├── supplementary_materials.pdf
-│   └── framework_notes.md
-│
-├── src/
-│   ├── witness_geometry/
-│   ├── crossing_transfer/
-│   ├── verification/
-│   └── utils/
-│
-├── datasets/
-│   ├── witness_tables/
-│   ├── transfer_constants/
-│   └── verification_results/
-│
-├── notebooks/
-│   ├── witness_geometry_examples.ipynb
-│   └── verification_demo.ipynb
-│
-├── tests/
-│   └── unit_tests/
-│
-├── LICENSE
-└── README.md
-```
-
----
-
-## Public Resources
-
-### Zenodo
-
-https://doi.org/10.5281/zenodo.22004198
-
-### OSF Repository
-
-https://osf.io/cmvuq
-
-DOI:
-
-10.17605/OSF.IO/CMVUQ
-
-### OSF Project Archive
-
-https://osf.io/caqxh
-
-DOI:
-
-10.17605/OSF.IO/CAQXH
-
-### ResearchGate
-
-https://www.researchgate.net/profile/Scott-Sun-3
-
-### OEIS
-
-https://oeis.org/A306477
-
----
-
-## Citation
-
-If you use this repository, please cite:
-
-```bibtex
-@misc{sun2026witness,
-  author = {Scott Sun},
-  title = {Witness Geometry and Global Crossing Transfer for the Sun (2,4,6,8) Binomial Representation Conjecture},
-  year = {2026},
-  doi = {10.5281/zenodo.22004198}
-}
-```
-
----
-
-## Disclaimer
-
-This repository presents computational evidence, structural frameworks, and large-scale verification results.
-
-It does **not** claim a complete proof of Sun's (2,4,6,8) Binomial Representation Conjecture.
-
-The remaining analytic closure problem remains open.
-
----
-
-## License
-
-Research Content: **CC BY 4.0**
-
-Source Code: **MIT License**
-
-© 2026 Scott Sun
+# Install dependencies
+pip install -r requirements.txt
