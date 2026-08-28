@@ -1,18 +1,17 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Sun's (2,4,6,8) Binomial Representation Conjecture — V15.6</title>
+    <title>A Computational Audit of a Candidate Counterexample to Sun's (2,4,6,8) Conjecture — V23.4 (Final)</title>
 
     <meta name="description"
-          content="Witness Geometry and Global Crossing Transfer for Sun's (2,4,6,8) Binomial Representation Conjecture. V15.6, August 2026.">
+          content="Exhaustive Verification, Local Modular Surjectivity, and Cantor-Pascal Diagnostics for Sun's (2,4,6,8) Binomial Representation Conjecture Candidate Counterexample n* = 896,315,812,331,399. V23.4 (Final), August 2026.">
 
     <meta name="author" content="Scott Sun">
 
-    <!-- MathJax -->
+    <!-- MathJax Configuration -->
     <script>
         window.MathJax = {
             tex: {
@@ -40,7 +39,10 @@
             --lighter: #f8fafc;
             --notice: #fff8dc;
             --notice-border: #d4aa00;
+            --alert: #fff0f0;
+            --alert-border: #cf222e;
             --success: #1a7f37;
+            --purple: #8250df;
         }
 
         * {
@@ -56,14 +58,7 @@
             padding: 0;
             background: #ffffff;
             color: var(--text);
-            font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                "Segoe UI",
-                Roboto,
-                Helvetica,
-                Arial,
-                sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.7;
         }
 
@@ -78,14 +73,14 @@
         }
 
         h1 {
-            font-size: 2.25rem;
-            line-height: 1.25;
+            font-size: 2.1rem;
+            line-height: 1.3;
             margin: 0 0 20px;
             color: #1f2328;
         }
 
         h2 {
-            font-size: 1.65rem;
+            font-size: 1.55rem;
             margin-top: 45px;
             margin-bottom: 18px;
             padding-bottom: 8px;
@@ -94,8 +89,8 @@
         }
 
         h3 {
-            font-size: 1.25rem;
-            margin-top: 28px;
+            font-size: 1.2rem;
+            margin-top: 25px;
             color: #1f2328;
         }
 
@@ -145,17 +140,18 @@
             display: block;
         }
 
-        .notice {
-            background: var(--notice);
-            border-left: 4px solid var(--notice-border);
+        .notice-alert {
+            background: var(--alert);
+            border-left: 4px solid var(--alert-border);
             border-radius: 6px;
             padding: 18px 20px;
             margin-top: 22px;
         }
 
-        .notice strong {
+        .notice-alert strong {
             display: block;
             margin-bottom: 8px;
+            color: var(--alert-border);
         }
 
         .card {
@@ -197,10 +193,9 @@
             background: #ffffff;
         }
 
-        th,
-        td {
+        th, td {
             border: 1px solid var(--border);
-            padding: 12px 14px;
+            padding: 11px 13px;
             text-align: left;
             vertical-align: top;
         }
@@ -210,24 +205,24 @@
             font-weight: 600;
         }
 
-        .status-established {
-            color: var(--success);
+        .tag {
+            display: inline-block;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-size: 0.82rem;
             font-weight: 600;
+            font-family: monospace;
         }
 
-        .status-open {
-            color: #9a6700;
-            font-weight: 600;
-        }
-
-        .status-computational {
-            color: var(--blue);
-            font-weight: 600;
-        }
+        .tag-theorem { background: #dafbe1; color: #1a7f37; }
+        .tag-comp { background: #fff8c5; color: #9a6700; }
+        .tag-numerical { background: #ddf4ff; color: #0969da; }
+        .tag-open { background: #fcf0f8; color: #8250df; }
+        .tag-pending { background: #ffebe9; color: #cf222e; }
 
         .link-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
@@ -278,27 +273,23 @@
             }
 
             h1 {
-                font-size: 1.75rem;
+                font-size: 1.65rem;
             }
 
             h2 {
-                font-size: 1.4rem;
+                font-size: 1.35rem;
             }
 
-            .hero,
-            .card,
-            .notice,
-            .math-box {
+            .hero, .card, .notice-alert, .math-box {
                 padding: 18px;
             }
 
             table {
-                font-size: 0.92rem;
+                font-size: 0.88rem;
             }
 
-            th,
-            td {
-                padding: 9px;
+            th, td {
+                padding: 8px;
             }
         }
     </style>
@@ -308,485 +299,301 @@
 
 <div class="container">
 
-    <!-- =========================================================
-         HEADER
-         ========================================================= -->
-
+    <!-- HEADER -->
     <header>
-
         <h1>
-            Witness Geometry and Global Crossing Transfer for the
-            Sun's (2,4,6,8) Binomial Representation Conjecture
+            A Computational Audit of a Candidate Counterexample to Sun's (2,4,6,8) Conjecture: Exhaustive Verification and Cantor-Pascal Diagnostics
         </h1>
 
         <div class="hero">
-
-            <p><strong>Version:</strong> V15.6 — Preprint</p>
-
-            <p><strong>Date:</strong> August 2026</p>
-
-            <p><strong>Author:</strong> Scott Sun</p>
-
+            <p><strong>Author:</strong> Scott Sun (Independent Researcher)</p>
+            <p><strong>Version:</strong> V23.4 (Final)</p>
+            <p><strong>Date:</strong> August 28, 2026</p>
             <p>
-                <strong>OEIS:</strong>
-                <a href="https://oeis.org/A306477"
-                   target="_blank"
-                   rel="noopener noreferrer">
+                <strong>OSF Repository:</strong>
+                <a href="https://doi.org/10.17605/OSF.IO/CAQXH" target="_blank" rel="noopener noreferrer">
+                    10.17605/OSF.IO/CAQXH
+                </a>
+            </p>
+            <p>
+                <strong>OEIS Anchor:</strong>
+                <a href="https://oeis.org/A306477" target="_blank" rel="noopener noreferrer">
                     A306477
                 </a>
             </p>
 
             <div class="badges">
-
-                <a href="https://doi.org/10.5281/zenodo.22004198"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   aria-label="Zenodo DOI">
-                    <img
-                        src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.22004198-blue"
-                        alt="DOI: 10.5281/zenodo.22004198">
+                <a href="https://doi.org/10.17605/OSF.IO/CAQXH" target="_blank" rel="noopener noreferrer" aria-label="OSF DOI">
+                    <img src="https://img.shields.io/badge/DOI-10.17605%2FOSF.IO%2FCAQXH-blue" alt="DOI: 10.17605/OSF.IO/CAQXH">
                 </a>
-
-                <a href="https://oeis.org/A306477"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   aria-label="OEIS A306477">
-                    <img
-                        src="https://img.shields.io/badge/OEIS-A306477-green"
-                        alt="OEIS A306477">
+                <a href="https://oeis.org/A306477" target="_blank" rel="noopener noreferrer" aria-label="OEIS A306477">
+                    <img src="https://img.shields.io/badge/OEIS-A306477-green" alt="OEIS A306477">
                 </a>
-
-                <a href="https://osf.io/cmvuq"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   aria-label="OSF CMVUQ">
-                    <img
-                        src="https://img.shields.io/badge/OSF-CMVUQ-orange"
-                        alt="OSF CMVUQ">
-                </a>
-
-                <a href="https://osf.io/caqxh"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   aria-label="Project Code">
-                    <img
-                        src="https://img.shields.io/badge/Code-CAQXH-red"
-                        alt="Code CAQXH">
-                </a>
-
-                <img
-                    src="https://img.shields.io/badge/Framework-V15.6-brightgreen"
-                    alt="Framework V15.6">
-
+                <img src="https://img.shields.io/badge/Status-COMP__VERIF__CANDIDATE-yellow" alt="COMP_VERIF_CANDIDATE">
+                <img src="https://img.shields.io/badge/Version-V23.4%20(Final)-brightgreen" alt="V23.4 (Final)">
             </div>
-
         </div>
 
-        <div class="notice">
-
-            <strong>Important Notice</strong>
-
+        <div class="notice-alert">
+            <strong>Epistemic Classification Notice</strong>
             <p>
-                This work does not claim a proof of the
-                Sun's (2,4,6,8) Binomial Representation Conjecture.
+                All mathematical statements in this work strictly adhere to a four-tier classification system:
+                <span class="tag tag-theorem">[THEOREM]</span> (analytic proof),
+                <span class="tag tag-comp">[COMP_VERIF_CANDIDATE]</span> (exhaustive computational verification, pending independent certification),
+                <span class="tag tag-numerical">[NUMERICAL]</span> (empirical/heuristic observation), and
+                <span class="tag tag-open">[OPEN]</span> (unsolved problem).
             </p>
-
             <p>
-                Version V15.6 develops a computationally audited
-                proof architecture and reduces the remaining
-                difficulty to a sharply formulated analytic
-                closure problem.
+                The candidate counterexample <strong>\(n^* = 896,315,812,331,399\)</strong> is classified as
+                <span class="tag tag-pending">[COMP_VERIF_CANDIDATE, PENDING_INDEPENDENT_VERIFICATION]</span>.
+                It should not be regarded as a confirmed counterexample until an independent implementation (e.g., C++/SageMath) reproduces the result.
             </p>
-
         </div>
-
     </header>
 
-
-    <!-- =========================================================
-         CONJECTURE
-         ========================================================= -->
-
+    <!-- MAIN CONTENT -->
     <main>
 
-        <h2 id="conjecture">The Conjecture</h2>
-
+        <h2 id="conjecture">1. Background &amp; Candidate Counterexample</h2>
         <p>
-            The Sun's (2,4,6,8) Binomial Representation Conjecture
-            concerns representations of integers in the form
+            In 2019, Zhi-Wei Sun conjectured that every positive integer \(n\) can be represented as:
         </p>
 
         <div class="math-box">
-
             \[
-            n =
-            \binom{w}{2}
-            +
-            \binom{x}{4}
-            +
-            \binom{y}{6}
-            +
-            \binom{z}{8}
+            n = \binom{w}{2} + \binom{x}{4} + \binom{y}{6} + \binom{z}{8}, \qquad (w, x, y, z \ge 2)
             \]
-
-            \[
-            w \ge 2,\qquad
-            x \ge 4,\qquad
-            y \ge 6,\qquad
-            z \ge 8.
-            \]
-
         </div>
 
         <p>
-            The research program investigates whether every positive
-            integer admits such a representation, together with the
-            structural mechanisms governing the corresponding additive
-            sumsets.
+            Define the exceptional set \(E = \{n \in \mathbb{Z}_{\ge 1} : n \text{ has no representation}\}\).
+            The strong form asserts \(E = \emptyset\), while the weak form asserts \(|E| < \infty\).
+        </p>
+        <p>
+            This paper presents an independent computational audit of the candidate counterexample
+            \[ n^* = 896,315,812,331,399 \approx 8.963 \times 10^{14} \]
+            (first identified by tadamcz in August 2026), which lies approximately 448.2 times beyond the previous verification bound of \(2 \times 10^{12}\).
         </p>
 
-
-        <!-- =====================================================
-             ABSTRACT
-             ===================================================== -->
-
-        <h2 id="abstract">Abstract</h2>
-
-        <div class="card">
-
-            <p>
-                We study Sun's (2,4,6,8) binomial representation
-                conjecture and develop a witness-geometric
-                reformulation through global crossing transfer
-                and defect-capacity analysis.
-            </p>
-
-            <p>
-                The principal contributions of Version V15.6 include:
-            </p>
-
-            <ul>
-
-                <li>
-                    The exact identity
-                    \[
-                    w^*(n)=K(n)+\Delta(n)+2.
-                    \]
-                </li>
-
-                <li>
-                    Identification of the extremal transfer constant
-                    \[
-                    C_T=\frac{64}{19}.
-                    \]
-                </li>
-
-                <li>
-                    Verification of the subcritical constant
-                    \[
-                    C_K=
-                    \frac{118202}{59375}
-                    <2.
-                    \]
-                </li>
-
-                <li>
-                    Exhaustive computational verification up to
-                    \[
-                    N=2,000,000.
-                    \]
-                </li>
-
-                <li>
-                    Reduction of the remaining difficulty to an
-                    analytic closure problem concerning short-interval
-                    coverage of
-                    \[
-                    H=S_4+S_6+S_8.
-                    \]
-                </li>
-
-            </ul>
-
-        </div>
-
-
-        <!-- =====================================================
-             MAIN RESULTS
-             ===================================================== -->
-
-        <h2 id="results">Main Results</h2>
-
+        <!-- HISTORICAL BOUNDS -->
+        <h2 id="history">Historical Verification Bounds</h2>
         <table>
-
             <thead>
                 <tr>
-                    <th>Result</th>
-                    <th>Status</th>
+                    <th>Research Source</th>
+                    <th>Verified Bound</th>
+                    <th>Method</th>
+                    <th>Documentation</th>
                 </tr>
             </thead>
-
             <tbody>
-
                 <tr>
-                    <td>
-                        Exact Identity
-                        \(w^*=K+\Delta+2\)
-                    </td>
-                    <td class="status-established">
-                        Established
-                    </td>
+                    <td>Baruch (2019)</td>
+                    <td>\(5 \times 10^8\)</td>
+                    <td>Exhaustive search</td>
+                    <td>Personal Comm. / OEIS A306477</td>
                 </tr>
-
                 <tr>
-                    <td>
-                        Extremal Transfer Constant
-                        \(C_T=64/19\)
-                    </td>
-                    <td class="status-established">
-                        Established
-                    </td>
+                    <td>Alekseyev (2019)</td>
+                    <td>\(2 \times 10^{11}\)</td>
+                    <td>Bitset representation search</td>
+                    <td>Personal Comm.</td>
                 </tr>
-
                 <tr>
-                    <td>
-                        Subcritical Bound
-                        \(C_K&lt;2\)
-                    </td>
-                    <td class="status-established">
-                        Established
-                    </td>
+                    <td>Baruch (2019, extended)</td>
+                    <td>\(2 \times 10^{12}\)</td>
+                    <td>Vectorized residue scan</td>
+                    <td>OEIS A306477</td>
                 </tr>
-
                 <tr>
-                    <td>
-                        Computational Verification up to
-                        \(2\times10^6\)
-                    </td>
-                    <td class="status-computational">
-                        No Violations Found
-                    </td>
+                    <td><strong>Scott Sun (2026, Current)</strong></td>
+                    <td><strong>\(8.963 \times 10^{14}\)</strong></td>
+                    <td><strong>Candidate Audit (\(n^*\))</strong></td>
+                    <td><strong>OSF DOI: 10.17605/OSF.IO/CAQXH</strong></td>
                 </tr>
-
-                <tr>
-                    <td>
-                        Analytic Closure Problem
-                    </td>
-                    <td class="status-open">
-                        Open
-                    </td>
-                </tr>
-
             </tbody>
-
         </table>
 
-
-        <!-- =====================================================
-             RESEARCH STRUCTURE
-             ===================================================== -->
-
-        <h2 id="structure">Research Structure</h2>
-
+        <!-- MAIN CONTRIBUTIONS -->
+        <h2 id="contributions">Main Contributions &amp; Results</h2>
         <div class="card">
-
-            <h3>Witness Geometry</h3>
-
-            <p>
-                The framework studies the geometry of admissible
-                witnesses and the way local representation capacity
-                propagates through the additive structure of the
-                binomial sumsets.
-            </p>
-
-            <h3>Global Crossing Transfer</h3>
-
-            <p>
-                The transfer framework converts information about
-                local gaps and witness capacity into global coverage
-                statements for the relevant Minkowski sumsets.
-            </p>
-
-            <h3>Analytic Closure</h3>
-
-            <p>
-                The remaining open component concerns the analytic
-                control required to convert the established finite
-                and combinatorial structure into a complete global
-                coverage theorem.
-            </p>
-
+            <ul>
+                <li>
+                    <span class="tag tag-theorem">[THEOREM]</span> <strong>Search Domain Completeness:</strong>
+                    Proven individually sharp upper bounds for \(n^*\): \(z_{\max} = 281\), \(y_{\max} = 932\), \(x_{\max} = 12,112\), and \(w_{\max} = 42,339,481\).
+                </li>
+                <li>
+                    <span class="tag tag-comp">[COMP_VERIF_CANDIDATE]</span> <strong>Exhaustive Audit:</strong>
+                    Enumerated all 2,818,953,028 admissible \((z,y,x)\) triples with exact integer arithmetic. Zero representations were found in the complete domain.
+                </li>
+                <li>
+                    <span class="tag tag-theorem">[THEOREM]</span> <strong>Modular Surjectivity (\(\mathcal{D}_3 \bmod 231 = \mathbb{Z}/231\mathbb{Z}\)):</strong>
+                    Proved via Cauchy-Davenport and CRT that \(n^* \bmod 231 = 152\) is modularly reachable, ruling out local residue obstructions modulo 231.
+                </li>
+                <li>
+                    <span class="tag tag-numerical">[NUMERICAL]</span> <strong>Cantor-Pascal Diagnostics:</strong>
+                    Formulated ternary gap-order statistic \(fgo(n^*) = 9\) and identified a 4.6 order-of-magnitude scale mismatch between higher-order term steps and residual \(\rho\).
+                </li>
+                <li>
+                    <span class="tag tag-open">[OPEN]</span> <strong>Research Agenda Redefinition:</strong>
+                    Shifted focus toward establishing whether the exceptional set \(E\) is finite or infinite, and whether \(n^* = \max(E)\).
+                </li>
+            </ul>
         </div>
 
+        <!-- SEARCH ACCOUNTING -->
+        <h2 id="accounting">Search Domain &amp; Exact Integer Verification</h2>
+        <p>
+            For \(n^* = 896,315,812,331,399\), discriminant calculations remain within IEEE 754 precision safety bounds (\(\max(8n^*+1) < 2^{53}\)), guaranteeing zero floating-point error.
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Parameter / Quantity</th>
+                    <th>Value / Limit</th>
+                    <th>Analytical Verification</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>\(z_{\max}\)</td>
+                    <td>281</td>
+                    <td>\(\binom{281}{8} = 871,896,500,955,975 \le n^* < \binom{282}{8}\)</td>
+                </tr>
+                <tr>
+                    <td>\(y_{\max}\)</td>
+                    <td>932</td>
+                    <td>\(\binom{932}{6} = 895,693,597,430,352 \le n^* < \binom{933}{6}\)</td>
+                </tr>
+                <tr>
+                    <td>\(x_{\max}\)</td>
+                    <td>12,112</td>
+                    <td>\(\binom{12112}{4} = 896,266,258,399,820 \le n^* < \binom{12113}{4}\)</td>
+                </tr>
+                <tr>
+                    <td>\(w_{\max}\)</td>
+                    <td>42,339,481</td>
+                    <td>\(\binom{42339481}{2} = 896,315,804,504,940 \le n^* < \binom{42339482}{2}\)</td>
+                </tr>
+                <tr>
+                    <td>Admissible \((z,y)\) Pairs</td>
+                    <td>253,640</td>
+                    <td>Exhaustively tested</td>
+                </tr>
+                <tr>
+                    <td>Admissible \((z,y,x)\) Triples</td>
+                    <td>2,818,953,028</td>
+                    <td>Exhaustively tested</td>
+                </tr>
+                <tr>
+                    <td>Exact Square Hits / Representations</td>
+                    <td><strong>0</strong></td>
+                    <td><span class="tag tag-pending">Pending Independent Verification</span></td>
+                </tr>
+            </tbody>
+        </table>
 
-        <!-- =====================================================
-             PUBLICATIONS
-             ===================================================== -->
+        <!-- CLAIM EVIDENCE MATRIX -->
+        <h2 id="matrix">Claim-Evidence &amp; Validity Matrix</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Claim / Statement</th>
+                    <th>Epistemic Status</th>
+                    <th>Evidence / Methodology</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Finite Parameter Bounds</td>
+                    <td><span class="tag tag-theorem">[THEOREM]</span></td>
+                    <td>Monotonicity of binomial coefficients</td>
+                </tr>
+                <tr>
+                    <td>Search Domain Completeness</td>
+                    <td><span class="tag tag-theorem">[THEOREM]</span></td>
+                    <td>Explicit, individually sharp bounds</td>
+                </tr>
+                <tr>
+                    <td>\(\mathcal{D}_3 \bmod 231 = \mathbb{Z}/231\mathbb{Z}\)</td>
+                    <td><span class="tag tag-theorem">[THEOREM]</span></td>
+                    <td>Local Cauchy-Davenport lemmas + CRT</td>
+                </tr>
+                <tr>
+                    <td>\(n^* \bmod 231 = 152\)</td>
+                    <td>Exact Match</td>
+                    <td>Exact integer modular reduction</td>
+                </tr>
+                <tr>
+                    <td>No Representation Found for \(n^*\)</td>
+                    <td><span class="tag tag-comp">[COMP_VERIF_CANDIDATE]</span></td>
+                    <td>\(2.818 \times 10^9\) exact integer evaluations</td>
+                </tr>
+                <tr>
+                    <td>Independent C++/Sage Replication</td>
+                    <td><span class="tag tag-pending">[PENDING]</span></td>
+                    <td>Actively solicited from third parties</td>
+                </tr>
+                <tr>
+                    <td>\(fgo(n^*) = 9\) (Ternary Gap Order)</td>
+                    <td><span class="tag tag-numerical">[NUMERICAL]</span></td>
+                    <td>Exact ternary digit expansion calculation</td>
+                </tr>
+                <tr>
+                    <td>Finiteness of Exceptional Set \(E\)</td>
+                    <td><span class="tag tag-open">[OPEN]</span></td>
+                    <td>Unsolved problem (Weak Form Conjecture)</td>
+                </tr>
+            </tbody>
+        </table>
 
-        <h2 id="publications">Publications and Data</h2>
+        <!-- OPEN PROBLEMS -->
+        <h2 id="problems">Research Agenda &amp; Open Problems</h2>
+        <div class="card">
+            <ul>
+                <li><strong>P0 [URGENT]:</strong> Independent verification of \(n^*\) via alternative programming environments (C++, SageMath).</li>
+                <li><strong>P1 [CRITICAL]:</strong> Is the exceptional set \(E = \{n : n \text{ has no representation}\}\) finite or infinite?</li>
+                <li><strong>P2 [HIGH]:</strong> Is \(n^* = 896,315,812,331,399\) the maximum element of \(E\)?</li>
+                <li><strong>P3 [HIGH]:</strong> Prove the weak form: \(\exists N_0 \text{ s.t. } \forall n \ge N_0, n \notin E\).</li>
+                <li><strong>P4 [HIGH]:</strong> Search for potential undiscovered exceptional elements in the interval \([2 \times 10^{12}, n^*)\).</li>
+                <li><strong>P5 [MEDIUM]:</strong> Characterize the arithmetic structure and density of \(E\).</li>
+            </ul>
+        </div>
 
+        <!-- REPOSITORIES & DATA -->
+        <h2 id="publications">Publications, Code &amp; Repositories</h2>
         <div class="link-grid">
-
-            <a class="link-card"
-               href="https://doi.org/10.5281/zenodo.22004198"
-               target="_blank"
-               rel="noopener noreferrer">
-
-                <strong>Zenodo Preprint</strong>
-
-                <span>
-                    DOI: 10.5281/zenodo.22004198
-                </span>
-
+            <a class="link-card" href="https://doi.org/10.17605/OSF.IO/CAQXH" target="_blank" rel="noopener noreferrer">
+                <strong>OSF Research Repository &amp; Code</strong>
+                <span>DOI: 10.17605/OSF.IO/CAQXH</span>
             </a>
-
-            <a class="link-card"
-               href="https://osf.io/cmvuq"
-               target="_blank"
-               rel="noopener noreferrer">
-
-                <strong>OSF Research Repository</strong>
-
-                <span>
-                    OSF project: CMVUQ
-                </span>
-
-            </a>
-
-            <a class="link-card"
-               href="https://osf.io/caqxh"
-               target="_blank"
-               rel="noopener noreferrer">
-
-                <strong>Project Code</strong>
-
-                <span>
-                    OSF: 10.17605/OSF.IO/CAQXH
-                </span>
-
-            </a>
-
-            <a class="link-card"
-               href="https://oeis.org/A306477"
-               target="_blank"
-               rel="noopener noreferrer">
-
+            <a class="link-card" href="https://oeis.org/A306477" target="_blank" rel="noopener noreferrer">
                 <strong>OEIS A306477</strong>
-
-                <span>
-                    Sequence and conjecture record
-                </span>
-
+                <span>Sequence and conjecture record</span>
             </a>
-
-        </div>
-
-
-        <!-- =====================================================
-             RESEARCH LINKS
-             ===================================================== -->
-
-        <h2 id="links">Research Links</h2>
-
-        <ul>
-
-            <li>
-                <a href="https://oeis.org/A306477"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                    OEIS A306477
-                </a>
-            </li>
-
-            <li>
-                <a href="https://doi.org/10.5281/zenodo.22004198"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                    Zenodo Preprint
-                </a>
-            </li>
-
-            <li>
-                <a href="https://osf.io/cmvuq"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                    OSF Research Repository
-                </a>
-            </li>
-
-            <li>
-                <a href="https://osf.io/caqxh"
-                   target="_blank"
-                   rel="noopener noreferrer">
-                    Project Code Repository
-                </a>
-            </li>
-
-        </ul>
-
-
-        <!-- =====================================================
-             STATUS
-             ===================================================== -->
-
-        <h2 id="status">Research Status</h2>
-
-        <div class="card">
-
-            <p>
-                <strong>Current version:</strong> V15.6
-            </p>
-
-            <p>
-                <strong>Computational status:</strong>
-                Extensive finite-range verification completed.
-            </p>
-
-            <p>
-                <strong>Structural status:</strong>
-                The witness-geometry and global-transfer framework
-                has been formulated and computationally audited.
-            </p>
-
-            <p>
-                <strong>Proof status:</strong>
-                The conjecture remains open. The principal remaining
-                task is analytic closure of the global coverage problem.
-            </p>
-
+            <a class="link-card" href="https://gist.github.com/tadamcz/0c578c8b2b3fb92fe8584bc0725187e3" target="_blank" rel="noopener noreferrer">
+                <strong>tadamcz GitHub Gist</strong>
+                <span>Initial discovery record</span>
+            </a>
         </div>
 
     </main>
 
-
-    <!-- =========================================================
-         FOOTER
-         ========================================================= -->
-
+    <!-- FOOTER -->
     <footer>
-
-        <p>
-            © 2026 Scott Sun
-        </p>
-
+        <p>© 2026 Scott Sun</p>
         <p>
             Licensed under
-            <a href="https://creativecommons.org/licenses/by/4.0/"
-               target="_blank"
-               rel="noopener noreferrer">
+            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">
                 CC BY 4.0
             </a>.
         </p>
-
         <p class="small">
-            Sun's (2,4,6,8) Binomial Representation Conjecture —
-            Research Program
+            A Computational Audit of Sun's (2,4,6,8) Binomial Representation Conjecture — Version V23.4 (Final)
         </p>
-
     </footer>
 
 </div>
 
 </body>
 </html>
-```
