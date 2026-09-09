@@ -94,6 +94,17 @@ The OEIS entry lists Scott Sun's research publications in its **LINKS** section,
 
 ---
 
+# 🌐 Formalization & Community Tracking
+
+The formal statement of Sun's (2,4,6,8) Binomial Representation Conjecture has been officially cataloged in the **Google DeepMind** formalization repository:
+
+- **Google DeepMind Issue**: [#1484 (OEIS A306477)](https://github.com/google-deepmind/formalising-mathematical-conjectures/issues/1484) — Proposal for formalization.
+- **Google DeepMind Pull Request**: [#1570 (`feat(OEIS/306477): the 2-4-6-8 Conjecture`)](https://github.com/google-deepmind/formalising-mathematical-conjectures/pull/1570) — Formal statement added to the conjecture repository.
+
+This entry provides a standard formalization reference for the conjecture within automated reasoning and formal verification frameworks.
+
+---
+
 # 📖 Primary V23.4 References
 
 **Scott Sun (2026).**  
