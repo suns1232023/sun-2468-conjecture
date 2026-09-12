@@ -93,15 +93,14 @@ The OEIS entry lists Scott Sun's research publications in its **LINKS** section,
 > Scott Sun, *Additive Representations by Mixed-Degree Binomial Coefficient Sequences: A Computational Investigation of Sun's (2,4,6,8) Conjecture*, ResearchGate (2026).
 
 ---
-
 # 🌐 Formalization & Community Tracking
 
-The formal statement of Sun's (2,4,6,8) Binomial Representation Conjecture has been officially cataloged in the **Google DeepMind** formalization repository:
+The formal statement of Sun's (2,4,6,8) Binomial Representation Conjecture has been cataloged in the **Google DeepMind Formal Conjectures** repository:
 
-- **Google DeepMind Issue**: [#1484 (OEIS A306477)](https://github.com/google-deepmind/formalising-mathematical-conjectures/issues/1484) — Proposal for formalization.
-- **Google DeepMind Pull Request**: [#1570 (`feat(OEIS/306477): the 2-4-6-8 Conjecture`)](https://github.com/google-deepmind/formalising-mathematical-conjectures/pull/1570) — Formal statement added to the conjecture repository.
+* **Google DeepMind Issue:** [#1484 (OEIS A306477)](https://github.com/google-deepmind/formal-conjectures/issues/1484) — Proposal for formalization.
+* **Google DeepMind Pull Request:** [#1570 (`feat(OEIS/306477): the 2-4-6-8 Conjecture`)](https://github.com/google-deepmind/formal-conjectures/pull/1570) — Formal statement added to the conjecture repository.
 
-This entry provides a standard formalization reference for the conjecture within automated reasoning and formal verification frameworks.
+The entry provides a formalization reference for the conjecture within Lean-based automated reasoning and formal verification frameworks.
 
 ---
 
