@@ -1,0 +1,52 @@
+name: CI & Audit Verification
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  python-test:
+    name: Run Python Unit Tests & Diagnostics
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install numpy
+
+    - name: Run Audit Unit Tests
+      run: |
+        python src/verify_n_star.py
+
+    - name: Run Cantor-Pascal Diagnostic
+      run: |
+        python src/cantor_diagnostic.py
+
+  lean-check:
+    name: Lean 4 File Format Check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Verify Lean File Presence & Header
+      run: |
+        if [ -f "lean/A306477.lean" ]; then
+          echo "Found lean/A306477.lean"
+          head -n 20 lean/A306477.lean
+        else
+          echo "Error: lean/A306477.lean not found!"
+          exit 1
+        fi
