@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this software or computational audit results, please cite it as below."
+authors:
+  - family-names: "Sun"
+    given-names: "Scott"
+    orcid: "https://orcid.org/0009-0002-1095-6228"
+title: "A Computational Audit of a Candidate Counterexample to Sun's (2,4,6,8) Conjecture: Exhaustive Verification and Cantor-Pascal Diagnostics"
+version: "v23.4"
+doi: "10.17605/OSF.IO/CAQXH"
+date-released: 2026-08-28
+repository-code: "https://github.com/suns1232023/sun-2468-conjecture"
+keywords:
+  - additive number theory
+  - binomial coefficients
+  - computational number theory
+  - experimental mathematics
+  - lean4
+  - OEIS A306477
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Sun"
+      given-names: "Scott"
+      orcid: "https://orcid.org/0009-0002-1095-6228"
+  title: "A Computational Audit of a Candidate Counterexample to Sun's (2,4,6,8) Conjecture: Exhaustive Verification and Cantor-Pascal Diagnostics"
+  year: 2026
+  doi: "10.17605/OSF.IO/CAQXH"
+  publisher: "OSF Preprints"
+  url: "https://doi.org/10.17605/OSF.IO/CAQXH"
