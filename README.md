@@ -5,8 +5,8 @@
 [![Zenodo V23.4 DOI](https://img.shields.io/badge/Zenodo-V23.4-0077B6)](https://doi.org/10.5281/zenodo.22139197)
 [![OSF Repository](https://img.shields.io/badge/OSF-CAQXH-blue)](https://osf.io/caqxh)
 [![ResearchGate](https://img.shields.io/badge/ResearchGate-Scott__Sun-00CCBB?logo=researchgate)](https://www.researchgate.net/profile/Scott-Sun)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Computational verification, structural analysis, and explicit counterexample certification framework for Sun's (2,4,6,8) Binomial Representation Conjecture.**
 
@@ -22,7 +22,7 @@ $$n = \binom{w}{2} + \binom{x}{4} + \binom{y}{6} + \binom{z}{8}$$
 
 where $w, x, y, z \ge 2$ are integers.
 
-This repository hosts the computational verification engine, exact integer parameter bounding proofs, modular residue diagnostic suite, and replication datasets under **Framework V23.4** (*Final Computational Audit & Candidate Certification Architecture*). 
+This repository hosts the computational verification engine, exact integer parameter bounding proofs, modular residue diagnostic suite, Lean 4 formalization, and replication datasets under **Framework V23.4** (*Final Computational Audit & Candidate Certification Architecture*). 
 
 The V23.4 framework transitions the project from early local defect geometry (V15.6) to an exhaustive computational audit of explicit candidate counterexamples lying beyond the prior $2 \times 10^{12}$ verification bound, paired with exact algebraic modulus surjectivity proofs.
 
@@ -93,6 +93,7 @@ The OEIS entry lists Scott Sun's research publications in its **LINKS** section,
 > Scott Sun, *Additive Representations by Mixed-Degree Binomial Coefficient Sequences: A Computational Investigation of Sun's (2,4,6,8) Conjecture*, ResearchGate (2026).
 
 ---
+
 # 🌐 Formalization & Community Tracking
 
 The formal statement of Sun's (2,4,6,8) Binomial Representation Conjecture has been cataloged in the **Google DeepMind Formal Conjectures** repository:
@@ -100,7 +101,7 @@ The formal statement of Sun's (2,4,6,8) Binomial Representation Conjecture has b
 * **Google DeepMind Issue:** [#1484 (OEIS A306477)](https://github.com/google-deepmind/formal-conjectures/issues/1484) — Proposal for formalization.
 * **Google DeepMind Pull Request:** [#1570 (`feat(OEIS/306477): the 2-4-6-8 Conjecture`)](https://github.com/google-deepmind/formal-conjectures/pull/1570) — Formal statement added to the conjecture repository.
 
-The entry provides a formalization reference for the conjecture within Lean-based automated reasoning and formal verification frameworks.
+This project's Lean 4 formalization file is maintained locally at [`lean/A306477.lean`](lean/A306477.lean).
 
 ---
 
@@ -122,8 +123,14 @@ To reproduce the candidate audit for $n^* = 896,315,812,331,399$:
 
 ```bash
 # Clone repository
-git clone [https://github.com/Scott-Sun/sun-2-4-6-8-conjecture.git](https://github.com/Scott-Sun/sun-2-4-6-8-conjecture.git)
-cd sun-2-4-6-8-conjecture
+git clone [https://github.com/suns1232023/sun-2468-conjecture.git](https://github.com/suns1232023/sun-2468-conjecture.git)
+cd sun-2468-conjecture
+
+# Install dependencies
+pip install numpy
 
 # Run exact integer computational verification pipeline
-python3 src/verification/verify_n_star.py
+python3 src/verify_n_star.py
+
+# Run Cantor-Pascal diagnostic analysis
+python3 src/cantor_diagnostic.py
