@@ -1,21 +1,26 @@
 cff-version: 1.2.0
-message: "If you use this software or computational audit results, please cite it as below."
+message: "If you use this computational suite, verification engine, or preprints, please cite them as below."
+type: dataset
+title: "Sun's (2,4,6,8) Binomial Representation Program: Computational Audit, Formalization, and Pre-Geometric Trajectory Analysis"
 authors:
   - family-names: "Sun"
     given-names: "Scott"
     orcid: "https://orcid.org/0009-0002-1095-6228"
-title: "A Computational Audit of a Candidate Counterexample to Sun's (2,4,6,8) Conjecture: Exhaustive Verification and Cantor-Pascal Diagnostics"
-version: "v23.4"
-doi: "10.17605/OSF.IO/CAQXH"
-date-released: 2026-08-28
+version: "v40.3"
+date-released: 2026-09-01
+doi: "10.5281/zenodo.21544303"
 repository-code: "https://github.com/suns1232023/sun-2468-conjecture"
+url: "https://doi.org/10.17605/OSF.IO/CAQXH"
 keywords:
   - additive number theory
   - binomial coefficients
   - computational number theory
   - experimental mathematics
-  - lean4
+  - lean 4 formalization
   - OEIS A306477
+license: Apache-2.0
+
+# 默认优先引用：OEIS A306477 LINKS 官方优选引用的奠基性文献 (V23.4)
 preferred-citation:
   type: article
   authors:
@@ -24,6 +29,49 @@ preferred-citation:
       orcid: "https://orcid.org/0009-0002-1095-6228"
   title: "A Computational Audit of a Candidate Counterexample to Sun's (2,4,6,8) Conjecture: Exhaustive Verification and Cantor-Pascal Diagnostics"
   year: 2026
+  month: 8
   doi: "10.17605/OSF.IO/CAQXH"
-  publisher: "OSF Preprints"
+  publisher: "OSF Preprints / Zenodo"
   url: "https://doi.org/10.17605/OSF.IO/CAQXH"
+  notes: "Referenced in OEIS A306477 LINKS."
+
+# 包含三篇独立/并列文献记录的完整学术参考文献树
+references:
+  - type: article
+    authors:
+      - family-names: "Sun"
+        given-names: "Scott"
+        orcid: "https://orcid.org/0009-0002-1095-6228"
+    title: "A Computational Audit of a Candidate Counterexample to Sun's (2,4,6,8) Conjecture: Exhaustive Verification and Cantor-Pascal Diagnostics"
+    year: 2026
+    month: 8
+    doi: "10.17605/OSF.IO/CAQXH"
+    publisher: "OSF Preprints / Zenodo"
+    version: "v23.4"
+    url: "https://doi.org/10.17605/OSF.IO/CAQXH"
+    notes: "Paper I: Candidate counterexample discovery (n* = 896,315,812,331,399) and initial Cantor-Pascal diagnostics. Cited in OEIS A306477."
+
+  - type: article
+    authors:
+      - family-names: "Sun"
+        given-names: "Scott"
+        orcid: "https://orcid.org/0009-0002-1095-6228"
+    title: "Sun's (2,4,6,8) Binomial Representation Program: Multi-Kernel Computational Verification, Modular Radar Audits, and Chunk-Level Lean 4 Formalization"
+    year: 2026
+    month: 9
+    doi: "10.5281/zenodo.21544303"
+    publisher: "Zenodo"
+    version: "v40.3"
+    url: "https://doi.org/10.5281/zenodo.21544303"
+    notes: "Paper II: Independent iteration with 12 computational verification kernels, modular constant corrections, and Lean 4 chunk-level kernel verification."
+
+  - type: article
+    authors:
+      - family-names: "Sun"
+        given-names: "Scott"
+        orcid: "https://orcid.org/0009-0002-1095-6228"
+    title: "Triangular Witness Trajectories, Gap-Cascade Bounds, and Structural Information Constraints in Binomial Representation Spaces"
+    year: 2026
+    publisher: "Zenodo / IFG-HTSIE Repository"
+    url: "https://zenodo.org/communities/ifg-htsie"
+    notes: "Paper III: Pre-geometric bounds, search domain completeness proofs (Theorem 3.1), and information-theoretic trajectory analysis."
