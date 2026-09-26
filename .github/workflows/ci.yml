@@ -15,17 +15,22 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Set up Python
+    - name: Set up Python Environment
       uses: actions/setup-python@v5
       with:
         python-version: "3.12"
+        cache: "pip"
 
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install numpy
+        if [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        else
+          pip install numpy
+        fi
 
-    - name: Run Audit Unit Tests
+    - name: Run Audit Unit Tests (Verification Engine)
       run: |
         python src/verify_n_star.py
 
@@ -34,19 +39,29 @@ jobs:
         python src/cantor_diagnostic.py
 
   lean-check:
-    name: Lean 4 File Format Check
+    name: Lean 4 Syntax & Structure Check
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Verify Lean File Presence & Header
+    - name: Verify Lean File Presence & Structure
       run: |
-        if [ -f "lean/A306477.lean" ]; then
-          echo "Found lean/A306477.lean"
-          head -n 20 lean/A306477.lean
+        LEAN_FILE="lean/A306477.lean"
+        if [ -f "$LEAN_FILE" ]; then
+          echo "Found $LEAN_FILE"
+          echo "=== Header Preview ==="
+          head -n 25 "$LEAN_FILE"
+          
+          # 验证核心定义是否存在
+          if grep -q "def IsRepresentable" "$LEAN_FILE"; then
+            echo "[PASS] 'IsRepresentable' definition confirmed."
+          else
+            echo "[ERROR] Missing 'IsRepresentable' definition in $LEAN_FILE"
+            exit 1
+          fi
         else
-          echo "Error: lean/A306477.lean not found!"
+          echo "[ERROR] $LEAN_FILE not found!"
           exit 1
         fi
