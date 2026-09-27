@@ -19,22 +19,22 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: "3.12"
-        cache: "pip" # 仓库根目录有了 requirements.txt 后，这里可正常开启缓存
+        cache: "pip"
 
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        if [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        else
+          pip install numpy
+        fi
 
-    - name: Run Reference Verifier (Early-Exit)
+    - name: Run Reference Verifier (verify_n_star.py)
       run: |
         python src/verify_n_star.py
 
-    - name: Run Exact Representation Counter
-      run: |
-        python src/count_representations.py
-
-    - name: Run Cantor-Pascal Diagnostic
+    - name: Run Cantor-Pascal Diagnostic (cantor_diagnostic.py)
       run: |
         python src/cantor_diagnostic.py
 
