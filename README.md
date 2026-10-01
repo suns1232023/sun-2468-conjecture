@@ -297,6 +297,7 @@ sun-2468-conjecture/
 ├── LICENSE                       # Apache 2.0
 ├── requirements.txt              # Python dependencies (numpy)
 └── README.md
+└── index.html    # GitHub Pages landing page (optional)
 ```
 
 > **Pending deposits (tracked as open tasks):**
