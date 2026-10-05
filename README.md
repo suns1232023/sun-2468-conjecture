@@ -12,10 +12,7 @@
 >
 > The conjecture recorded as OEIS A306477 has now been computationally refuted at
 >
-> \[
-> n^* = 896{,}315{,}812{,}331{,}399,
-> \qquad R(n^*)=0.
-> \]
+> $$> n^* = 896{,}315{,}812{,}331{,}399, > \quad R(n^*) = 0. >$$
 >
 > This repository provides the locally archived verification code, algebraic diagnostics, formalization scaffold, reproducibility records, and research documentation surrounding that result.
 >
@@ -33,59 +30,33 @@ Sun's (2,4,6,8) binomial representation problem is recorded as **OEIS A306477**.
 
 The canonical formulation is most conveniently written in shifted non-negative coordinates:
 
-\[
-\boxed{
-n=
-\binom{w+2}{2}
-+\binom{x+3}{4}
-+\binom{y+5}{6}
-+\binom{z+7}{8},
-\qquad
-w,x,y,z\ge0.
-}
-\]
+$$\boxed{ n = \binom{w+2}{2} +\binom{x+3}{4} +\binom{y+5}{6} +\binom{z+7}{8}, \quad w,x,y,z \ge 0. }$$
 
 Equivalently, using the original binomial indices,
 
-\[
-\boxed{
-n=
-\binom{W}{2}
-+\binom{X}{4}
-+\binom{Y}{6}
-+\binom{Z}{8},
-}
-\]
+$$\boxed{ n = \binom{W}{2} +\binom{X}{4} +\binom{Y}{6} +\binom{Z}{8}, }$$
 
 with
 
-\[
-W\ge2,\qquad X\ge3,\qquad Y\ge5,\qquad Z\ge7.
-\]
+$$W \ge 2, \quad X \ge 3, \quad Y \ge 5, \quad Z \ge 7.$$
 
 The zero-valued boundary terms
 
-\[
-\binom34=\binom56=\binom78=0
-\]
+$$\binom{3}{4} = \binom{5}{6} = \binom{7}{8} = 0$$
 
 are therefore part of the canonical representation problem.
 
-### Important definition correction
+### Important Definition Correction
 
 Earlier versions of this repository incorrectly stated
 
-\[
-X\ge4,\qquad Y\ge6,\qquad Z\ge8.
-\]
+$$X \ge 4, \quad Y \ge 6, \quad Z \ge 8.$$
 
 That restriction excludes valid zero-valued terms and defines a strictly smaller positive-term subproblem. It is **not** the canonical OEIS A306477 formulation.
 
-This distinction affects small-\(n\) tests and triple-count conventions, although it does not change the conclusion
+This distinction affects small-$n$ tests and triple-count conventions, although it does not change the conclusion
 
-\[
-R(n^*)=0.
-\]
+$$R(n^*) = 0.$$
 
 All current verification work should use the canonical shifted formulation.
 
@@ -97,65 +68,48 @@ The conjecture is now **refuted**.
 
 The reported counterexample is
 
-\[
-\boxed{
-n^*=896{,}315{,}812{,}331{,}399
-}
-\]
+$$\boxed{ n^* = 896{,}315{,}812{,}331{,}399 }$$
 
 with
 
-\[
-\boxed{
-R(n^*)=0.
-}
-\]
+$$\boxed{ R(n^*) = 0. }$$
 
 The computational search uses exact integer arithmetic and exhaustively covers the admissible parameter region implied by the algebraic bounds
 
-\[
-z\le281,\qquad
-y\le932,\qquad
-x\le12{,}112,\qquad
-W\le42{,}339{,}481.
-\]
+$$z \le 281, \quad y \le 932, \quad x \le 12{,}112, \quad W \le 42{,}339{,}481.$$
 
 The last bound follows from the positive root of
 
-\[
-\frac{W(W-1)}2=n^*,
-\]
+$$\frac{W(W-1)}{2} = n^*,$$
 
 whose floor is
 
-\[
-W_{\max}=42{,}339{,}481.
-\]
+$$W_{\max} = 42{,}339{,}481.$$
 
 The result has also been incorporated into the current external formalization record, where A306477 is listed as `research solved`.
 
-### Evidence boundary
+### Evidence Boundary
 
 The external Lean proof is available through the formalization ecosystem, but this repository has **not independently recompiled the complete external proof artifact**.
 
 Accordingly, the evidence should be distinguished as follows:
 
-- **Computationally verified:** the exhaustive search reported here.
-- **Externally formally verified:** the linked Lean formalization.
-- **Repository-local formalization:** currently a statement/scaffold rather than a complete end-to-end proof.
+* **Computationally verified:** the exhaustive search reported here.
+* **Externally formally verified:** the linked Lean formalization.
+* **Repository-local formalization:** currently a statement/scaffold rather than a complete end-to-end proof.
 
 ---
 
 ## 3. Evidence Status
 
 | Claim | Status | Evidence class |
-|---|---|---|
+| :--- | :--- | :--- |
 | Canonical A306477 definition | Confirmed | OEIS / formalization record |
-| \(n^*=896315812331399\) | Confirmed | Computational + external formalization |
-| \(R(n^*)=0\) | Confirmed | `[COMP_VERIF]` |
+| $n^* = 896315812331399$ | Confirmed | Computational + external formalization |
+| $R(n^*) = 0$ | Confirmed | `[COMP_VERIF]` |
 | Search parameter bounds | Proven algebraically | `[THEOREM]` |
-| \(R(n^*-1)=89\) | Computationally verified | `[COMP_VERIF]` |
-| \(R(n^*+1)=67\) | Computationally verified | `[COMP_VERIF]` |
+| $R(n^* - 1) = 89$ | Computationally verified | `[COMP_VERIF]` |
+| $R(n^* + 1) = 67$ | Computationally verified | `[COMP_VERIF]` |
 | External Lean refutation | Available externally | `[FORMAL_VERIF]` |
 | Repository-local end-to-end Lean proof | Not yet integrated | `[OPEN / REPRO]` |
 | Eisenstein-norm filtering structure | Strong structural inference | `[STRUCTURAL_INFERENCE]` |
@@ -167,10 +121,10 @@ Accordingly, the evidence should be distinguished as follows:
 
 ## 4. Epistemic Classification
 
-The repository uses the following evidence vocabulary.
+The repository uses the following evidence vocabulary:
 
 | Label | Meaning |
-|---|---|
+| :--- | :--- |
 | `[THEOREM]` | Rigorous mathematical proof |
 | `[FORMAL_VERIF]` | Machine-checked formal proof available |
 | `[COMP_VERIF]` | Exact computational verification |
@@ -182,87 +136,54 @@ A claim is not promoted from `[NUMERICAL]` or `[STRUCTURAL_INFERENCE]` to `[THEO
 
 ---
 
-# 5. Key Computational Result
+## 5. Key Computational Result
 
-## 5.1 The counterexample
+### 5.1 The Counterexample
 
-\[
-\boxed{
-n^*=896{,}315{,}812{,}331{,}399
-}
-\]
+$$\boxed{ n^* = 896{,}315{,}812{,}331{,}399 }$$
 
 and exhaustive verification gives
 
-\[
-\boxed{
-R(n^*)=0.
-}
-\]
+$$\boxed{ R(n^*) = 0. }$$
 
 The search bounds are
 
-\[
-z\le281,\qquad
-y\le932,\qquad
-x\le12{,}112,\qquad
-W\le42{,}339{,}481.
-\]
+$$z \le 281, \quad y \le 932, \quad x \le 12{,}112, \quad W \le 42{,}339{,}481.$$
 
 These bounds make the finite search region explicit.
 
 ---
 
-## 5.2 Neighbouring representation counts
+### 5.2 Neighbouring Representation Counts
 
 The neighbouring integers provide useful positive controls:
 
-\[
-\boxed{
-R(n^*-1)=89
-}
-\]
+$$\boxed{ R(n^* - 1) = 89 }$$
 
 and
 
-\[
-\boxed{
-R(n^*+1)=67.
-}
-\]
+$$\boxed{ R(n^* + 1) = 67. }$$
 
-Thus \(n^*\) is an isolated zero of the representation-count function within this immediate neighbourhood.
+Thus $n^*$ is an isolated zero of the representation-count function within this immediate neighbourhood.
 
 For example,
 
-\[
-\binom{33{,}663{,}667}{2}
-+\binom{9{,}433}{4}
-+\binom{16}{6}
-+\binom{9}{8}
-=n^*-1,
-\]
+$$\binom{33{,}663{,}667}{2} +\binom{9{,}433}{4} +\binom{16}{6} +\binom{9}{8} = n^* - 1,$$
 
 while
 
-\[
-\binom{40{,}920{,}205}{2}
-+\binom{6{,}138}{4}
-+\binom{22}{6}
-+\binom{13}{8}
-=n^*+1.
-\]
+$$\binom{40{,}920{,}205}{2} +\binom{6{,}138}{4} +\binom{22}{6} +\binom{13}{8} = n^* + 1.$$
 
 These are **witnesses**, not representation counts. The exact counts are 89 and 67 respectively.
 
 ---
 
-# 6. Triple-Count Reconciliation
+## 6. Triple-Count Reconciliation
 
 Three triple counts have appeared in the research record:
 
 | Count | Correct interpretation |
-|---:|---|
+| ---: | :--- |
 | **2,755,643,831** | Canonical shifted/non-negative convention; reference count |
 | **2,741,554,058** | Positive-term convention; all three higher binomial terms required to be non-zero |
 | **2,818,953,028** | Unshifted indexing with zero-valued terms counted with multiplicity |
@@ -273,87 +194,59 @@ The discrepancy is caused by different conventions for handling zero-valued bino
 
 In particular,
 
-\[
-2{,}755{,}643{,}831
-\]
+$$2{,}755{,}643{,}831$$
 
 is the canonical count to use when comparing against the OEIS / Lean formulation.
 
 The larger value
 
-\[
-2{,}818{,}953{,}028
-\]
+$$2{,}818{,}953{,}028$$
 
 should not be described as “more complete”. Its excess arises from repeated counting of zero-valued terms under a different indexing convention.
 
 The smaller value
 
-\[
-2{,}741{,}554{,}058
-\]
+$$2{,}741{,}554{,}058$$
 
 corresponds to the older positive-term implementation and therefore excludes valid zero-term boundary cases.
 
-### Audit status
+### Audit Status
 
-\[
-\boxed{\text{P5 CLOSED}}
-\]
+$$\boxed{\text{P5 CLOSED}}$$
 
 The former “triple-count discrepancy” was a **definition/convention issue**, not an unresolved algorithmic contradiction.
 
 ---
 
-# 7. Discriminant Framework
+## 7. Discriminant Framework
 
-For fixed \((X,Y,Z)\), define
+For fixed $(X,Y,Z)$, define
 
-\[
-D=
-8\left(
-n^*
--\binom X4
--\binom Y6
--\binom Z8
-\right)+1.
-\]
+$$D = 8\left( n^* -\binom{X}{4} -\binom{Y}{6} -\binom{Z}{8} \right) + 1.$$
 
 Since
 
-\[
-D\equiv1\pmod8,
-\]
+$$D \equiv 1 \pmod 8,$$
 
 and every odd square satisfies
 
-\[
-s^2\equiv1\pmod8,
-\]
+$$s^2 \equiv 1 \pmod 8,$$
 
 the discriminant defect
 
-\[
-\delta_D=D-s_0^2
-\]
+$$\delta_D = D - s_0^2$$
 
 satisfies
 
-\[
-\delta_D\equiv0\pmod8.
-\]
+$$\delta_D \equiv 0 \pmod 8.$$
 
 Therefore, whenever
 
-\[
-\delta_D\ne0,
-\]
+$$\delta_D \ne 0,$$
 
 we necessarily have
 
-\[
-|\delta_D|\ge8.
-\]
+$$\vert{}\delta_D\vert{} \ge 8.$$
 
 This observation is purely arithmetic.
 
@@ -361,111 +254,75 @@ It is **not an independent obstruction** to representation.
 
 Indeed,
 
-\[
-\delta_D=0
-\]
+$$\delta_D = 0$$
 
-is precisely the condition that the corresponding \(w\)-coordinate exists. Consequently, the statement
+is precisely the condition that the corresponding $w$-coordinate exists. Consequently, the statement
 
-\[
-\delta_D\ne0
-\]
+$$\delta_D \ne 0$$
 
 for all admissible triples is equivalent to
 
-\[
-R(n^*)=0.
-\]
+$$R(n^*) = 0.$$
 
 Thus the former P3 should not be treated as an independent open problem.
 
 Likewise, the numerical observation
 
-\[
-\delta_D^{\min}=8
-\]
+$$\delta_D^{\min} = 8$$
 
-is equivalent to the existence of at least one representation of \(n^*-1\) or \(n^*+1\). It provides useful geometric visualization, but no independent obstruction theorem.
+is equivalent to the existence of at least one representation of $n^*-1$ or $n^*+1$. It provides useful geometric visualization, but no independent obstruction theorem.
 
 ---
 
-# 8. Eisenstein-Norm Structure
+## 8. Eisenstein-Norm Structure
 
 A useful structural reduction follows from
 
-\[
-u=\frac{X(X-3)}2
-\]
+$$u = \frac{X(X-3)}{2}$$
 
 and the identity
 
-\[
-6\left(
-\binom W2+\binom X4
-\right)+1
-=
-Q(u+W,2W-1),
-\]
+$$ 6\left( \binom{W}{2} + \binom{X}{4} \right) + 1 = Q(u+W, 2W-1), $$
 
 where
 
-\[
-Q(a,b)=a^2-ab+b^2.
-\]
+$$Q(a,b) = a^2 - ab + b^2.$$
 
-The quadratic form
-
-\[
-Q(a,b)
-\]
-
-is the norm form of the Eisenstein integers.
+The quadratic form $Q(a,b)$ is the norm form of the Eisenstein integers.
 
 For primes
 
-\[
-p\equiv2\pmod3,
-\]
+$$p \equiv 2 \pmod 3,$$
 
 the prime remains inert in the Eisenstein integers. Consequently, if such a prime divides an Eisenstein norm, its exponent must be even.
 
 This explains the appearance of the prime filtering set
 
-\[
-PL=
-\{5,11,17,23,29,41,47,53,59,71,83,89,
-101,107,113,131,137,149,167,173,179,191,197\}.
-\]
+$$PL = \{5, 11, 17, 23, 29, 41, 47, 53, 59, 71, 83, 89, 101, 107, 113, 131, 137, 149, 167, 173, 179, 191, 197\}.$$
 
 All these primes satisfy
 
-\[
-p\equiv2\pmod3.
-\]
+$$p \equiv 2 \pmod 3.$$
 
-### Evidence status
+### Evidence Status
 
 The Eisenstein interpretation is a **structural mathematical inference** from the displayed identity and standard norm theory.
 
 It is therefore classified as
 
-\[
-\boxed{[\text{STRUCTURAL\_INFERENCE}]}
-\]
+$$\boxed{\text{STRUCTURAL\_INFERENCE}}$$
 
 rather than as a theorem extracted from the external Lean proof.
 
-### P2 status
+### P2 Status
 
-\[
-\boxed{\text{P2 CLOSED}}
-\]
+$$\boxed{\text{P2 CLOSED}}$$
 
-The former question “Why does the prime list consist of \(p\equiv2\pmod3\)?” is no longer an unexplained feature.
+The former question “Why does the prime list consist of $p \equiv 2 \pmod 3$?” is no longer an unexplained feature.
 
 ---
 
-# 9. Formalization Status
+## 9. Formalization Status
 
 The external formalization ecosystem currently records A306477 as `research solved`.
 
@@ -473,27 +330,21 @@ A Lean formalization is available through the external Formal Conjectures / Lean
 
 The repository should distinguish three different states:
 
-### External formal proof
+### External Formal Proof
 
-\[
-\boxed{\text{AVAILABLE}}
-\]
+$$\boxed{\text{AVAILABLE}}$$
 
 A machine-checked formal refutation exists externally.
 
-### Repository-local Lean statement
+### Repository-Local Lean Statement
 
-\[
-\boxed{\text{AVAILABLE}}
-\]
+$$\boxed{\text{AVAILABLE}}$$
 
 `lean/A306477.lean` contains the local formal statement/scaffold.
 
-### Repository-local end-to-end proof reproduction
+### Repository-Local End-to-End Proof Reproduction
 
-\[
-\boxed{\text{NOT YET INTEGRATED}}
-\]
+$$\boxed{\text{NOT YET INTEGRATED}}$$
 
 The full external certificate has not yet been independently recompiled and archived in this repository.
 
@@ -503,27 +354,25 @@ Therefore:
 
 ---
 
-# 10. Negative Search Evidence
+## 10. Negative Search Evidence
 
 Additional searches have not found a second counterexample in the following regions:
 
 | Region | Coverage | Result |
-|---|---|---|
-| \(n^*\pm50{,}000\) | Complete local enumeration | None |
-| \([10^{15},10^{15}+200{,}000]\) | Complete enumeration | None |
+| :--- | :--- | :--- |
+| $n^* \pm 50{,}000$ | Complete local enumeration | None |
+| $[10^{15}, 10^{15} + 200{,}000]$ | Complete enumeration | None |
 | Sparse structural regions | 5,030,500 evaluations | None |
 
-These results do **not** prove uniqueness of \(n^*\), nor do they exclude a second counterexample elsewhere.
+These results do **not** prove uniqueness of $n^*$, nor do they exclude a second counterexample elsewhere.
 
 Therefore:
 
-\[
-\boxed{\text{P1 remains OPEN}.}
-\]
+$$\boxed{\text{P1 remains OPEN}.}$$
 
 ---
 
-# 11. Corrected Constants
+## 11. Corrected Constants
 
 The following modular values have been independently checked:
 
@@ -537,13 +386,14 @@ assert N % 13 == 5
 assert N % 17 == 14
 assert N % 385 == 229
 assert N % 5005 == 4464
+
 ```
 
-Earlier incorrect values for \(N\bmod13\) and \(N\bmod5005\) have been removed.
+Earlier incorrect values for $N \bmod 13$ and $N \bmod 5005$ have been removed.
 
 ---
 
-# 12. Quick Verification
+## 12. Quick Verification
 
 The reference verifier must use the canonical shifted definition rather than silently imposing positive-term restrictions.
 
@@ -614,6 +464,7 @@ def has_representation(n):
                     return True
 
     return False
+
 ```
 
 For a production verifier, the repository implementation should use the tighter algebraic bounds rather than the deliberately simple ranges above.
@@ -628,6 +479,7 @@ assert has_representation(11)
 
 # Counterexample.
 assert not has_representation(N)
+
 ```
 
 The exact neighbouring counts should additionally be verified by the exhaustive counting implementation:
@@ -636,21 +488,22 @@ The exact neighbouring counts should additionally be verified by the exhaustive 
 R(N - 1) = 89
 R(N)     = 0
 R(N + 1) = 67
+
 ```
 
 ---
 
-# 13. Reproducibility Status
+## 13. Reproducibility Status
 
 | Research component | Repository status |
-|---|---|
+| --- | --- |
 | Canonical problem definition | ✅ Documented |
 | Reference verifier | ✅ Present |
 | Correct zero-term convention | 🔄 V40.5 correction |
 | Search bounds | ✅ Verified |
-| \(R(n^*)=0\) | ✅ Computationally verified |
-| \(R(n^*-1)=89\) | ✅ Verified |
-| \(R(n^*+1)=67\) | ✅ Verified |
+| $R(n^*) = 0$ | ✅ Computationally verified |
+| $R(n^* - 1) = 89$ | ✅ Verified |
+| $R(n^* + 1) = 67$ | ✅ Verified |
 | Triple-count reconciliation | ✅ Resolved |
 | Eisenstein interpretation | ✅ Structural analysis |
 | External Lean proof | ✅ Available externally |
@@ -661,7 +514,7 @@ R(N + 1) = 67
 
 ---
 
-# 14. Repository Structure
+## 14. Repository Structure
 
 ```text
 sun-2468-conjecture/
@@ -678,6 +531,7 @@ sun-2468-conjecture/
 ├── requirements.txt
 ├── README.md
 └── index.html
+
 ```
 
 The repository currently contains the locally archived reference implementation and supporting diagnostics.
@@ -686,13 +540,13 @@ Additional verification kernels, external Lean chunks, and extended search datas
 
 ---
 
-# 15. Open Research Questions
+## 15. Open Research Questions
 
 | ID | Question | Status |
-|---|---|---|
-| P0 | Can \(R(n^*)=0\) be explained analytically without exhaustive computation? | `[OPEN]` |
-| P1 | Does a second counterexample \(n^{**}>n^*\) exist? | `[OPEN]` |
-| P2 | Why does the Eisenstein filtering set consist of \(p\equiv2\pmod3\) primes? | **Closed — structural explanation** |
+| --- | --- | --- |
+| P0 | Can $R(n^*) = 0$ be explained analytically without exhaustive computation? | `[OPEN]` |
+| P1 | Does a second counterexample $n^{**} > n^*$ exist? | `[OPEN]` |
+| P2 | Why does the Eisenstein filtering set consist of $p \equiv 2 \pmod 3$ primes? | **Closed — structural explanation** |
 | P3 | Is there an independent meaning to the discriminant defect beyond the representation criterion? | `[OPEN]` |
 | P4 | Can the external Lean proof be independently reproduced and archived here? | `[REPRO]` |
 | P5 | Why did different implementations report different triple counts? | **Closed — convention mismatch** |
@@ -702,7 +556,7 @@ Additional verification kernels, external Lean chunks, and extended search datas
 
 ---
 
-# 16. Attribution and Research Position
+## 16. Attribution and Research Position
 
 The currently available public record indicates that the counterexample was first reported through the **OEIS Open research run** in 2026.
 
@@ -710,30 +564,30 @@ This repository therefore does not claim original discovery priority.
 
 Its role is instead:
 
-1. computational auditing;
-2. exact arithmetic verification;
-3. reproducibility engineering;
-4. structural analysis;
-5. formalization-oriented documentation;
-6. investigation of possible subsequent counterexamples.
+1. Computational auditing;
+2. Exact arithmetic verification;
+3. Reproducibility engineering;
+4. Structural analysis;
+5. Formalization-oriented documentation;
+6. Investigation of possible subsequent counterexamples.
 
 This distinction is important for maintaining a clear research record between **discovery**, **verification**, and **formalization**.
 
 ---
 
-# 17. Version History
+## 17. Version History
 
 | Version | Date | Description |
-|---|---|---|
-| **V40.5** | **Oct 2026** | Corrected canonical definition; repaired zero-term convention; reconciled triple counts; updated \(R(n^*\pm1)\); closed P2/P5; reframed P3; updated external Lean status and discovery attribution |
-| V40.4 | Oct 2026 | Reproducibility package; added explicit \(n^*+1\) witness and reproducibility-gap documentation |
+| --- | --- | --- |
+| **V40.5** | **Oct 2026** | Corrected canonical definition; repaired zero-term convention; reconciled triple counts; updated $R(n^* \pm 1)$; closed P2/P5; reframed P3; updated external Lean status and discovery attribution |
+| V40.4 | Oct 2026 | Reproducibility package; added explicit $n^*+1$ witness and reproducibility-gap documentation |
 | V40.3 | Sep 2026 | Preprint revision; corrected modular constants and computational documentation |
 | V23.4 | Aug 2026 | Archived predecessor; computational audit and Cantor-Pascal diagnostics |
 | V15.6 | 2026 | Local defect-geometry framework |
 
 ---
 
-# 18. References
+## 18. References
 
 1. Sun, Z.-W. (2019). MathOverflow Question 323541.
 2. Sun, Z.-W. (2019). *Conjectures on representations involving primes*. Combinatorial and Additive Number Theory III, Springer, Vol. 297.
@@ -751,20 +605,19 @@ This distinction is important for maintaining a clear research record between **
 
 ---
 
-# 19. License
+## 19. License
 
-- **Code:** Apache License 2.0
-- **Documentation and research text:** CC BY 4.0
+* **Code:** Apache License 2.0
+* **Documentation and research text:** CC BY 4.0
 
 ---
 
 ## Research Status
 
-\[
-\boxed{
-\text{A306477 is computationally refuted at }
-n^*=896{,}315{,}812{,}331{,}399.
-}
-\]
+$$\boxed{ \text{A306477 is computationally refuted at } n^* = 896{,}315{,}812{,}331{,}399. }$$
 
 The central remaining research question is no longer whether the conjecture fails, but **why this particular integer becomes an isolated zero of the representation-count function and whether further counterexamples exist**.
+
+```
+
+```
