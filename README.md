@@ -165,9 +165,14 @@ while
  
 $$\binom{40{,}920{,}205}{2} + \binom{6{,}138}{4} + \binom{22}{6} + \binom{13}{8} = n^* + 1.$$
  
-These equations are **witnesses**, not representation counts. The exact computational counts are:
- 
-$$R(n^*-1)=89, \qquad R(n^*+1)=67.$$
+
+These equations are **witnesses**, not representation counts.
+
+The exact computational counts are:
+
+$$
+R(n^* - 1) = 89, \qquad R(n^* + 1) = 67.
+$$
  
 ---
  
@@ -200,9 +205,11 @@ The former triple-count discrepancy is understood as a **definition/convention i
 ## 7. Discriminant Framework
  
 For fixed $(X,Y,Z)$, define
- 
-$$D = 8\left(n^* - \binom{X}{4} - \binom{Y}{6} - \binom{Z}{8}ight) + 1.$$
- 
+
+$$
+D = 8\left(n^* - \binom{X}{4} - \binom{Y}{6} - \binom{Z}{8}\right) + 1.
+$$
+
 Since $D \equiv 1 \pmod 8$ and every odd square satisfies $s^2 \equiv 1 \pmod 8$, the difference $\delta_D = D - s_0^2$ satisfies $\delta_D \equiv 0 \pmod 8$. Therefore, whenever $\delta_D 
 e 0$, we necessarily have $|\delta_D| \ge 8$.
  
@@ -223,10 +230,18 @@ This remains open.
  
 ## 8. Eisenstein-Norm Structure
  
-A useful structural reduction follows from $u=\frac{X(X-3)}{2}$ and the identity
- 
-$$6\left(\binom{W}{2} + \binom{X}{4}ight) + 1 = Q(u+W,\, 2W-1),$$
- 
+A useful structural reduction follows from 
+
+$$
+u = \frac{X(X-3)}{2}
+$$
+
+and the identity
+
+$$
+6\left(\binom{W}{2} + \binom{X}{4}\right) + 1 = Q(u+W, 2W-1),
+$$
+
 where $Q(a,b) = a^2 - ab + b^2$ is the norm form associated with the Eisenstein integers.
  
 For primes $p \equiv 2 \pmod 3$, the prime remains inert in the Eisenstein integers. Consequently, if such a prime divides an Eisenstein norm, its exponent in the norm factorization must be even. This gives a natural structural explanation for the appearance of primes satisfying $p \equiv 2 \pmod 3$ in the filtering procedure.
@@ -507,7 +522,12 @@ This distinction is important for maintaining a clear research record between:
  
 ## Research Status
  
-$$\boxed{	ext{A306477 is computationally refuted at } n^*=896{,}315{,}812{,}331{,}399.}$$
+A306477 is computationally refuted at 
+
+$$
+n^* = 896{,}315{,}812{,}331{,}399.
+$$
+
  
 The central remaining research questions are no longer whether the conjecture fails, but:
  
