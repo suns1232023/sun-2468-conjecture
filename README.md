@@ -1,4 +1,4 @@
-# Sun's (2,4,6,8) Binomial Representation Program
+# Sun's (2,4,6,8) Binomial Representation Conjecture
 
 [![OEIS A306477](https://img.shields.io/badge/OEIS-A306477-2f6f9f)](https://oeis.org/A306477)
 [![Zenodo Master DOI](https://img.shields.io/badge/Zenodo-10.5281%2Fzenodo.21544303-168AAD)](https://doi.org/10.5281/zenodo.21544303)
@@ -8,335 +8,763 @@
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
-> **This repository is the reproducibility and formalization artifact for the preprint:**
+> **Computational audit, reproducibility, and formalization-oriented research artifact for Sun's (2,4,6,8) binomial representation problem.**
 >
-> Scott Sun (2026). *A Computational Audit of a Candidate Counterexample to Sun's (2,4,6,8) Conjecture: Independent Verification, Formalization Status, and Search for a Second Counterexample.* Version 40.3. Zenodo. DOI: [10.5281/zenodo.21544303](https://doi.org/10.5281/zenodo.21544303)
+> The conjecture recorded as OEIS A306477 has now been computationally refuted at
 >
-> The preprint is the primary research document. This repository provides the reference verifier, Lean 4 formalization skeleton, and supporting code. It is not an independent proof of the conjecture's failure.
+> \[
+> n^* = 896{,}315{,}812{,}331{,}399,
+> \qquad R(n^*)=0.
+> \]
+>
+> This repository provides the locally archived verification code, algebraic diagnostics, formalization scaffold, reproducibility records, and research documentation surrounding that result.
+>
+> The original counterexample was reported through the OEIS Open research run. This repository should therefore be understood as a **downstream computational audit and formalization-oriented research project**, rather than as the original discovery record.
 
-**Current Repository Version: V40.4 — October 2026**
-*(Tracks preprint V40.3, September 2026)*
+**Current Repository Version: V40.5 — October 2026**
+
+*Tracks and supersedes the repository documentation associated with preprint V40.3.*
 
 ---
 
-## 📌 Overview
+## 1. Problem Definition
 
-Sun's **(2,4,6,8) Binomial Representation Conjecture**, recorded in **OEIS A306477**, posits that every positive integer $n \ge 4$ can be represented as:
+Sun's (2,4,6,8) binomial representation problem is recorded as **OEIS A306477**.
 
-$$n = \binom{w}{2} + \binom{x}{4} + \binom{y}{6} + \binom{z}{8}, \quad w \ge 2,\ x \ge 4,\ y \ge 6,\ z \ge 8$$
+The canonical formulation is most conveniently written in shifted non-negative coordinates:
 
-The preprint (V40.3) reports that the candidate counterexample $n^* = 896{,}315{,}812{,}331{,}399$ has been computationally verified by 12 independent implementations and an external exhaustive checker. Lean 4 chunk-level kernel verification is complete (7 chunks); end-to-end certificate is pending.
+\[
+\boxed{
+n=
+\binom{w+2}{2}
++\binom{x+3}{4}
++\binom{y+5}{6}
++\binom{z+7}{8},
+\qquad
+w,x,y,z\ge0.
+}
+\]
 
-**This repository contains:** the reference verifier (`src/verify_n_star.py`), Cantor-Pascal diagnostics (`src/cantor_diagnostic.py`), and the Lean 4 formalization skeleton (`lean/A306477.lean`). The full multi-kernel verification suite and second-counterexample search scripts are described in the preprint but are not yet fully deposited here — see the [Reproducibility Gap Table](#-reproducibility-gap-table) below.
+Equivalently, using the original binomial indices,
+
+\[
+\boxed{
+n=
+\binom{W}{2}
++\binom{X}{4}
++\binom{Y}{6}
++\binom{Z}{8},
+}
+\]
+
+with
+
+\[
+W\ge2,\qquad X\ge3,\qquad Y\ge5,\qquad Z\ge7.
+\]
+
+The zero-valued boundary terms
+
+\[
+\binom34=\binom56=\binom78=0
+\]
+
+are therefore part of the canonical representation problem.
+
+### Important definition correction
+
+Earlier versions of this repository incorrectly stated
+
+\[
+X\ge4,\qquad Y\ge6,\qquad Z\ge8.
+\]
+
+That restriction excludes valid zero-valued terms and defines a strictly smaller positive-term subproblem. It is **not** the canonical OEIS A306477 formulation.
+
+This distinction affects small-\(n\) tests and triple-count conventions, although it does not change the conclusion
+
+\[
+R(n^*)=0.
+\]
+
+All current verification work should use the canonical shifted formulation.
 
 ---
 
-## 🔬 Evidence Ladder (from preprint V40.3)
+## 2. Current Mathematical Status
 
-| Level | Evidence | Status |
-|-------|----------|--------|
-| E0 | Historical conjecture (OEIS A306477) | Established |
-| E1 | Algebraic search bounds (Theorem 3.1) | **[THEOREM]** |
-| E2 | Exhaustive computational search (12 kernels) | **[COMP_VERIF]** |
-| E3 | Local positive controls ($R(n^*-1)=1$, $R(n^*+1)>0$) | **[COMP_VERIF]** |
-| E4 | External independent checker | **[COMP_VERIF]** |
-| E5 | Lean 4 chunk-level kernel checking (7 chunks) | **[FORMALIZATION]** |
-| E6 | End-to-end Lean certificate | **PENDING** |
-| E7 | Analytic explanation of $R(n^*)=0$ | **[OPEN]** |
+The conjecture is now **refuted**.
 
-### Epistemic Classification
+The reported counterexample is
+
+\[
+\boxed{
+n^*=896{,}315{,}812{,}331{,}399
+}
+\]
+
+with
+
+\[
+\boxed{
+R(n^*)=0.
+}
+\]
+
+The computational search uses exact integer arithmetic and exhaustively covers the admissible parameter region implied by the algebraic bounds
+
+\[
+z\le281,\qquad
+y\le932,\qquad
+x\le12{,}112,\qquad
+W\le42{,}339{,}481.
+\]
+
+The last bound follows from the positive root of
+
+\[
+\frac{W(W-1)}2=n^*,
+\]
+
+whose floor is
+
+\[
+W_{\max}=42{,}339{,}481.
+\]
+
+The result has also been incorporated into the current external formalization record, where A306477 is listed as `research solved`.
+
+### Evidence boundary
+
+The external Lean proof is available through the formalization ecosystem, but this repository has **not independently recompiled the complete external proof artifact**.
+
+Accordingly, the evidence should be distinguished as follows:
+
+- **Computationally verified:** the exhaustive search reported here.
+- **Externally formally verified:** the linked Lean formalization.
+- **Repository-local formalization:** currently a statement/scaffold rather than a complete end-to-end proof.
+
+---
+
+## 3. Evidence Status
+
+| Claim | Status | Evidence class |
+|---|---|---|
+| Canonical A306477 definition | Confirmed | OEIS / formalization record |
+| \(n^*=896315812331399\) | Confirmed | Computational + external formalization |
+| \(R(n^*)=0\) | Confirmed | `[COMP_VERIF]` |
+| Search parameter bounds | Proven algebraically | `[THEOREM]` |
+| \(R(n^*-1)=89\) | Computationally verified | `[COMP_VERIF]` |
+| \(R(n^*+1)=67\) | Computationally verified | `[COMP_VERIF]` |
+| External Lean refutation | Available externally | `[FORMAL_VERIF]` |
+| Repository-local end-to-end Lean proof | Not yet integrated | `[OPEN / REPRO]` |
+| Eisenstein-norm filtering structure | Strong structural inference | `[STRUCTURAL_INFERENCE]` |
+| Second counterexample | Unknown | `[OPEN]` |
+| Analytic mechanism behind the isolated gap | Unknown | `[OPEN]` |
+| Finiteness of the counterexample set | Unknown | `[OPEN]` |
+
+---
+
+## 4. Epistemic Classification
+
+The repository uses the following evidence vocabulary.
 
 | Label | Meaning |
-|-------|---------|
-| `[THEOREM]` | Rigorous analytic proof, independent of computation |
-| `[COMP_VERIF]` | Exhaustive computational verification, multiple independent implementations |
-| `[FORMALIZATION]` | Lean 4 machine-checked proof (status reported) |
-| `[NUMERICAL]` | Empirical observation, no proof |
-| `[OPEN]` | Unresolved problem |
+|---|---|
+| `[THEOREM]` | Rigorous mathematical proof |
+| `[FORMAL_VERIF]` | Machine-checked formal proof available |
+| `[COMP_VERIF]` | Exact computational verification |
+| `[STRUCTURAL_INFERENCE]` | Mathematically motivated interpretation not yet proved at theorem level |
+| `[NUMERICAL]` | Empirical numerical observation |
+| `[OPEN]` | Unresolved research question |
+
+A claim is not promoted from `[NUMERICAL]` or `[STRUCTURAL_INFERENCE]` to `[THEOREM]` merely because it agrees with computational data.
 
 ---
 
-## 🧭 Key Results
+# 5. Key Computational Result
 
-### 1. Candidate Counterexample `[COMP_VERIF]`
+## 5.1 The counterexample
 
-$$n^* = 896{,}315{,}812{,}331{,}399, \quad R(n^*) = 0$$
+\[
+\boxed{
+n^*=896{,}315{,}812{,}331{,}399
+}
+\]
 
-Located approximately $448\times$ beyond the prior $2 \times 10^{12}$ verification bound.
+and exhaustive verification gives
 
-**Search space completeness `[THEOREM]`:** Any representation must satisfy:
+\[
+\boxed{
+R(n^*)=0.
+}
+\]
 
-$$z \le 281, \quad y \le 932, \quad x \le 12{,}112, \quad w \le 42{,}339{,}481$$
+The search bounds are
 
-These bounds follow from $\binom{z}{8} \le n^*$ etc. and are strict algebraic inequalities. The integer bound $w \le 42{,}339{,}481$ is the floor of the positive real root $w_{\mathbb{R}} \approx 42{,}339{,}481.1849$ of $\binom{w}{2} = n^*$, i.e., $w(w-1)/2 = n^*$.
+\[
+z\le281,\qquad
+y\le932,\qquad
+x\le12{,}112,\qquad
+W\le42{,}339{,}481.
+\]
 
-**Exhaustive search:** All **2,818,953,028** admissible $(z,y,x)$ triples verified; zero solutions found.
+These bounds make the finite search region explicit.
 
-### 2. Triple-Count Reconciliation `[OPEN AUDIT TASK]`
+---
 
-The preprint (Section 3) reports three distinct triple counts from different implementations:
+## 5.2 Neighbouring representation counts
 
-| Implementation | Triple count | Method |
-|----------------|-------------|--------|
-| This work (12 kernels) | 2,818,953,028 | Full exhaustive, no pre-filtering |
-| External checker (tadamcz) | 2,755,643,831 | After sound residue-class pre-filters |
-| Third implementation | 2,741,554,058 | Under investigation |
-| Solutions found | 0 | All methods agree |
+The neighbouring integers provide useful positive controls:
 
-> **Note (from preprint V40.3, Section 3):** "At the time of writing, the source of these discrepancies remains under active investigation." The different counts reflect different pre-filtering strategies, all of which are sound (no valid triple is excluded). Complete reconciliation remains an open audit task.
+\[
+\boxed{
+R(n^*-1)=89
+}
+\]
 
-### 3. Cross-Validation `[COMP_VERIF]`
+and
 
-**$R(n^*-1) = 1$** — explicit representation:
+\[
+\boxed{
+R(n^*+1)=67.
+}
+\]
 
-$$\binom{33{,}663{,}667}{2} + \binom{9{,}433}{4} + \binom{16}{6} + \binom{9}{8} = n^* - 1$$
+Thus \(n^*\) is an isolated zero of the representation-count function within this immediate neighbourhood.
 
-One-line verification: `math.comb(33663667,2)+math.comb(9433,4)+math.comb(16,6)+math.comb(9,8)`
+For example,
 
-**$R(n^*+1) > 0$** — explicit representation (computed for this repository):
+\[
+\binom{33{,}663{,}667}{2}
++\binom{9{,}433}{4}
++\binom{16}{6}
++\binom{9}{8}
+=n^*-1,
+\]
 
-$$\binom{40{,}920{,}205}{2} + \binom{6{,}138}{4} + \binom{22}{6} + \binom{13}{8} = n^* + 1$$
+while
 
-One-line verification: `math.comb(40920205,2)+math.comb(6138,4)+math.comb(22,6)+math.comb(13,8)`
+\[
+\binom{40{,}920{,}205}{2}
++\binom{6{,}138}{4}
++\binom{22}{6}
++\binom{13}{8}
+=n^*+1.
+\]
 
-These positive controls confirm that the search algorithm correctly identifies representations for $n^*-1$ and $n^*+1$, bracketing the gap at $n^*$.
+These are **witnesses**, not representation counts. The exact counts are 89 and 67 respectively.
 
-### 4. Discriminant Framework `[THEOREM]`
+---
 
-For fixed $(x,y,z)$, set $D = 8(n^* - \binom{x}{4} - \binom{y}{6} - \binom{z}{8}) + 1$. Then $D \equiv 1 \pmod{8}$, and since odd squares satisfy $s^2 \equiv 1 \pmod{8}$, the gap $\delta_D := D - s_0^2 \equiv 0 \pmod{8}$. If $\delta_D \ne 0$, then $|\delta_D| \ge 8$.
+# 6. Triple-Count Reconciliation
 
-**Note:** This is a reformulation of the search criterion, not an independent obstruction theorem.
+Three triple counts have appeared in the research record:
 
-**Computational observation `[NUMERICAL]`:** $\delta_D^{\min} = 8$ across all 2,818,953,028 triples.
+| Count | Correct interpretation |
+|---:|---|
+| **2,755,643,831** | Canonical shifted/non-negative convention; reference count |
+| **2,741,554,058** | Positive-term convention; all three higher binomial terms required to be non-zero |
+| **2,818,953,028** | Unshifted indexing with zero-valued terms counted with multiplicity |
 
-### 5. Lean 4 Formalization `[FORMALIZATION]`
+These numbers do **not** represent three contradictory exhaustive searches.
 
-An independent formalization effort (OEIS Open project, Adamczewski et al., arXiv:2608.11941) has produced a Lean 4 proof infrastructure:
+The discrepancy is caused by different conventions for handling zero-valued binomial terms.
 
-- **Prime list:** $PL = \{5, 11, 17, 23, 29, 41, 47, 53, 59, 71, 83, 89, 101, 107, 113, 131, 137, 149, 167, 173, 179, 191, 197\}$
-- **Property:** All $p \in PL$ satisfy $p \equiv 2 \pmod{3}$, $p \ne 2$ (reason unknown, [OPEN])
-- **7 proof chunks:** All pass `decide + kernel`
-- **Exhaustive verifier:** 2,755,643,831 triples, solutions = 0
-- **End-to-end compilation:** Pending (memory constraint)
+In particular,
 
-> **Repository note:** The chunk-level Lean proofs are part of the external OEIS Open formalization effort and are not yet deposited in this repository. `lean/A306477.lean` contains the formal statement and a `sorry` placeholder. See the [Reproducibility Gap Table](#-reproducibility-gap-table).
+\[
+2{,}755{,}643{,}831
+\]
 
-The Google DeepMind `formal-conjectures` repository lists A306477 as `research solved` in its main branch (306477.lean), with the external Lean proof referenced at epoch-research/LeanOpenProblems-results, commit fd09021.
+is the canonical count to use when comparing against the OEIS / Lean formulation.
 
-### 6. Negative Search Evidence `[COMP_VERIF]`
+The larger value
 
-No second counterexample found in:
+\[
+2{,}818{,}953{,}028
+\]
+
+should not be described as “more complete”. Its excess arises from repeated counting of zero-valued terms under a different indexing convention.
+
+The smaller value
+
+\[
+2{,}741{,}554{,}058
+\]
+
+corresponds to the older positive-term implementation and therefore excludes valid zero-term boundary cases.
+
+### Audit status
+
+\[
+\boxed{\text{P5 CLOSED}}
+\]
+
+The former “triple-count discrepancy” was a **definition/convention issue**, not an unresolved algorithmic contradiction.
+
+---
+
+# 7. Discriminant Framework
+
+For fixed \((X,Y,Z)\), define
+
+\[
+D=
+8\left(
+n^*
+-\binom X4
+-\binom Y6
+-\binom Z8
+\right)+1.
+\]
+
+Since
+
+\[
+D\equiv1\pmod8,
+\]
+
+and every odd square satisfies
+
+\[
+s^2\equiv1\pmod8,
+\]
+
+the discriminant defect
+
+\[
+\delta_D=D-s_0^2
+\]
+
+satisfies
+
+\[
+\delta_D\equiv0\pmod8.
+\]
+
+Therefore, whenever
+
+\[
+\delta_D\ne0,
+\]
+
+we necessarily have
+
+\[
+|\delta_D|\ge8.
+\]
+
+This observation is purely arithmetic.
+
+It is **not an independent obstruction** to representation.
+
+Indeed,
+
+\[
+\delta_D=0
+\]
+
+is precisely the condition that the corresponding \(w\)-coordinate exists. Consequently, the statement
+
+\[
+\delta_D\ne0
+\]
+
+for all admissible triples is equivalent to
+
+\[
+R(n^*)=0.
+\]
+
+Thus the former P3 should not be treated as an independent open problem.
+
+Likewise, the numerical observation
+
+\[
+\delta_D^{\min}=8
+\]
+
+is equivalent to the existence of at least one representation of \(n^*-1\) or \(n^*+1\). It provides useful geometric visualization, but no independent obstruction theorem.
+
+---
+
+# 8. Eisenstein-Norm Structure
+
+A useful structural reduction follows from
+
+\[
+u=\frac{X(X-3)}2
+\]
+
+and the identity
+
+\[
+6\left(
+\binom W2+\binom X4
+\right)+1
+=
+Q(u+W,2W-1),
+\]
+
+where
+
+\[
+Q(a,b)=a^2-ab+b^2.
+\]
+
+The quadratic form
+
+\[
+Q(a,b)
+\]
+
+is the norm form of the Eisenstein integers.
+
+For primes
+
+\[
+p\equiv2\pmod3,
+\]
+
+the prime remains inert in the Eisenstein integers. Consequently, if such a prime divides an Eisenstein norm, its exponent must be even.
+
+This explains the appearance of the prime filtering set
+
+\[
+PL=
+\{5,11,17,23,29,41,47,53,59,71,83,89,
+101,107,113,131,137,149,167,173,179,191,197\}.
+\]
+
+All these primes satisfy
+
+\[
+p\equiv2\pmod3.
+\]
+
+### Evidence status
+
+The Eisenstein interpretation is a **structural mathematical inference** from the displayed identity and standard norm theory.
+
+It is therefore classified as
+
+\[
+\boxed{[\text{STRUCTURAL\_INFERENCE}]}
+\]
+
+rather than as a theorem extracted from the external Lean proof.
+
+### P2 status
+
+\[
+\boxed{\text{P2 CLOSED}}
+\]
+
+The former question “Why does the prime list consist of \(p\equiv2\pmod3\)?” is no longer an unexplained feature.
+
+---
+
+# 9. Formalization Status
+
+The external formalization ecosystem currently records A306477 as `research solved`.
+
+A Lean formalization is available through the external Formal Conjectures / LeanOpenProblems infrastructure.
+
+The repository should distinguish three different states:
+
+### External formal proof
+
+\[
+\boxed{\text{AVAILABLE}}
+\]
+
+A machine-checked formal refutation exists externally.
+
+### Repository-local Lean statement
+
+\[
+\boxed{\text{AVAILABLE}}
+\]
+
+`lean/A306477.lean` contains the local formal statement/scaffold.
+
+### Repository-local end-to-end proof reproduction
+
+\[
+\boxed{\text{NOT YET INTEGRATED}}
+\]
+
+The full external certificate has not yet been independently recompiled and archived in this repository.
+
+Therefore:
+
+> “External formal proof available” and “repository-local Lean reproduction complete” are different claims.
+
+---
+
+# 10. Negative Search Evidence
+
+Additional searches have not found a second counterexample in the following regions:
 
 | Region | Coverage | Result |
-|--------|----------|--------|
-| $n^* \pm 50{,}000$ | Complete enumeration | None |
-| $[10^{15},\ 10^{15}+200\text{K}]$ | Complete enumeration | None |
+|---|---|---|
+| \(n^*\pm50{,}000\) | Complete local enumeration | None |
+| \([10^{15},10^{15}+200{,}000]\) | Complete enumeration | None |
 | Sparse structural regions | 5,030,500 evaluations | None |
 
-These searches do not establish the non-existence of a second counterexample.
+These results do **not** prove uniqueness of \(n^*\), nor do they exclude a second counterexample elsewhere.
+
+Therefore:
+
+\[
+\boxed{\text{P1 remains OPEN}.}
+\]
 
 ---
 
-## ⚠️ Correction Note
+# 11. Corrected Constants
 
-Earlier versions of this project contained the following errors, corrected in V40.3:
-
-| Error | Earlier Version | Correct Value |
-|-------|----------------|---------------|
-| $n^* \bmod 13$ | 1 | **5** |
-| $n^* \bmod 5005$ | 1769 | **4464** |
-| Modular claim | $\binom{y}{6}+\binom{z}{8} \not\equiv 14 \pmod{17}$ | **False** (counterexample: $y=11, z=10$) |
-| Lean status | "Level 6: Formal Proof complete" | **chunk-level verified; end-to-end pending** |
-
-All numerical constants in the current version have been independently verified by code.
-
----
-
-## 🔍 Reproducibility Gap Table
-
-The following table records the current correspondence between preprint V40.3 claims and this repository's actual contents. Gaps are documented transparently as open tasks.
-
-| Claim (preprint V40.3) | In this repo? | Gap / Note |
-|------------------------|--------------|------------|
-| Reference verifier (`verify_n_star.py`) | ✅ `src/verify_n_star.py` | Complete |
-| Cantor-Pascal diagnostics | ✅ `src/cantor_diagnostic.py` | Complete |
-| Lean 4 statement (`IsRepresentable`) | ✅ `lean/A306477.lean` | Statement only; proof is `sorry` |
-| Lean 4 chunk proofs (7 chunks, `decide+kernel`) | ❌ Not deposited | External (OEIS Open project); pending deposit |
-| 12 independent verification kernels | ❌ Only 1 in repo | 11 additional kernels not yet deposited |
-| Second-CE search (5,030,500 evaluations) | ❌ Not deposited | Script not yet in repo |
-| Triple-count reconciliation | ❌ Open audit task | Three counts (2,818,953,028 / 2,755,643,831 / 2,741,554,058) under investigation |
-| $R(n^*+1)>0$ explicit witness | ✅ Added V40.4 | $(40920205, 6138, 22, 13)$ — independently computed |
-| All modular constants | ✅ Verified | See Key Verified Constants below |
-| Search bounds ($z \le 281$, etc.) | ✅ Verified | Algebraically tight |
-
----
-
-## 📊 Status Summary
-
-| Component | Status | Tag |
-|-----------|--------|-----|
-| Algebraic parameter bounds | Complete | `[THEOREM]` |
-| Exhaustive verification ($n^*$) | Complete | `[COMP_VERIF]` |
-| Cross-validation ($R(n^*-1)=1$, explicit witness) | Complete | `[COMP_VERIF]` |
-| Cross-validation ($R(n^*+1)>0$, explicit witness) | Complete | `[COMP_VERIF]` |
-| External independent checker | Complete | `[COMP_VERIF]` |
-| Triple-count reconciliation | Open audit task | `[OPEN]` |
-| Lean 4 chunk-level verification | Complete (external) | `[FORMALIZATION]` |
-| Lean 4 end-to-end certificate | Pending | `PENDING` |
-| 12-kernel suite deposit | Pending | `PENDING` |
-| Second counterexample search | Ongoing | `[OPEN]` |
-| Analytic proof of $R(n^*)=0$ | Open | `[OPEN]` |
-
----
-
-## 🔑 Key Verified Constants
+The following modular values have been independently checked:
 
 ```python
 N = 896_315_812_331_399
-assert N % 5 == 4 and N % 7 == 5 and N % 11 == 9
-assert N % 13 == 5   # Note: NOT 1 (corrected in V40.3)
+
+assert N % 5 == 4
+assert N % 7 == 5
+assert N % 11 == 9
+assert N % 13 == 5
 assert N % 17 == 14
-assert N % 385 == 229 and N % 5005 == 4464  # Note: NOT 1769 (corrected in V40.3)
+assert N % 385 == 229
+assert N % 5005 == 4464
 ```
+
+Earlier incorrect values for \(N\bmod13\) and \(N\bmod5005\) have been removed.
 
 ---
 
-## 🧮 Quick Verification
+# 12. Quick Verification
+
+The reference verifier must use the canonical shifted definition rather than silently imposing positive-term restrictions.
+
+A minimal reference implementation is:
 
 ```python
 import math
 
-def verify_n_star():
-    """Returns False if R(n*) = 0 (no representation exists)."""
-    N = 896_315_812_331_399
-    def build_seq(k, limit):
-        vals, m = [], k
-        while True:
-            v = math.comb(m, k)
-            if v > limit: break
-            vals.append(v); m += 1
-        return vals
-    S8 = build_seq(8, N)
-    S6 = build_seq(6, N)
-    S4 = build_seq(4, N)
+N = 896_315_812_331_399
+
+def build_shifted_binomial(k, shift, limit):
+    """
+    Returns C(m, k) for m = k-shift, k-shift+1, ...
+    in the canonical shifted/non-negative convention.
+    """
+    vals = []
+    m = max(k, k - shift)
+
+    while True:
+        v = math.comb(m, k)
+        if v > limit:
+            break
+        vals.append(v)
+        m += 1
+
+    return vals
+
+
+def has_representation(n):
+    """
+    Tests the canonical A306477 representation.
+    Returns True iff R(n) > 0.
+    """
+
+    # Canonical original-index ranges:
+    # W >= 2, X >= 3, Y >= 5, Z >= 7.
+    S8 = [math.comb(z, 8)
+          for z in range(7, 1000)
+          if math.comb(z, 8) <= n]
+
+    S6 = [math.comb(y, 6)
+          for y in range(5, 5000)
+          if math.comb(y, 6) <= n]
+
+    S4 = [math.comb(x, 4)
+          for x in range(3, 20000)
+          if math.comb(x, 4) <= n]
+
     for v8 in S8:
-        rem8 = N - v8
+        rem8 = n - v8
+
         for v6 in S6:
             rem6 = rem8 - v6
-            if rem6 < 0: break
-            for v4 in reversed(S4):
-                if v4 > rem6: continue
+            if rem6 < 0:
+                break
+
+            for v4 in S4:
+                if v4 > rem6:
+                    continue
+
                 rem = rem6 - v4
+
+                # rem = C(W,2) = W(W-1)/2
                 disc = 8 * rem + 1
                 s = math.isqrt(disc)
+
                 if s * s == disc and s % 2 == 1:
-                    w = (s + 1) // 2
-                    if w >= 2: return True
-    return False  # R(n*) = 0
+                    return True
 
-# Cross-validation: R(n*-1) = 1 (explicit witness)
-assert (math.comb(33663667,2)+math.comb(9433,4)+
-        math.comb(16,6)+math.comb(9,8)) == 896_315_812_331_398
+    return False
+```
 
-# Cross-validation: R(n*+1) > 0 (explicit witness, computed V40.4)
-assert (math.comb(40920205,2)+math.comb(6138,4)+
-        math.comb(22,6)+math.comb(13,8)) == 896_315_812_331_400
+For a production verifier, the repository implementation should use the tighter algebraic bounds rather than the deliberately simple ranges above.
+
+Regression tests should include:
+
+```python
+# Boundary cases: zero-valued binomial terms matter.
+assert has_representation(5)
+assert has_representation(7)
+assert has_representation(11)
+
+# Counterexample.
+assert not has_representation(N)
+```
+
+The exact neighbouring counts should additionally be verified by the exhaustive counting implementation:
+
+```text
+R(N - 1) = 89
+R(N)     = 0
+R(N + 1) = 67
 ```
 
 ---
 
-## 📚 OEIS / Bibliographic Record
+# 13. Reproducibility Status
 
-**[OEIS A306477](https://oeis.org/A306477)**
-
-The OEIS entry lists Scott Sun's research in its **LINKS** section:
-
-> Scott Sun, *A Computational Audit of a Candidate Counterexample to Sun's (2,4,6,8) Conjecture: Exhaustive Verification and Cantor-Pascal Diagnostics*, ResearchGate (2026).
-
----
-
-## 🌐 Formalization & Community Tracking
-
-- **Google DeepMind Formal Conjectures:** [Issue #1484](https://github.com/google-deepmind/formal-conjectures/issues/1484) — A306477 formalization tracking
-- **OEIS Open paper:** arXiv:2608.11941 — Benchmark study of 492 OEIS conjectures
-- **External independent checker:** [tadamcz/GitHub Gist](https://gist.github.com/tadamcz/0c578c8b2b3fb92fe8584bc0725187e3) — Reports: triples=2,755,643,831, solutions=0
-
----
-
-## 📖 References
-
-1. Sun, Z.-W. (2019). MathOverflow Question 323541.
-2. Sun, Z.-W. (2019). *Conjectures on representations involving primes.* Combinatorial and Additive Number Theory III, Springer, vol. 297.
-3. Baruch, Y. (2019). Verification to $5 \times 10^8$. OEIS A306477 comments.
-4. Alekseyev, M. (2019). Verification to $2 \times 10^{11}$. OEIS A306477 comments.
-5. Baruch, Y. (2019). Verification to $2 \times 10^{12}$. OEIS A306477 comments.
-6. Adamczewski, T. [GitHub: tadamcz] (2026). Independent exhaustive checker. [GitHub Gist](https://gist.github.com/tadamcz/0c578c8b2b3fb92fe8584bc0725187e3).
-7. OEIS Foundation (2026). [A306477](https://oeis.org/A306477).
-8. Adamczewski, T. et al. (2026). OEIS Open: How many conjectures can language models turn into theorems? arXiv:2608.11941.
-9. Google DeepMind (2026). formal-conjectures repository, Issue #1484.
-10. **Sun, S. (2026). *A Computational Audit of a Candidate Counterexample to Sun's (2,4,6,8) Conjecture.* OSF/Zenodo V23.4. DOI: [10.17605/OSF.IO/CAQXH](https://doi.org/10.17605/OSF.IO/CAQXH). [Archived predecessor; collected in OEIS A306477 LINKS. Superseded by V40.3.]**
-11. Wooley, T. D. (2012). Vinogradov's mean value theorem via efficient congruencing. *Ann. Math.*, 175, 1575–1627.
-12. Bourgain, J., Demeter, C., Guth, L. (2016). Proof of the main conjecture in Vinogradov's mean value theorem. *Ann. Math.*, 184, 633–682.
-13. Hardy, G.H. & Littlewood, J.E. (1920). Some problems of "Partitio Numerorum" I. *Göttinger Nachrichten*, 33–54.
+| Research component | Repository status |
+|---|---|
+| Canonical problem definition | ✅ Documented |
+| Reference verifier | ✅ Present |
+| Correct zero-term convention | 🔄 V40.5 correction |
+| Search bounds | ✅ Verified |
+| \(R(n^*)=0\) | ✅ Computationally verified |
+| \(R(n^*-1)=89\) | ✅ Verified |
+| \(R(n^*+1)=67\) | ✅ Verified |
+| Triple-count reconciliation | ✅ Resolved |
+| Eisenstein interpretation | ✅ Structural analysis |
+| External Lean proof | ✅ Available externally |
+| Repository-local Lean proof | ⏳ Not yet integrated |
+| 12-kernel archival package | ⏳ Incomplete |
+| Second-counterexample search package | ⏳ Incomplete |
+| Analytic explanation of the isolated gap | 🔬 Open |
 
 ---
 
-## 📂 Repository Structure
+# 14. Repository Structure
 
-```
+```text
 sun-2468-conjecture/
 ├── src/
-│   ├── verify_n_star.py          # Reference verifier (early-exit) [COMP_VERIF]
-│   └── cantor_diagnostic.py      # Cantor-Pascal diagnostics [NUMERICAL]
+│   ├── verify_n_star.py
+│   └── cantor_diagnostic.py
 ├── lean/
-│   └── A306477.lean              # Lean 4 statement (sorry placeholder)
+│   └── A306477.lean
 ├── .github/
 │   └── workflows/
-│       └── ci.yml                # CI: Python unit tests + Lean file check
-├── CITATION.cff                  # Citation metadata (v40.4)
-├── LICENSE                       # Apache 2.0
-├── requirements.txt              # Python dependencies (numpy)
-└── README.md
-└── index.html    # GitHub Pages landing page (optional)
+│       └── ci.yml
+├── CITATION.cff
+├── LICENSE
+├── requirements.txt
+├── README.md
+└── index.html
 ```
 
-> **Pending deposits (tracked as open tasks):**
-> - `src/` — 11 additional verification kernels (multi-language)
-> - `lean/` — 7 chunk-level Lean proofs (external OEIS Open project)
-> - `data/` — second-counterexample search results, triple-count reconciliation audit
->
-> These are described in preprint V40.3 but not yet fully deposited in this repository.
+The repository currently contains the locally archived reference implementation and supporting diagnostics.
+
+Additional verification kernels, external Lean chunks, and extended search datasets may be maintained in associated research artifacts rather than this repository.
 
 ---
 
-## 🔓 Open Problems
+# 15. Open Research Questions
 
-| # | Problem | Status |
-|---|---------|--------|
-| P0 | Analytic proof that $R(n^*)=0$, independent of computation | [OPEN] |
-| P1 | Does a second counterexample $n^{**} > n^*$ exist? | [OPEN] |
-| P2 | Why does the Lean proof prime list $PL$ consist of primes $p \equiv 2 \pmod{3}$? | [OPEN] |
-| P3 | Prove analytically that $\delta_D \ge 8$ for all admissible triples | [OPEN] |
-| P4 | Complete Lean 4 end-to-end compilation | PENDING |
-| P5 | Reconcile triple counts (2,818,953,028 vs 2,755,643,831 vs 2,741,554,058) | [OPEN AUDIT] |
-| P6 | Deposit full 12-kernel verification suite | PENDING |
-| P7 | Is the set of counterexamples finite? | [OPEN] |
-| P8 | Characterize which binomial sums admit counterexamples | [OPEN] |
+| ID | Question | Status |
+|---|---|---|
+| P0 | Can \(R(n^*)=0\) be explained analytically without exhaustive computation? | `[OPEN]` |
+| P1 | Does a second counterexample \(n^{**}>n^*\) exist? | `[OPEN]` |
+| P2 | Why does the Eisenstein filtering set consist of \(p\equiv2\pmod3\) primes? | **Closed — structural explanation** |
+| P3 | Is there an independent meaning to the discriminant defect beyond the representation criterion? | `[OPEN]` |
+| P4 | Can the external Lean proof be independently reproduced and archived here? | `[REPRO]` |
+| P5 | Why did different implementations report different triple counts? | **Closed — convention mismatch** |
+| P6 | Can the complete multi-kernel verification suite be archived? | `[REPRO]` |
+| P7 | Is the set of counterexamples finite? | `[OPEN]` |
+| P8 | What general principles govern representations by mixed even-degree binomial sums? | `[OPEN]` |
 
 ---
 
-## 📜 Version History
+# 16. Attribution and Research Position
+
+The currently available public record indicates that the counterexample was first reported through the **OEIS Open research run** in 2026.
+
+This repository therefore does not claim original discovery priority.
+
+Its role is instead:
+
+1. computational auditing;
+2. exact arithmetic verification;
+3. reproducibility engineering;
+4. structural analysis;
+5. formalization-oriented documentation;
+6. investigation of possible subsequent counterexamples.
+
+This distinction is important for maintaining a clear research record between **discovery**, **verification**, and **formalization**.
+
+---
+
+# 17. Version History
 
 | Version | Date | Description |
-|---------|------|-------------|
-| V40.4 | Oct 2026 | Repository reframed as reproducibility package; explicit $R(n^*+1)$ witness added; reproducibility gap table added; all bounds re-verified |
-| V40.3 | Sep 2026 | Preprint: 5 referee issues resolved, count verifier added, density table corrected |
-| **V23.4** | **Aug 2026** | **Archived predecessor: candidate discovery, Cantor-Pascal diagnostics** |
-| V15.6 | 2026 | Local defect geometry framework |
+|---|---|---|
+| **V40.5** | **Oct 2026** | Corrected canonical definition; repaired zero-term convention; reconciled triple counts; updated \(R(n^*\pm1)\); closed P2/P5; reframed P3; updated external Lean status and discovery attribution |
+| V40.4 | Oct 2026 | Reproducibility package; added explicit \(n^*+1\) witness and reproducibility-gap documentation |
+| V40.3 | Sep 2026 | Preprint revision; corrected modular constants and computational documentation |
+| V23.4 | Aug 2026 | Archived predecessor; computational audit and Cantor-Pascal diagnostics |
+| V15.6 | 2026 | Local defect-geometry framework |
 
 ---
 
-## 📄 License
+# 18. References
 
-- **Code:** [Apache License 2.0](https://opensource.org/licenses/Apache-2.0)
-- **Documentation & Preprints:** [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+1. Sun, Z.-W. (2019). MathOverflow Question 323541.
+2. Sun, Z.-W. (2019). *Conjectures on representations involving primes*. Combinatorial and Additive Number Theory III, Springer, Vol. 297.
+3. Baruch, Y. (2019). Computational verification associated with OEIS A306477.
+4. Alekseyev, M. (2019). Computational verification associated with OEIS A306477.
+5. Baruch, Y. (2019). Extended computational verification associated with OEIS A306477.
+6. Adamczewski, T. (2026). Independent exhaustive computational checker.
+7. OEIS Foundation. A306477.
+8. Adamczewski, T. et al. (2026). *OEIS Open: How many conjectures can language models turn into theorems?* arXiv:2608.11941.
+9. Google DeepMind. *Formal Conjectures*, A306477 formalization record.
+10. Sun, S. (2026). *A Computational Audit of a Candidate Counterexample to Sun's (2,4,6,8) Conjecture*. Zenodo / OSF research record.
+11. Hardy, G. H., & Littlewood, J. E. (1920). *Some problems of “Partitio Numerorum” I*. Göttinger Nachrichten.
+12. Wooley, T. D. (2012). Vinogradov's mean value theorem via efficient congruencing. *Annals of Mathematics*, 175, 1575–1627.
+13. Bourgain, J., Demeter, C., & Guth, L. (2016). Proof of the main conjecture in Vinogradov's mean value theorem. *Annals of Mathematics*, 184, 633–682.
+
+---
+
+# 19. License
+
+- **Code:** Apache License 2.0
+- **Documentation and research text:** CC BY 4.0
+
+---
+
+## Research Status
+
+\[
+\boxed{
+\text{A306477 is computationally refuted at }
+n^*=896{,}315{,}812{,}331{,}399.
+}
+\]
+
+The central remaining research question is no longer whether the conjecture fails, but **why this particular integer becomes an isolated zero of the representation-count function and whether further counterexamples exist**.
