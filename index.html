@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -254,7 +255,7 @@
 
         <div class="hero">
             <p><strong>Author:</strong> Scott Sun (Independent Researcher)</p>
-            <p><strong>Current Active Release:</strong> V40.3 (September 2026)</p>
+            <p><strong>Current Active Release:</strong> V40.5 (October 2026)</p>
             <p><strong>Archived Predecessor:</strong> V23.4 (August 2026)</p>
             <p>
                 <strong>OSF Repository (Paper I):</strong>
@@ -295,22 +296,27 @@
             <p>
                 All mathematical claims in this node are strictly tagged:
                 <span class="tag tag-theorem">[THEOREM]</span> (analytic proof),
-                <span class="tag tag-comp">[COMP_VERIF]</span> (verified by 12 independent implementations & external verifiers),
+                <span class="tag tag-comp">[COMP_VERIF]</span> (verified by 12 independent implementations &amp; external verifiers),
                 <span class="tag tag-formal">[FORMALIZATION]</span> (Lean 4 kernel checked), and
                 <span class="tag tag-open">[OPEN]</span> (unresolved problem).
             </p>
             <p>
                 The candidate counterexample <strong>\(n^* = 896,315,812,331,399\)</strong> is officially classified as
-                <span class="tag tag-comp">[COMP_VERIF]</span> ($R(n^*) = 0$ independently replicated across 12 kernels).
+                <span class="tag tag-comp">[COMP_VERIF]</span> (\(R(n^*) = 0\) independently replicated across 12 kernels).
             </p>
         </div>
 
         <div class="notice-correction">
-            <strong>Correction Note (V40.3 Updates)</strong>
+            <strong>Correction Note (V40.5 Updates)</strong>
             <p>
-                As of V40.3, numerical constants have been independently re-verified:
-                \(n^* \bmod 13 = 5\) (previously misreported as 1) and \(n^* \bmod 5005 = 4464\) (previously 1769).
-                Lean 4 status is refined to chunk-level kernel verification (7 chunks pass `decide +kernel`).
+                As of V40.5, the canonical problem definition has been corrected: the original A306477 formulation
+                uses \(W \ge 2,\ X \ge 3,\ Y \ge 5,\ Z \ge 7\) (not \(X \ge 4,\ Y \ge 6,\ Z \ge 8\),
+                which excludes zero-valued boundary terms). Numerical constants have been independently
+                re-verified: \(n^* \bmod 13 = 5\) (previously misreported as 1) and
+                \(n^* \bmod 5005 = 4464\) (previously 1769). The triple-count discrepancy
+                (2,755,643,831 vs 2,818,953,028) is resolved as a convention difference, not a
+                computational contradiction. Lean 4 status is chunk-level kernel verification
+                (7 chunks pass <code>decide +kernel</code>).
             </p>
         </div>
     </header>
@@ -324,7 +330,15 @@
         </p>
 
         <div class="math-box">
-            \[n = \binom{w}{2} + \binom{x}{4} + \binom{y}{6} + \binom{z}{8}, \qquad (w \ge 2,\ x \ge 4,\ y \ge 6,\ z \ge 8)\]
+            \[n = \binom{W}{2} + \binom{X}{4} + \binom{Y}{6} + \binom{Z}{8}, \qquad (W \ge 2,\ X \ge 3,\ Y \ge 5,\ Z \ge 7)\]
+        </div>
+
+        <p>
+            Equivalently, in shifted non-negative coordinates \((w = W-2,\ x = X-3,\ y = Y-5,\ z = Z-7 \ge 0)\):
+        </p>
+
+        <div class="math-box">
+            \[n = \binom{w+2}{2} + \binom{x+3}{4} + \binom{y+5}{6} + \binom{z+7}{8}, \qquad w,x,y,z \ge 0\]
         </div>
 
         <p>
@@ -339,19 +353,24 @@
             <ul>
                 <li>
                     <span class="tag tag-theorem">[THEOREM]</span> <strong>Search Domain Completeness:</strong>
-                    Algebraic upper bounds for \(n^*\): \(z \le 281\), \(y \le 932\), \(x \le 12,112\), and \(w \le 42,339,481\).
+                    Algebraic upper bounds for \(n^*\): \(z \le 281\), \(y \le 932\), \(x \le 12,112\), and \(W \le 42,339,481\)
+                    (where \(W_{\max} = \lfloor 42{,}339{,}481.1849 \rfloor\) from \(\frac{W(W-1)}{2} = n^*\)).
                 </li>
                 <li>
                     <span class="tag tag-comp">[COMP_VERIF]</span> <strong>Multi-Kernel Exhaustive Audit:</strong>
-                    Evaluated all 2,818,953,028 admissible \((z,y,x)\) triples across 12 independent implementations. Solutions found: <strong>0</strong>.
+                    Evaluated all admissible \((z,y,x)\) triples across 12 independent implementations. Solutions found: <strong>0</strong>.
+                    (Reference count: 2,755,643,831 triples under the canonical shifted convention.)
                 </li>
                 <li>
                     <span class="tag tag-comp">[COMP_VERIF]</span> <strong>Local Positive Controls:</strong>
-                    Verified \(R(n^* - 1) = 1\) with exact solution \(\binom{33663667}{2} + \binom{9433}{4} + \binom{16}{6} + \binom{9}{8}\).
+                    Verified \(R(n^* - 1) = 89\) and \(R(n^* + 1) = 67\).
+                    One witness for \(n^*-1\): \(\binom{33663667}{2} + \binom{9433}{4} + \binom{16}{6} + \binom{9}{8}\).
+                    One witness for \(n^*+1\): \(\binom{40920205}{2} + \binom{6138}{4} + \binom{22}{6} + \binom{13}{8}\).
                 </li>
                 <li>
                     <span class="tag tag-formal">[FORMALIZATION]</span> <strong>Lean 4 Proof Infrastructure:</strong>
                     Chunk-level kernel verification (7 chunks) complete; end-to-end Lean certificate pending memory bounds.
+                    External formal refutation available via OEIS Open / LeanOpenProblems infrastructure.
                 </li>
             </ul>
         </div>
@@ -364,7 +383,7 @@
                 <span>Candidate Discovery &amp; Cantor-Pascal Diagnostics</span>
             </a>
             <a class="link-card" href="https://doi.org/10.5281/zenodo.21544303" target="_blank" rel="noopener noreferrer">
-                <strong>Paper II (V40.3 / Zenodo)</strong>
+                <strong>Paper II (V40.5 / Zenodo)</strong>
                 <span>Multi-Kernel Verification &amp; Lean 4 Audit</span>
             </a>
             <a class="link-card" href="https://oeis.org/A306477" target="_blank" rel="noopener noreferrer">
@@ -377,8 +396,8 @@
 
     <!-- FOOTER -->
     <footer>
-        <p>© 2026 Scott Sun. Released under CC BY 4.0 / Apache 2.0.</p>
-        <p>Sun's (2,4,6,8) Binomial Representation Program — Academic Data Node</p>
+        <p>&copy; 2026 Scott Sun. Released under CC BY 4.0 / Apache 2.0.</p>
+        <p>Sun's (2,4,6,8) Binomial Representation Program — Academic Data Node &middot; V40.5</p>
     </footer>
 
 </div>
