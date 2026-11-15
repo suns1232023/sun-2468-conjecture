@@ -179,7 +179,8 @@ These bounds make the finite computational search region explicit.
  
 The neighbouring integers provide useful positive controls:
  
-$$R(n^*-1) = 89 \qquad 	ext{and} \qquad R(n^*+1) = 67.$$
+
+$$R(n^* - 1) = 89 \qquad \text{and} \qquad R(n^* + 1) = 67.$$
  
 Thus $n^*$ is an **isolated zero** of the representation-count function within this immediate neighbourhood.
  
@@ -198,7 +199,7 @@ assert (math.comb(33663667,2) + math.comb(9433,4) +
  
 The exact computational counts are:
  
-$$R(n^*-1) = 89, \qquad R(n^*) = 0, \qquad R(n^*+1) = 67.$$
+$$R(n^* - 1) = 89 \quad \text{and} \quad R(n^* + 1) = 67$$
  
 > **Reproducibility note:** Full independent reproduction of these counts requires approximately several hours of CPU time per value at $n^*$ scale and has not been completed in the V48.1 revision. These values are reported from the original audit programs and are classified `[COMP_VERIF]` on the basis of those programs and the external checker [6]. This is explicitly noted as `[OPEN P7]`.
  
@@ -232,7 +233,8 @@ These numbers do **not** represent three contradictory exhaustive searches. The 
  
 For fixed $X, Y, Z$, define
  
-$$D = 8\!\left(n^* - \binom{X}{4} - \binom{Y}{6} - \binom{Z}{8}ight) + 1.$$
+
+$$D = 8\!\left(n^* - \binom{X}{4} - \binom{Y}{6} - \binom{Z}{8}\right) + 1.$$
  
 Since $D \equiv 1 \pmod{8}$ and every odd square satisfies $s^2 \equiv 1 \pmod{8}$, the difference $\delta_D = D - s_0^2$ satisfies $\delta_D \equiv 0 \pmod{8}$. Therefore, whenever $\delta_D 
 e 0$, we necessarily have $|\delta_D| \ge 8$.
@@ -258,7 +260,8 @@ This remains **open**.
  
 A useful structural reduction follows from the identity
  
-$$6\!\left[\binom{W}{2} + \binom{X}{4}ight] + 1 = Q(u + W,\; 2W - 1),$$
+
+$$6\!\left[\binom{W}{2} + \binom{X}{4}\right] + 1 = Q(u + W,\; 2W - 1),$$
  
 where $Q(a, b) = a^2 - ab + b^2$ is the norm form associated with the **Eisenstein integers** $\mathbb{Z}[\omega]$, $\omega = e^{2\pi i/3}$.
  
@@ -514,8 +517,7 @@ The repository contains the locally archived reference implementation and suppor
 | P7 | Can $R(n^*-1) = 89$, $R(n^*) = 0$, $R(n^*+1) = 67$ be independently reproduced? | `[OPEN]` — cost ~hours/value |
 | P8 | Is the set of counterexamples finite? | `[OPEN]` |
 | P9 | What general principles govern representations by mixed even-degree binomial sums? | `[OPEN]` |
-| P10 | Can the exception-set bound $\#\{n \le X : R(n) = 0\} \ll X^{23/24}$ be proved? | `[OPEN]` |
- 
+| P10 | Can the exception-set bound `#{n ≤ X : R(n) = 0} ≪ X^(23/24)` be proved? | `[OPEN]` |
 ---
  
 ## 17. Attribution and Research Position
