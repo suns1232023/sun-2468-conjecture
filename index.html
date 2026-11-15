@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Sun's (2,4,6,8) Binomial Representation Program — Academic Data Node & Telemetry</title>
+    <title>Sun's (2,4,6,8) Binomial Representation Program — Academic Data Node</title>
 
     <meta name="description"
-          content="Computational Verification, 12-Kernel Audit, Lean 4 Formalization, and Pre-Geometric Trajectory Analysis for Sun's (2,4,6,8) Binomial Representation Conjecture (OEIS A306477). Scott Sun (2026).">
+          content="Computational Audit, Reproducibility, and Formalization for Sun's (2,4,6,8) Binomial Representation Conjecture (OEIS A306477). Counterexample at n* = 896,315,812,331,399 confirmed. V48.1 — November 2026. Scott Sun.">
 
     <meta name="author" content="Scott Sun">
 
@@ -24,10 +24,7 @@
             }
         };
     </script>
-
-    <script async
-            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
-    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
     <style>
         :root {
@@ -46,13 +43,8 @@
             --purple: #8250df;
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
             margin: 0;
@@ -69,9 +61,7 @@
             padding: 40px 25px 60px;
         }
 
-        header {
-            margin-bottom: 35px;
-        }
+        header { margin-bottom: 35px; }
 
         h1 {
             font-size: 2.1rem;
@@ -89,19 +79,17 @@
             color: #1f2328;
         }
 
-        p {
-            margin: 12px 0;
+        h3 {
+            font-size: 1.15rem;
+            margin-top: 28px;
+            margin-bottom: 10px;
+            color: #1f2328;
         }
 
-        a {
-            color: var(--blue);
-            text-decoration: none;
-        }
+        p { margin: 12px 0; }
 
-        a:hover {
-            color: var(--blue-dark);
-            text-decoration: underline;
-        }
+        a { color: var(--blue); text-decoration: none; }
+        a:hover { color: var(--blue-dark); text-decoration: underline; }
 
         .hero {
             background: var(--lighter);
@@ -111,10 +99,7 @@
             padding: 25px;
             margin-top: 20px;
         }
-
-        .hero p {
-            margin: 6px 0;
-        }
+        .hero p { margin: 6px 0; }
 
         .badges {
             display: flex;
@@ -123,17 +108,8 @@
             margin-top: 20px;
             align-items: center;
         }
-
-        .badges a {
-            display: inline-block;
-            line-height: 0;
-        }
-
-        .badges img {
-            height: 24px;
-            width: auto;
-            display: block;
-        }
+        .badges a { display: inline-block; line-height: 0; }
+        .badges img { height: 24px; width: auto; display: block; }
 
         .notice-alert {
             background: var(--lighter);
@@ -146,6 +122,14 @@
         .notice-correction {
             background: #fff8c5;
             border-left: 4px solid #d4aa00;
+            border-radius: 6px;
+            padding: 18px 20px;
+            margin-top: 22px;
+        }
+
+        .notice-new {
+            background: #dafbe1;
+            border-left: 4px solid #1a7f37;
             border-radius: 6px;
             padding: 18px 20px;
             margin-top: 22px;
@@ -169,13 +153,8 @@
             overflow-x: auto;
         }
 
-        ul {
-            padding-left: 25px;
-        }
-
-        li {
-            margin: 8px 0;
-        }
+        ul { padding-left: 25px; }
+        li { margin: 8px 0; }
 
         table {
             width: 100%;
@@ -183,14 +162,12 @@
             margin: 20px 0;
             background: #ffffff;
         }
-
         th, td {
             border: 1px solid var(--border);
             padding: 11px 13px;
             text-align: left;
             vertical-align: top;
         }
-
         th {
             background: var(--light);
             font-weight: 600;
@@ -204,11 +181,11 @@
             font-weight: 600;
             font-family: monospace;
         }
-
-        .tag-theorem { background: #dafbe1; color: #1a7f37; }
-        .tag-comp { background: #fff8c5; color: #9a6700; }
-        .tag-formal { background: #ddf4ff; color: #0969da; }
-        .tag-open { background: #fcf0f8; color: #8250df; }
+        .tag-theorem  { background: #dafbe1; color: #1a7f37; }
+        .tag-comp     { background: #fff8c5; color: #9a6700; }
+        .tag-formal   { background: #ddf4ff; color: #0969da; }
+        .tag-open     { background: #fcf0f8; color: #8250df; }
+        .tag-heuristic{ background: #f0f0f0; color: #57606a; }
 
         .link-grid {
             display: grid;
@@ -216,7 +193,6 @@
             gap: 15px;
             margin-top: 20px;
         }
-
         .link-card {
             display: block;
             padding: 18px;
@@ -225,11 +201,20 @@
             border-radius: 8px;
             transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
-
         .link-card:hover {
             text-decoration: none;
             transform: translateY(-2px);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        .link-card strong { display: block; margin-bottom: 4px; }
+        .link-card span { font-size: 0.9rem; color: var(--muted); }
+
+        code {
+            background: #f0f0f0;
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 0.9em;
+            font-family: monospace;
         }
 
         footer {
@@ -244,163 +229,612 @@
 </head>
 
 <body>
-
 <div class="container">
 
-    <!-- HEADER -->
-    <header>
-        <h1>
-            Sun's (2,4,6,8) Binomial Representation Program
-        </h1>
+<!-- ═══════════════════════════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════════════════════════ -->
+<header>
+    <h1>Sun's (2,4,6,8) Binomial Representation Program</h1>
 
-        <div class="hero">
-            <p><strong>Author:</strong> Scott Sun (Independent Researcher)</p>
-            <p><strong>Current Active Release:</strong> V40.5 (October 2026)</p>
-            <p><strong>Archived Predecessor:</strong> V23.4 (August 2026)</p>
-            <p>
-                <strong>OSF Repository (Paper I):</strong>
-                <a href="https://doi.org/10.17605/OSF.IO/CAQXH" target="_blank" rel="noopener noreferrer">
-                    10.17605/OSF.IO/CAQXH
-                </a>
-            </p>
-            <p>
-                <strong>Zenodo Master DOI (Paper II):</strong>
-                <a href="https://doi.org/10.5281/zenodo.21544303" target="_blank" rel="noopener noreferrer">
-                    10.5281/zenodo.21544303
-                </a>
-            </p>
-            <p>
-                <strong>OEIS Anchor:</strong>
-                <a href="https://oeis.org/A306477" target="_blank" rel="noopener noreferrer">
-                    OEIS A306477
-                </a>
-            </p>
-
-            <div class="badges">
-                <a href="https://doi.org/10.5281/zenodo.21544303" target="_blank" rel="noopener noreferrer">
-                    <img src="https://img.shields.io/badge/Zenodo-10.5281%2Fzenodo.21544303-blue" alt="Zenodo DOI">
-                </a>
-                <a href="https://doi.org/10.17605/OSF.IO/CAQXH" target="_blank" rel="noopener noreferrer">
-                    <img src="https://img.shields.io/badge/OSF-10.17605%2FOSF.IO%2FCAQXH-navy" alt="OSF DOI">
-                </a>
-                <a href="https://oeis.org/A306477" target="_blank" rel="noopener noreferrer">
-                    <img src="https://img.shields.io/badge/OEIS-A306477-green" alt="OEIS A306477">
-                </a>
-                <img src="https://img.shields.io/badge/Status-COMP__VERIF-brightgreen" alt="COMP_VERIF">
-                <img src="https://img.shields.io/badge/Lean_4-Chunk__Verified-blue" alt="Lean 4">
-            </div>
-        </div>
-
-        <div class="notice-alert">
-            <strong>Epistemic Framework (Five-Tier Classification System)</strong>
-            <p>
-                All mathematical claims in this node are strictly tagged:
-                <span class="tag tag-theorem">[THEOREM]</span> (analytic proof),
-                <span class="tag tag-comp">[COMP_VERIF]</span> (verified by 12 independent implementations &amp; external verifiers),
-                <span class="tag tag-formal">[FORMALIZATION]</span> (Lean 4 kernel checked), and
-                <span class="tag tag-open">[OPEN]</span> (unresolved problem).
-            </p>
-            <p>
-                The candidate counterexample <strong>\(n^* = 896,315,812,331,399\)</strong> is officially classified as
-                <span class="tag tag-comp">[COMP_VERIF]</span> (\(R(n^*) = 0\) independently replicated across 12 kernels).
-            </p>
-        </div>
-
-        <div class="notice-correction">
-            <strong>Correction Note (V40.5 Updates)</strong>
-            <p>
-                As of V40.5, the canonical problem definition has been corrected: the original A306477 formulation
-                uses \(W \ge 2,\ X \ge 3,\ Y \ge 5,\ Z \ge 7\) (not \(X \ge 4,\ Y \ge 6,\ Z \ge 8\),
-                which excludes zero-valued boundary terms). Numerical constants have been independently
-                re-verified: \(n^* \bmod 13 = 5\) (previously misreported as 1) and
-                \(n^* \bmod 5005 = 4464\) (previously 1769). The triple-count discrepancy
-                (2,755,643,831 vs 2,818,953,028) is resolved as a convention difference, not a
-                computational contradiction. Lean 4 status is chunk-level kernel verification
-                (7 chunks pass <code>decide +kernel</code>).
-            </p>
-        </div>
-    </header>
-
-    <!-- MAIN CONTENT -->
-    <main>
-
-        <h2 id="conjecture">1. Background &amp; Counterexample Result</h2>
+    <div class="hero">
+        <p><strong>Author:</strong> Scott Sun (Independent Researcher) &nbsp;|&nbsp; ORCID: 0009-0002-1095-6228</p>
+        <p><strong>Current Active Release:</strong> V48.1 (November 2026)</p>
+        <p><strong>Repository Version:</strong> V40.5 (October 2026)</p>
+        <p><strong>Archived Predecessors:</strong> V40.2 (Zenodo 22970514) &nbsp;|&nbsp; V23.4 (August 2026)</p>
         <p>
-            Sun's (2,4,6,8) Binomial Representation Conjecture posits that every positive integer \(n \ge 4\) can be represented as:
+            <strong>OSF Project DOI:</strong>
+            <a href="https://doi.org/10.17605/OSF.IO/CAQXH" target="_blank" rel="noopener noreferrer">
+                10.17605/OSF.IO/CAQXH
+            </a>
+        </p>
+        <p>
+            <strong>Zenodo (V40.2):</strong>
+            <a href="https://doi.org/10.5281/zenodo.22970514" target="_blank" rel="noopener noreferrer">
+                10.5281/zenodo.22970514
+            </a>
+            &nbsp;|&nbsp;
+            <strong>Zenodo (V23.4):</strong>
+            <a href="https://doi.org/10.5281/zenodo.22139197" target="_blank" rel="noopener noreferrer">
+                10.5281/zenodo.22139197
+            </a>
+        </p>
+        <p>
+            <strong>OEIS Anchor:</strong>
+            <a href="https://oeis.org/A306477" target="_blank" rel="noopener noreferrer">OEIS A306477</a>
+            &nbsp;|&nbsp;
+            <strong>GitHub:</strong>
+            <a href="https://github.com/suns1232023/sun-2468-conjecture" target="_blank" rel="noopener noreferrer">
+                suns1232023/sun-2468-conjecture
+            </a>
         </p>
 
-        <div class="math-box">
-            \[n = \binom{W}{2} + \binom{X}{4} + \binom{Y}{6} + \binom{Z}{8}, \qquad (W \ge 2,\ X \ge 3,\ Y \ge 5,\ Z \ge 7)\]
+        <div class="badges">
+            <a href="https://doi.org/10.17605/OSF.IO/CAQXH" target="_blank" rel="noopener noreferrer">
+                <img src="https://img.shields.io/badge/OSF-10.17605%2FOSF.IO%2FCAQXH-navy" alt="OSF DOI">
+            </a>
+            <a href="https://doi.org/10.5281/zenodo.22970514" target="_blank" rel="noopener noreferrer">
+                <img src="https://img.shields.io/badge/Zenodo-V40.2-blue" alt="Zenodo V40.2">
+            </a>
+            <a href="https://oeis.org/A306477" target="_blank" rel="noopener noreferrer">
+                <img src="https://img.shields.io/badge/OEIS-A306477-green" alt="OEIS A306477">
+            </a>
+            <img src="https://img.shields.io/badge/Status-REFUTED-red" alt="Refuted">
+            <img src="https://img.shields.io/badge/R(n*)=0-COMP__VERIF-brightgreen" alt="COMP_VERIF">
+            <img src="https://img.shields.io/badge/Lean_4-Chunk__Verified-blue" alt="Lean 4 Chunk Verified">
+            <img src="https://img.shields.io/badge/Preprint-V48.1-orange" alt="Preprint V48.1">
         </div>
+    </div>
 
+    <!-- Epistemic Framework -->
+    <div class="notice-alert">
+        <strong>Epistemic Framework — Six-Tier Classification</strong>
         <p>
-            Equivalently, in shifted non-negative coordinates \((w = W-2,\ x = X-3,\ y = Y-5,\ z = Z-7 \ge 0)\):
+            All mathematical claims are strictly tagged:
+            <span class="tag tag-theorem">[THEOREM]</span> (rigorous analytic proof) &nbsp;
+            <span class="tag tag-comp">[COMP_VERIF]</span> (exact finite computation, independently reproduced) &nbsp;
+            <span class="tag tag-formal">[FORMALIZATION]</span> (Lean 4 kernel-checked) &nbsp;
+            <span class="tag tag-heuristic">[HEURISTIC]</span> (qualitative argument, no formal proof) &nbsp;
+            <span class="tag tag-open">[OPEN]</span> (unresolved research question)
         </p>
-
-        <div class="math-box">
-            \[n = \binom{w+2}{2} + \binom{x+3}{4} + \binom{y+5}{6} + \binom{z+7}{8}, \qquad w,x,y,z \ge 0\]
-        </div>
-
         <p>
-            The candidate counterexample lies at:
-            \[n^* = 896,315,812,331,399 \approx 8.963 \times 10^{14}\]
-            which is located approximately \(448.2\times\) beyond the prior \(2 \times 10^{12}\) verification limit.
+            The counterexample <strong>\(n^* = 896{,}315{,}812{,}331{,}399\)</strong> is classified
+            <span class="tag tag-comp">[COMP_VERIF]</span>: \(R(n^*) = 0\) confirmed by multiple
+            independent implementations and an external exhaustive checker.
+            The conjecture is <strong>computationally refuted</strong>.
         </p>
+    </div>
 
-        <!-- MAIN CONTRIBUTIONS -->
-        <h2 id="contributions">Evidence &amp; Verification Ladder</h2>
-        <div class="card">
-            <ul>
-                <li>
-                    <span class="tag tag-theorem">[THEOREM]</span> <strong>Search Domain Completeness:</strong>
-                    Algebraic upper bounds for \(n^*\): \(z \le 281\), \(y \le 932\), \(x \le 12,112\), and \(W \le 42,339,481\)
-                    (where \(W_{\max} = \lfloor 42{,}339{,}481.1849 \rfloor\) from \(\frac{W(W-1)}{2} = n^*\)).
-                </li>
-                <li>
-                    <span class="tag tag-comp">[COMP_VERIF]</span> <strong>Multi-Kernel Exhaustive Audit:</strong>
-                    Evaluated all admissible \((z,y,x)\) triples across 12 independent implementations. Solutions found: <strong>0</strong>.
-                    (Reference count: 2,755,643,831 triples under the canonical shifted convention.)
-                </li>
-                <li>
-                    <span class="tag tag-comp">[COMP_VERIF]</span> <strong>Local Positive Controls:</strong>
-                    Verified \(R(n^* - 1) = 89\) and \(R(n^* + 1) = 67\).
-                    One witness for \(n^*-1\): \(\binom{33663667}{2} + \binom{9433}{4} + \binom{16}{6} + \binom{9}{8}\).
-                    One witness for \(n^*+1\): \(\binom{40920205}{2} + \binom{6138}{4} + \binom{22}{6} + \binom{13}{8}\).
-                </li>
-                <li>
-                    <span class="tag tag-formal">[FORMALIZATION]</span> <strong>Lean 4 Proof Infrastructure:</strong>
-                    Chunk-level kernel verification (7 chunks) complete; end-to-end Lean certificate pending memory bounds.
-                    External formal refutation available via OEIS Open / LeanOpenProblems infrastructure.
-                </li>
-            </ul>
-        </div>
+    <!-- V48.1 Key Correction -->
+    <div class="notice-new">
+        <strong>V48.1 Key Correction (November 2026)</strong>
+        <p>
+            The A306462 sibling-conjecture main-term exponent has been corrected from the erroneous
+            value 0.30 (V47 Figure 1 caption) to the exact value
+            <strong>\(17/60 = 0.2833\ldots\)</strong>
+            (from exponent sum \(77/60 - 1 = 17/60\)).
+            All other results are unchanged.
+            Additionally: FFT-based counting is now correctly described as a
+            <em>numerical cross-check</em>, not an exact integer certificate;
+            the description of independent verification has been corrected to note
+            that all implementations share the same discriminant reduction core.
+        </p>
+    </div>
 
-        <!-- REPOSITORIES & DATA -->
-        <h2 id="publications">Academic Publications &amp; Repositories</h2>
-        <div class="link-grid">
-            <a class="link-card" href="https://doi.org/10.17605/OSF.IO/CAQXH" target="_blank" rel="noopener noreferrer">
-                <strong>Paper I (V23.4 / OSF)</strong>
-                <span>Candidate Discovery &amp; Cantor-Pascal Diagnostics</span>
-            </a>
-            <a class="link-card" href="https://doi.org/10.5281/zenodo.21544303" target="_blank" rel="noopener noreferrer">
-                <strong>Paper II (V40.5 / Zenodo)</strong>
-                <span>Multi-Kernel Verification &amp; Lean 4 Audit</span>
-            </a>
-            <a class="link-card" href="https://oeis.org/A306477" target="_blank" rel="noopener noreferrer">
-                <strong>OEIS A306477</strong>
-                <span>Official OEIS Citation &amp; Link Record</span>
-            </a>
-        </div>
+    <!-- Cumulative Corrections -->
+    <div class="notice-correction">
+        <strong>Cumulative Correction Record (V23.4 → V48.1)</strong>
+        <p>
+            <strong>C1</strong> Domain: canonical A306477 uses \(W \ge 2,\ X \ge 3,\ Y \ge 5,\ Z \ge 7\)
+            (not \(X \ge 4,\ Y \ge 6,\ Z \ge 8\), which excludes zero-valued boundary terms). &nbsp;
+            <strong>C2</strong> \(R(n^*-1) = 89\) (V40.2 early-exit error reported 1). &nbsp;
+            <strong>C3</strong> Triple-count difference (63,309,197) is domain size, not pre-filtering. &nbsp;
+            <strong>C4</strong> \(\rho_{\min} \approx 4.89 \times 10^{-8}\) at \((X,Y,Z)=(6138,22,13)\)
+            (V40.2 reported \(5.94 \times 10^{-8}\)). &nbsp;
+            <strong>C5</strong> Zenodo DOI for V40.2: 10.5281/zenodo.22970514. &nbsp;
+            <strong>C6</strong> Lean status: chunk-level kernel-checked; end-to-end pending
+            (<code>sorry</code> declarations remain). &nbsp;
+            <strong>C7</strong> V23.4 modular claim \(C(y,6)+C(z,8) \not\equiv 14 \pmod{17}\) is false
+            (counterexample: \(y=11, z=10\)). &nbsp;
+            <strong>C8</strong> \(n^* \bmod 13 = 5\) (not 1); \(n^* \bmod 5005 = 4464\) (not 1769). &nbsp;
+            <strong>C9</strong> A306462 exponent \(= 17/60 = 0.2833\ldots\) (not 0.30). &nbsp;
+            <strong>C10</strong> FFT script is a numerical cross-check, not an exact integer certificate. &nbsp;
+            <strong>C11</strong> All implementations share the same discriminant reduction core.
+        </p>
+        <p>The core result \(R(n^*) = 0\) is unaffected by all corrections.</p>
+    </div>
+</header>
 
-    </main>
+<!-- ═══════════════════════════════════════════════════════════════
+     MAIN CONTENT
+═══════════════════════════════════════════════════════════════ -->
+<main>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2026 Scott Sun. Released under CC BY 4.0 / Apache 2.0.</p>
-        <p>Sun's (2,4,6,8) Binomial Representation Program — Academic Data Node &middot; V40.5</p>
-    </footer>
+<!-- §1 Background -->
+<h2 id="conjecture">1. Problem Definition &amp; Counterexample</h2>
 
+<p>
+    Sun's (2,4,6,8) Binomial Representation Conjecture (OEIS A306477, proposed 2019)
+    asserts that every positive integer \(n\) can be represented as:
+</p>
+
+<div class="math-box">
+    \[n = \binom{W}{2} + \binom{X}{4} + \binom{Y}{6} + \binom{Z}{8},
+    \qquad W \ge 2,\ X \ge 3,\ Y \ge 5,\ Z \ge 7.\]
 </div>
 
+<p>
+    Equivalently, in shifted non-negative coordinates \((w = W-2,\ x = X-3,\ y = Y-5,\ z = Z-7 \ge 0)\):
+</p>
+
+<div class="math-box">
+    \[n = \binom{w+2}{2} + \binom{x+3}{4} + \binom{y+5}{6} + \binom{z+7}{8},
+    \qquad w,x,y,z \ge 0.\]
+</div>
+
+<p>
+    The conjecture is <strong>computationally refuted</strong> at:
+</p>
+
+<div class="math-box">
+    \[\boxed{n^* = 896{,}315{,}812{,}331{,}399, \qquad R(n^*) = 0.}\]
+</div>
+
+<p>
+    This counterexample lies approximately \(448\times\) beyond the prior
+    \(2 \times 10^{12}\) verification bound.
+    The counterexample was originally identified through the OEIS Open research run;
+    this repository is a downstream computational audit and formalization project.
+</p>
+
+<!-- §2 Evidence Ladder -->
+<h2 id="evidence">2. Evidence &amp; Verification Ladder</h2>
+
+<div class="card">
+<ul>
+    <li>
+        <span class="tag tag-theorem">[THEOREM]</span>
+        <strong>Search Domain Completeness.</strong>
+        Algebraic upper bounds:
+        \(Z \le 281\), \(Y \le 932\), \(X \le 12{,}112\), \(W \le 42{,}339{,}481\).
+        Furthermore \(8n^*+1 = 7{,}170{,}526{,}498{,}651{,}193 < 2^{53}\),
+        so 64-bit arithmetic suffices for \(n \le n^*\).
+        All bounds independently verified by Python <code>math.comb</code>.
+    </li>
+    <li>
+        <span class="tag tag-comp">[COMP_VERIF]</span>
+        <strong>Exhaustive Computational Audit.</strong>
+        All admissible \((Z,Y,X)\) triples enumerated; solutions found: <strong>0</strong>.
+        Reference triple count: 2,755,643,831 (canonical convention, matches external checker).
+        Extended convention: 2,818,953,028. Difference is domain size, not pre-filtering.
+    </li>
+    <li>
+        <span class="tag tag-comp">[COMP_VERIF]</span>
+        <strong>External Independent Checker.</strong>
+        Adamczewski (GitHub Gist, August 2026): N = 896,315,812,331,399;
+        triples = 2,755,643,831; solutions = 0.
+        <a href="https://gist.github.com/tadamcz/0c578c8b2b3fb92fe8584bc0725187e3"
+           target="_blank" rel="noopener noreferrer">View Gist</a>
+    </li>
+    <li>
+        <span class="tag tag-comp">[COMP_VERIF]</span>
+        <strong>Local Positive Controls.</strong>
+        \(R(n^*-1) = 89\) and \(R(n^*+1) = 67\).
+        One witness for \(n^*-1\):
+        \(\binom{33663667}{2} + \binom{9433}{4} + \binom{16}{6} + \binom{9}{8} = n^*-1\).
+        Verified: <code>math.comb(33663667,2)+math.comb(9433,4)+math.comb(16,6)+math.comb(9,8)</code>.
+        <em>Note: \(R(n^*-1)=89\) is a complete count; V40.2 early-exit error reported 1 (C2).</em>
+    </li>
+    <li>
+        <span class="tag tag-formal">[FORMALIZATION]</span>
+        <strong>Lean 4 Proof Infrastructure.</strong>
+        Chunk-level kernel verification (7 chunks, <code>decide +kernel</code>) complete.
+        End-to-end Lean certificate pending (<code>sorry</code> declarations remain in external files).
+        External formal refutation available via OEIS Open / LeanOpenProblems infrastructure
+        (<a href="https://github.com/google-deepmind/formal-conjectures"
+            target="_blank" rel="noopener noreferrer">google-deepmind/formal-conjectures</a>).
+    </li>
+    <li>
+        <span class="tag tag-open">[OPEN P7]</span>
+        <strong>Full Independent Reproduction of \(R(n^*\pm1)\).</strong>
+        Complete independent recomputation of \(R(n^*-1)=89\), \(R(n^*)=0\), \(R(n^*+1)=67\)
+        requires approximately several hours of CPU time per value at \(n^*\) scale
+        and has not been completed in V48.1.
+        These values are reported from the original audit programs.
+    </li>
+</ul>
+</div>
+
+<!-- §3 Verified Constants -->
+<h2 id="constants">3. Verified Numerical Constants</h2>
+
+<div class="card">
+<pre style="background:#f6f8fa;padding:16px;border-radius:6px;overflow-x:auto;font-size:0.9rem;">
+N = 896_315_812_331_399
+
+assert N % 5    == 4      # verified
+assert N % 7    == 5      # verified
+assert N % 11   == 9      # verified
+assert N % 13   == 5      # corrected from 1 (C8)
+assert N % 17   == 14     # verified
+assert N % 385  == 229    # verified
+assert N % 5005 == 4464   # corrected from 1769 (C8)
+
+assert 8*N + 1 == 7_170_526_498_651_193   # < 2^53 (C4 context)
+
+# A306462 exponent (corrected in V48.1, C9)
+assert abs(1/2 + 1/3 + 1/4 + 1/5 - 77/60) < 1e-12   # exponent sum
+assert abs(17/60 - 0.28333) < 0.001                    # main-term exponent, NOT 0.30
+</pre>
+</div>
+
+<!-- §4 Discriminant Framework -->
+<h2 id="discriminant">4. Discriminant Framework</h2>
+
+<p>
+    For fixed \((X,Y,Z)\), define \(m = n^* - \binom{X}{4} - \binom{Y}{6} - \binom{Z}{8}\)
+    and \(D = 8m+1\). A valid \(W\) exists if and only if \(D = s^2\) for some odd \(s \ge 3\).
+</p>
+<p>
+    Since \(D \equiv 1 \pmod{8}\) and odd squares satisfy \(s^2 \equiv 1 \pmod{8}\),
+    the discriminant gap \(\delta_D = D - s_0^2\) satisfies \(\delta_D \equiv 0 \pmod{8}\).
+    Therefore \(\delta_D \ne 0 \Rightarrow |\delta_D| \ge 8\).
+</p>
+<p>
+    <span class="tag tag-comp">[COMP_VERIF]</span>
+    Minimum observed \(|\delta_D| = 8\) across all 2,755,643,831 triples,
+    at \((X,Y,Z) = (6138, 22, 13)\), nearest odd root \(s_0 = 81{,}840{,}409\),
+    relative gap \(\rho_{\min} \approx 4.89 \times 10^{-8}\).
+    (V40.2 reported \(5.94 \times 10^{-8}\); corrected as C4.)
+</p>
+<p>
+    <em>Note: \(\delta_D \ne 0\) for all triples is equivalent to \(R(n^*)=0\),
+    not an independent obstruction theorem.</em>
+</p>
+
+<!-- §5 Sibling Conjecture A306462 -->
+<h2 id="sibling">5. Sibling Conjecture A306462 — Structural Comparison</h2>
+
+<p>
+    <a href="https://oeis.org/A306462" target="_blank" rel="noopener noreferrer">OEIS A306462</a>
+    conjectures that every positive integer \(n\) can be represented as
+    \(\binom{2w}{2}+\binom{x+2}{3}+\binom{y+3}{4}+\binom{z+4}{5}\) with \(w \ge 1,\ x,y,z \ge 0\).
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Property</th>
+            <th>(2,4,6,8) / A306477</th>
+            <th>A306462</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Exponent sum \(\sum 1/k_i\)</td>
+            <td>\(25/24 \approx 1.042\)</td>
+            <td>\(77/60 \approx 1.283\)</td>
+        </tr>
+        <tr>
+            <td>Main-term exponent</td>
+            <td>\(1/24 \approx 0.0417\)</td>
+            <td><strong>\(17/60 = 0.2833\ldots\)</strong> (corrected from 0.30 in V47)</td>
+        </tr>
+        <tr>
+            <td>\(S_{\min}\) (local density)</td>
+            <td>\(\approx 0.144\)</td>
+            <td>\(\approx 0.434\) <span class="tag tag-heuristic">[HEURISTIC]</span></td>
+        </tr>
+        <tr>
+            <td>Zeros for \(n \le 10^8\)</td>
+            <td>\(R(n^*)=0\) at \(n^* \approx 8.96 \times 10^{14}\)</td>
+            <td>None found <span class="tag tag-comp">[COMP_VERIF]</span></td>
+        </tr>
+        <tr>
+            <td>\(R=1\) points</td>
+            <td>\(R(1)=1\)</td>
+            <td>\(\{1,4,5,14,19\}\) <span class="tag tag-comp">[COMP_VERIF]</span></td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+    <span class="tag tag-heuristic">[HEURISTIC]</span>
+    A thicker main term (\(n^{17/60}\) vs \(n^{1/24}\)) and higher \(S_{\min}\)
+    make zeros less plausible for A306462 than for (2,4,6,8).
+    This is a qualitative argument, not a theorem.
+    No conclusion for other sibling conjectures is drawn without separate computation.
+</p>
+
+<!-- §6 Formalization Status -->
+<h2 id="lean">6. Lean 4 Formalization Status</h2>
+
+<table>
+    <thead>
+        <tr><th>Level</th><th>Evidence</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>E1</td><td>Algebraic search bounds (Theorem)</td><td>✅ Complete</td></tr>
+        <tr><td>E2</td><td>Exhaustive computational search</td><td>✅ Complete (multiple implementations)</td></tr>
+        <tr><td>E3</td><td>Local positive controls (\(R(n^*\pm1)\))</td><td>✅ Complete (witnesses verified)</td></tr>
+        <tr><td>E4</td><td>External independent checker</td><td>✅ Complete (Adamczewski Gist)</td></tr>
+        <tr><td>E5</td><td>Lean chunk-level kernel verification (7 chunks)</td><td>✅ Complete</td></tr>
+        <tr><td>E6</td><td>End-to-end Lean certificate</td><td>⚠️ <strong>Pending</strong> (<code>sorry</code> declarations remain)</td></tr>
+        <tr><td>E7</td><td>Analytic explanation of \(R(n^*)=0\)</td><td>❓ <span class="tag tag-open">[OPEN]</span></td></tr>
+    </tbody>
+</table>
+
+<p>
+    <strong>"External formal proof available"</strong> and
+    <strong>"repository-local end-to-end Lean reproduction complete"</strong>
+    are different claims. The Lean file in
+    <a href="https://github.com/google-deepmind/formal-conjectures"
+       target="_blank" rel="noopener noreferrer">google-deepmind/formal-conjectures</a>
+    retains <code>sorry</code> declarations; end-to-end compilation is pending.
+</p>
+
+<!-- §7 Negative Search Evidence -->
+<h2 id="search">7. Negative Search Evidence</h2>
+
+<table>
+    <thead>
+        <tr><th>Region</th><th>Coverage</th><th>Result</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>\(n^* \pm 50{,}000\)</td>
+            <td>Complete local enumeration (100,001 integers)</td>
+            <td>No second counterexample</td>
+        </tr>
+        <tr>
+            <td>\([10^{15},\ 10^{15}+200{,}000]\)</td>
+            <td>Complete local enumeration</td>
+            <td>No second counterexample</td>
+        </tr>
+        <tr>
+            <td>Sparse structural regions</td>
+            <td>5,030,500 candidate evaluations (may overlap)</td>
+            <td>No second counterexample</td>
+        </tr>
+    </tbody>
+</table>
+
+<p>
+    These observations do <strong>not</strong> prove that \(n^*\) is unique.
+    <span class="tag tag-open">[OPEN P1]</span> Whether a second counterexample \(n^{**} > n^*\) exists is unknown.
+</p>
+
+<!-- §8 Open Problems -->
+<h2 id="open">8. Open Research Questions</h2>
+
+<table>
+    <thead>
+        <tr><th>ID</th><th>Question</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>P0</td>
+            <td>Analytic proof of \(R(n^*)=0\), independent of exhaustive computation?</td>
+            <td><span class="tag tag-open">[OPEN]</span></td>
+        </tr>
+        <tr>
+            <td>P1</td>
+            <td>Does a second counterexample \(n^{**} > n^*\) exist?</td>
+            <td><span class="tag tag-open">[OPEN]</span></td>
+        </tr>
+        <tr>
+            <td>P2</td>
+            <td>Why does the Lean prime list PL consist entirely of \(p \equiv 2 \pmod{3}\)?</td>
+            <td>Structural Eisenstein-norm explanation available; not yet a theorem</td>
+        </tr>
+        <tr>
+            <td>P3</td>
+            <td>Independent structural meaning of the discriminant defect?</td>
+            <td><span class="tag tag-open">[OPEN]</span></td>
+        </tr>
+        <tr>
+            <td>P4</td>
+            <td>Complete Lean 4 end-to-end certificate?</td>
+            <td>Pending (<code>sorry</code> declarations remain)</td>
+        </tr>
+        <tr>
+            <td>P5</td>
+            <td>Triple-count reconciliation under unified convention?</td>
+            <td>Main cause identified (domain size); convention transparency ongoing</td>
+        </tr>
+        <tr>
+            <td>P6</td>
+            <td>Prove \(\#\{n \le X : R(n)=0\} \ll X^{23/24}\) or any non-trivial bound?</td>
+            <td><span class="tag tag-open">[OPEN]</span> — mean-square identity entry point available</td>
+        </tr>
+        <tr>
+            <td>P7</td>
+            <td>Full independent reproduction of \(R(n^*-1)=89\), \(R(n^*)=0\), \(R(n^*+1)=67\)?</td>
+            <td><span class="tag tag-open">[OPEN]</span> — cost ~hours/value at \(n^*\) scale</td>
+        </tr>
+        <tr>
+            <td>P8</td>
+            <td>Is the set of counterexamples finite?</td>
+            <td><span class="tag tag-open">[OPEN]</span></td>
+        </tr>
+        <tr>
+            <td>P9</td>
+            <td>Weak form: \(\exists N_0\) such that \(R(n)>0\) for all \(n \ge N_0\)?</td>
+            <td><span class="tag tag-open">[OPEN]</span></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- §9 Reproducibility -->
+<h2 id="repro">9. Reproducibility Status</h2>
+
+<table>
+    <thead>
+        <tr><th>Component</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Canonical problem definition</td><td>✅ Documented (corrected in V47)</td></tr>
+        <tr><td>Reference verifier (Python)</td><td>✅ Present in repository</td></tr>
+        <tr><td>Zero-term convention</td><td>✅ Corrected in V40.5</td></tr>
+        <tr><td>Search bounds</td><td>✅ Algebraically established</td></tr>
+        <tr><td>\(R(n^*)=0\)</td><td>✅ Computationally verified (multiple implementations + external)</td></tr>
+        <tr><td>\(R(n^*-1)=89\), \(R(n^*+1)=67\)</td><td>✅ Reported from original audit; witness verified</td></tr>
+        <tr><td>Triple-count reconciliation</td><td>✅ Resolved (domain-size convention)</td></tr>
+        <tr><td>Minimum discriminant gap \(\rho\)</td><td>✅ Corrected to \(4.89\times10^{-8}\) (C4)</td></tr>
+        <tr><td>A306462 main-term exponent</td><td>✅ Corrected to \(17/60=0.2833\ldots\) (C9)</td></tr>
+        <tr><td>External Lean proof</td><td>✅ Available externally (<code>sorry</code> remain)</td></tr>
+        <tr><td>Repository-local Lean proof</td><td>🔄 Not yet integrated</td></tr>
+        <tr><td>Full independent reproduction of \(R(n^*\pm1)\)</td><td>🔄 Not completed — <span class="tag tag-open">[OPEN P7]</span></td></tr>
+        <tr><td>Second-counterexample search package</td><td>🔄 Incomplete</td></tr>
+        <tr><td>Analytic explanation of isolated gap</td><td>❓ Open</td></tr>
+    </tbody>
+</table>
+
+<!-- §10 Publications & Links -->
+<h2 id="publications">10. Publications &amp; Resources</h2>
+
+<div class="link-grid">
+    <a class="link-card" href="https://doi.org/10.17605/OSF.IO/CAQXH"
+       target="_blank" rel="noopener noreferrer">
+        <strong>OSF Project (V23.4)</strong>
+        <span>Candidate Discovery &amp; Cantor-Pascal Diagnostics</span>
+    </a>
+    <a class="link-card" href="https://doi.org/10.5281/zenodo.22970514"
+       target="_blank" rel="noopener noreferrer">
+        <strong>Zenodo V40.2</strong>
+        <span>Computational Audit Preprint</span>
+    </a>
+    <a class="link-card" href="https://doi.org/10.5281/zenodo.22139197"
+       target="_blank" rel="noopener noreferrer">
+        <strong>Zenodo V23.4</strong>
+        <span>Archived Predecessor</span>
+    </a>
+    <a class="link-card" href="https://oeis.org/A306477"
+       target="_blank" rel="noopener noreferrer">
+        <strong>OEIS A306477</strong>
+        <span>Official OEIS Citation &amp; Link Record</span>
+    </a>
+    <a class="link-card" href="https://oeis.org/A306462"
+       target="_blank" rel="noopener noreferrer">
+        <strong>OEIS A306462</strong>
+        <span>Sibling Conjecture (Structural Comparison)</span>
+    </a>
+    <a class="link-card" href="https://github.com/suns1232023/sun-2468-conjecture"
+       target="_blank" rel="noopener noreferrer">
+        <strong>GitHub Repository (V40.5)</strong>
+        <span>Verification Code &amp; Lean Scaffold</span>
+    </a>
+    <a class="link-card"
+       href="https://gist.github.com/tadamcz/0c578c8b2b3fb92fe8584bc0725187e3"
+       target="_blank" rel="noopener noreferrer">
+        <strong>External Checker (Adamczewski)</strong>
+        <span>Independent Exhaustive Verification</span>
+    </a>
+    <a class="link-card"
+       href="https://github.com/google-deepmind/formal-conjectures"
+       target="_blank" rel="noopener noreferrer">
+        <strong>DeepMind Formal Conjectures</strong>
+        <span>Lean 4 Formalization Record</span>
+    </a>
+    <a class="link-card"
+       href="https://www.researchgate.net/publication/410979202"
+       target="_blank" rel="noopener noreferrer">
+        <strong>ResearchGate</strong>
+        <span>Publication Record</span>
+    </a>
+</div>
+
+<!-- §11 Version History -->
+<h2 id="versions">11. Version History</h2>
+
+<table>
+    <thead>
+        <tr><th>Version</th><th>Date</th><th>Key Changes</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>V48.1</strong></td>
+            <td>Nov 2026</td>
+            <td>Corrected A306462 exponent 0.30→17/60=0.2833… (C9); FFT exactness caveat (C10);
+                independent-verification description (C11); reproducibility metadata added;
+                all [TO VERIFY] markers resolved</td>
+        </tr>
+        <tr>
+            <td>V48.0</td>
+            <td>Nov 2026</td>
+            <td>Corrected A306462 exponent (C9); added Appendix C/D; clarified Lean sorry status</td>
+        </tr>
+        <tr>
+            <td>V47.0</td>
+            <td>Nov 2026</td>
+            <td>Added A306462 qualitative comparison; corrected \(\rho_{\min}\) (C4);
+                corrected Zenodo reference (C5); added FFT script; corrections C1–C8</td>
+        </tr>
+        <tr>
+            <td>V46.0</td>
+            <td>Nov 2026</td>
+            <td>Added methodology positioning; mean-square identity entry point; corrections C1–C5</td>
+        </tr>
+        <tr>
+            <td>V40.5</td>
+            <td>Oct 2026</td>
+            <td>Corrected canonical definition; repaired zero-term convention;
+                reconciled triple counts; updated \(R(n^*\pm1)\); closed P2/P5;
+                clarified external Lean status and discovery attribution</td>
+        </tr>
+        <tr>
+            <td>V40.2</td>
+            <td>Oct 2026</td>
+            <td>Computational audit preprint; Zenodo 22970514</td>
+        </tr>
+        <tr>
+            <td>V23.4</td>
+            <td>Aug 2026</td>
+            <td>Archived predecessor; computational audit and Cantor-Pascal diagnostics;
+                Zenodo 22139197</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- §12 Attribution -->
+<h2 id="attribution">12. Attribution &amp; Research Position</h2>
+
+<p>
+    The counterexample \(n^*\) was originally identified through the
+    <strong>OEIS Open research run</strong> (2026).
+    This repository does <strong>not</strong> claim original discovery priority.
+    Its role is: computational auditing, exact arithmetic verification,
+    reproducibility engineering, structural analysis, formalization-oriented documentation,
+    and investigation of possible subsequent counterexamples.
+</p>
+
+<div class="card">
+    <p style="text-align:center;font-family:monospace;font-size:0.95rem;">
+        discovery &nbsp;→&nbsp; verification &nbsp;→&nbsp; structural analysis
+        &nbsp;→&nbsp; formalization &nbsp;→&nbsp; reproduction
+    </p>
+</div>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════════════════════ -->
+<footer>
+    <p>&copy; 2026 Scott Sun. Code: Apache License 2.0 &nbsp;|&nbsp; Documentation: CC BY 4.0</p>
+    <p>
+        Sun's (2,4,6,8) Binomial Representation Program &mdash; Academic Data Node
+        &middot; <strong>V48.1</strong> &middot; November 2026
+    </p>
+    <p>
+        <a href="https://oeis.org/A306477" target="_blank" rel="noopener noreferrer">OEIS A306477</a>
+        &nbsp;|&nbsp;
+        <a href="https://doi.org/10.17605/OSF.IO/CAQXH" target="_blank" rel="noopener noreferrer">OSF DOI</a>
+        &nbsp;|&nbsp;
+        <a href="https://github.com/suns1232023/sun-2468-conjecture" target="_blank" rel="noopener noreferrer">GitHub</a>
+    </p>
+</footer>
+
+</div>
 </body>
 </html>
